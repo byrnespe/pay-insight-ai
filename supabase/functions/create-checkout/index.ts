@@ -56,7 +56,7 @@ serve(async (req) => {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/?success=true`,
+      success_url: `${origin}/premium?success=true`,
       cancel_url: `${origin}/?canceled=true`,
     });
 
