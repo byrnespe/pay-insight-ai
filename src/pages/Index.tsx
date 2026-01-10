@@ -3,22 +3,31 @@ import { SalaryForm } from "@/components/SalaryForm";
 import { SalaryResults } from "@/components/SalaryResults";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { analyzeSalary } from "@/lib/salaryAnalysis";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [analysis, setAnalysis] = useState<SalaryAnalysis | null>(null);
   const [formData, setFormData] = useState<SalaryFormData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (data: SalaryFormData) => {
     setIsLoading(true);
     setFormData(data);
     
-    // Simulate API delay for better UX
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    const result = analyzeSalary(data);
-    setAnalysis(result);
-    setIsLoading(false);
+    try {
+      const result = await analyzeSalary(data);
+      setAnalysis(result);
+    } catch (error) {
+      console.error("Analysis error:", error);
+      toast({
+        title: "Analysis Failed",
+        description: error instanceof Error ? error.message : "Unable to analyze salary. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -37,7 +46,7 @@ const Index = () => {
                 Am I Underpaid?
               </h1>
               <p className="text-muted-foreground text-lg max-w-md mx-auto">
-                Find out if your compensation matches your value. Get honest, data-driven insights in under a minute.
+                Find out if your compensation matches your value. Get honest, AI-driven insights in under a minute.
               </p>
             </header>
 
@@ -49,7 +58,7 @@ const Index = () => {
             {/* Trust indicators */}
             <footer className="mt-16 text-center">
               <p className="text-sm text-muted-foreground">
-                Your data is never stored or shared. Analysis happens locally.
+                Your data is analyzed securely and never stored.
               </p>
             </footer>
           </>
