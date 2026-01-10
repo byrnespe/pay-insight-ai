@@ -1,7 +1,25 @@
 import { SalaryAnalysis, SalaryFormData } from "@/types/salary";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, TrendingUp, Scale, Target, MessageSquare, Settings, ExternalLink, Lock, Loader2, User } from "lucide-react";
+import { 
+  ArrowLeft, 
+  TrendingUp, 
+  Scale, 
+  Target, 
+  MessageSquare, 
+  Settings, 
+  ExternalLink, 
+  Loader2, 
+  User,
+  FileText,
+  Sparkles,
+  Check,
+  ArrowRight,
+  RefreshCw,
+  BarChart3,
+  History,
+  Shield
+} from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -14,7 +32,7 @@ interface SalaryResultsProps {
 
 export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProps) {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<"lifetime" | "subscription">("lifetime");
+  const [selectedPlan, setSelectedPlan] = useState<"one_time" | "subscription">("one_time");
   const navigate = useNavigate();
   const { user, session } = useAuth();
   const totalComp = formData.currentSalary + formData.bonus;
@@ -44,7 +62,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
     excellent: "text-success",
   };
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: "one_time" | "subscription") => {
     // Store data in sessionStorage for the premium page
     sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
     sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
@@ -67,7 +85,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
             Authorization: `Bearer ${session?.access_token}`,
           },
           body: JSON.stringify({
-            priceType: selectedPlan === "subscription" ? "subscription" : "one_time",
+            priceType: plan === "subscription" ? "subscription" : "one_time",
           }),
         }
       );
@@ -85,6 +103,9 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
       setIsCheckoutLoading(false);
     }
   };
+
+  // Calculate the salary gap for dynamic headline
+  const salaryGap = Math.abs(analysis.difference);
 
   return (
     <div className="space-y-8">
@@ -255,67 +276,183 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         </Card>
       </div>
 
-      {/* Premium Upsell */}
-      <Card className="p-6 border-2 border-primary/20 bg-primary/5">
-        <div className="flex items-start gap-4">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Lock className="w-5 h-5 text-primary" />
-          </div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-foreground">Unlock Premium Insights</h3>
-            <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-              <li>• Personalized negotiation script</li>
-              <li>• Talking points for raise discussions</li>
-              <li>• 10 alternative roles with higher pay</li>
-              <li>• Exportable PDF report</li>
-            </ul>
+      {/* Premium Tier Comparison */}
+      <div className="space-y-6 pt-4">
+        {/* Dynamic Headline */}
+        <div className="text-center space-y-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+            {analysis.verdict === 'underpaid' 
+              ? `Get the tools to close that $${salaryGap.toLocaleString()} gap`
+              : analysis.verdict === 'overpaid'
+              ? `Protect your position and maximize your leverage`
+              : `Prepare for your next move`
+            }
+          </h2>
+          <p className="text-muted-foreground">
+            This report gives clarity. <span className="font-medium text-foreground">Pro gives leverage when things change.</span>
+          </p>
+        </div>
 
-            {/* Plan selection */}
-            <div className="flex gap-3 mt-4">
-              <button
-                onClick={() => setSelectedPlan("lifetime")}
-                className={`flex-1 p-3 rounded-lg border-2 text-left transition-colors ${
-                  selectedPlan === "lifetime"
-                    ? "border-primary bg-primary/10"
-                    : "border-border hover:border-primary/50"
-                }`}
-              >
-                <p className="font-semibold text-foreground">$9</p>
-                <p className="text-xs text-muted-foreground">One-time, lifetime</p>
-              </button>
-              <button
-                onClick={() => setSelectedPlan("subscription")}
-                className={`flex-1 p-3 rounded-lg border-2 text-left transition-colors ${
-                  selectedPlan === "subscription"
-                    ? "border-primary bg-primary/10"
-                    : "border-border hover:border-primary/50"
-                }`}
-              >
-                <p className="font-semibold text-foreground">$4.99/mo</p>
-                <p className="text-xs text-muted-foreground">Monthly access</p>
-              </button>
+        {/* Two-Tier Comparison */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {/* One-Time Tier */}
+          <Card 
+            className={`p-5 relative cursor-pointer transition-all ${
+              selectedPlan === "one_time" 
+                ? "border-2 border-primary ring-2 ring-primary/20" 
+                : "border hover:border-primary/50"
+            }`}
+            onClick={() => setSelectedPlan("one_time")}
+          >
+            {/* Best For Most Badge */}
+            <div className="absolute -top-3 left-4">
+              <span className="bg-primary text-primary-foreground text-xs font-semibold px-2.5 py-1 rounded-full">
+                Best for most
+              </span>
             </div>
 
-            <Button 
-              className="mt-4 w-full sm:w-auto" 
-              variant="default"
-              onClick={handleUpgrade}
-              disabled={isCheckoutLoading}
-            >
-              {isCheckoutLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Loading...
-                </>
-              ) : !user ? (
-                "Sign in to upgrade"
-              ) : (
-                `Upgrade for ${selectedPlan === "lifetime" ? "$9" : "$4.99/mo"}`
-              )}
-            </Button>
-          </div>
+            <div className="pt-2">
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-2xl font-bold text-foreground">$9</span>
+                <span className="text-sm text-muted-foreground">one-time</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">"I just want clarity"</p>
+
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span className="text-foreground">Full compensation analysis</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span className="text-foreground">Verdict and shareable summary</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span className="text-foreground">Basic negotiation script</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span className="text-foreground">Action paths overview</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                  <span className="text-foreground">PDF export (one snapshot)</span>
+                </li>
+              </ul>
+
+              <Button 
+                className="w-full mt-5" 
+                variant={selectedPlan === "one_time" ? "default" : "outline"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleUpgrade("one_time");
+                }}
+                disabled={isCheckoutLoading}
+              >
+                {isCheckoutLoading && selectedPlan === "one_time" ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Loading...
+                  </>
+                ) : !user ? (
+                  "Sign in to get clarity"
+                ) : (
+                  <>
+                    Get Clarity
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </Card>
+
+          {/* Subscription Tier */}
+          <Card 
+            className={`p-5 relative cursor-pointer transition-all ${
+              selectedPlan === "subscription" 
+                ? "border-2 border-primary ring-2 ring-primary/20" 
+                : "border hover:border-primary/50"
+            }`}
+            onClick={() => setSelectedPlan("subscription")}
+          >
+            {/* Pro Badge */}
+            <div className="absolute -top-3 left-4">
+              <span className="bg-gradient-to-r from-success to-success/80 text-success-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Pro
+              </span>
+            </div>
+
+            <div className="pt-2">
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-2xl font-bold text-foreground">$4.99</span>
+                <span className="text-sm text-muted-foreground">/month</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">"I want leverage, not just an answer"</p>
+
+              <p className="text-xs font-medium text-muted-foreground mb-2">Everything in One-Time, plus:</p>
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2 text-sm">
+                  <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Manager-specific negotiation scripts</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">"What if they say no?" generator</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Unlimited pay checks</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Offer comparison tool</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Career tracking & saved history</span>
+                </li>
+              </ul>
+
+              <Button 
+                className="w-full mt-5" 
+                variant={selectedPlan === "subscription" ? "default" : "outline"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleUpgrade("subscription");
+                }}
+                disabled={isCheckoutLoading}
+              >
+                {isCheckoutLoading && selectedPlan === "subscription" ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Loading...
+                  </>
+                ) : !user ? (
+                  "Sign in to go Pro"
+                ) : (
+                  <>
+                    Go Pro
+                    <Sparkles className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </Card>
         </div>
-      </Card>
+
+        {/* Trust Indicators */}
+        <div className="text-center space-y-1.5">
+          <p className="text-sm text-muted-foreground">
+            <Shield className="w-3.5 h-3.5 inline mr-1" />
+            30-day money-back guarantee
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Cancel Pro anytime — your $9 report stays forever
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
