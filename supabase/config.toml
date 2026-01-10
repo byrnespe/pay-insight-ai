@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.generate-manager-scripts]
 verify_jwt = false
+
+[functions.generate-offer-comparison]
+verify_jwt = false
