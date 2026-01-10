@@ -26,7 +26,7 @@ import { OfferComparisonTool } from "@/components/OfferComparisonTool";
 const Premium = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, premium, loading: authLoading } = useAuth();
+  const { user, hasReport, canExportPdf, entitlements, loading: authLoading } = useAuth();
   
   const [insights, setInsights] = useState<PremiumInsights | null>(null);
   const [formData, setFormData] = useState<SalaryFormData | null>(null);
@@ -116,7 +116,7 @@ const Premium = () => {
       return;
     }
 
-    if (!premium.isPremium) {
+    if (!canExportPdf) {
       toast({
         title: "Premium required",
         description: "PDF export is available for premium subscribers.",
@@ -209,11 +209,11 @@ const Premium = () => {
           <Button
             variant="outline"
             onClick={handleDownloadPdf}
-            disabled={isPdfLoading || !premium.isPremium}
+            disabled={isPdfLoading || !canExportPdf}
           >
             {isPdfLoading ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : !premium.isPremium ? (
+            ) : !canExportPdf ? (
               <Lock className="w-4 h-4 mr-2" />
             ) : (
               <Download className="w-4 h-4 mr-2" />
@@ -229,9 +229,9 @@ const Premium = () => {
           <p className="text-muted-foreground">
             Personalized strategies to maximize your earning potential.
           </p>
-          {premium.isPremium && (
+          {hasReport && (
             <p className="text-sm text-success mt-2">
-              ✓ Premium {premium.type === "lifetime" ? "(Lifetime)" : "(Monthly)"}
+              ✓ Full Report {entitlements.hasActiveSubscription ? `(Pro ${entitlements.subscriptionPlan})` : "(One-Time)"}
             </p>
           )}
         </header>

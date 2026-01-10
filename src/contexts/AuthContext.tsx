@@ -1,23 +1,35 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-
-interface PremiumStatus {
-  isPremium: boolean;
-  type: "lifetime" | "subscription" | null;
-  subscriptionEnd: string | null;
-}
+import { 
+  EntitlementStatus, 
+  Entitlements, 
+  DEFAULT_ENTITLEMENTS 
+} from "@/types/entitlements";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  premium: PremiumStatus;
-  checkPremiumStatus: () => Promise<void>;
+  entitlements: EntitlementStatus;
+  checkEntitlements: () => Promise<void>;
+  // Helper functions for quick access
+  hasReport: boolean;
+  isPro: boolean;
+  canExportPdf: boolean;
+  canAccessFeature: (feature: keyof Entitlements | string) => boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
+
+const defaultEntitlementStatus: EntitlementStatus = {
+  entitlements: DEFAULT_ENTITLEMENTS,
+  hasOneTimePurchase: false,
+  hasActiveSubscription: false,
+  subscriptionPlan: null,
+  subscriptionEnd: null,
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -25,21 +37,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [premium, setPremium] = useState<PremiumStatus>({
-    isPremium: false,
-    type: null,
-    subscriptionEnd: null,
-  });
+  const [entitlements, setEntitlements] = useState<EntitlementStatus>(defaultEntitlementStatus);
 
-  const checkPremiumStatus = async () => {
+  const checkEntitlements = useCallback(async () => {
     if (!session?.access_token) {
-      setPremium({ isPremium: false, type: null, subscriptionEnd: null });
+      setEntitlements(defaultEntitlementStatus);
       return;
     }
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/check-premium`,
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/check-entitlements`,
         {
           method: "POST",
           headers: {
@@ -51,16 +59,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (response.ok) {
         const data = await response.json();
-        setPremium({
-          isPremium: data.isPremium,
-          type: data.type,
+        setEntitlements({
+          entitlements: data.entitlements,
+          hasOneTimePurchase: data.hasOneTimePurchase,
+          hasActiveSubscription: data.hasActiveSubscription,
+          subscriptionPlan: data.subscriptionPlan,
           subscriptionEnd: data.subscriptionEnd,
         });
       }
     } catch (error) {
-      console.error("Error checking premium status:", error);
+      console.error("Error checking entitlements:", error);
     }
-  };
+  }, [session?.access_token]);
 
   useEffect(() => {
     // Set up auth state listener BEFORE checking session
@@ -82,14 +92,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Check premium status when session changes
+  // Check entitlements when session changes
   useEffect(() => {
     if (session) {
-      checkPremiumStatus();
+      checkEntitlements();
     } else {
-      setPremium({ isPremium: false, type: null, subscriptionEnd: null });
+      setEntitlements(defaultEntitlementStatus);
     }
-  }, [session]);
+  }, [session, checkEntitlements]);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -109,14 +119,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut();
   };
 
+  // Computed helper values
+  const hasReport = entitlements.entitlements.report.full_analysis;
+  const isPro = entitlements.entitlements.pro.active;
+  const canExportPdf = entitlements.entitlements.report.export_pdf;
+
+  // Helper function to check specific feature access
+  const canAccessFeature = (feature: keyof Entitlements | string): boolean => {
+    const e = entitlements.entitlements;
+    
+    switch (feature) {
+      case "full_analysis":
+        return e.report.full_analysis;
+      case "export_pdf":
+        return e.report.export_pdf;
+      case "basic_script":
+        return e.negotiation.basic_script;
+      case "manager_specific":
+        return e.negotiation.manager_specific;
+      case "rejection_responses":
+        return e.negotiation.rejection_responses;
+      case "scenario_simulator":
+        return e.negotiation.scenario_simulator;
+      case "unlimited_checks":
+        return e.checks.unlimited;
+      case "leverage_tracking":
+        return e.career.leverage_tracking;
+      case "exit_readiness":
+        return e.career.exit_readiness;
+      case "comparison_tool":
+        return e.offers.comparison_tool;
+      case "saved_reports":
+        return e.history.saved_reports;
+      case "pro":
+        return e.pro.active;
+      default:
+        return false;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
         session,
         loading,
-        premium,
-        checkPremiumStatus,
+        entitlements,
+        checkEntitlements,
+        hasReport,
+        isPro,
+        canExportPdf,
+        canAccessFeature,
         signIn,
         signUp,
         signOut,

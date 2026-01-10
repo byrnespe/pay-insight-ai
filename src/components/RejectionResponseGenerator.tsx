@@ -25,7 +25,7 @@ interface RejectionResponseGeneratorProps {
 
 export function RejectionResponseGenerator({ formData, analysis }: RejectionResponseGeneratorProps) {
   const { toast } = useToast();
-  const { session, premium } = useAuth();
+  const { session, canAccessFeature } = useAuth();
   
   const [responses, setResponses] = useState<RejectionResponse[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +34,7 @@ export function RejectionResponseGenerator({ formData, analysis }: RejectionResp
   const [expandedResponses, setExpandedResponses] = useState<number[]>([0]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const isProSubscriber = premium.isPremium && premium.type === "subscription";
+  const isProSubscriber = canAccessFeature("rejection_responses");
 
   const generateResponses = async (scenario?: string) => {
     if (!isProSubscriber) {
