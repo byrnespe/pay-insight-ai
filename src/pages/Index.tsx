@@ -43,7 +43,7 @@ const Index = () => {
             {/* Header */}
             <header className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
-                Am I Underpaid?
+                Underpaid
               </h1>
               <p className="text-muted-foreground text-lg max-w-md mx-auto">
                 Find out if your compensation matches your value. Get honest, AI-driven insights in under a minute.
