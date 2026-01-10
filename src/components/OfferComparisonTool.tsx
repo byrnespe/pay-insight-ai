@@ -71,9 +71,9 @@ interface ComparisonResult {
 }
 
 export const OfferComparisonTool = ({ formData }: OfferComparisonToolProps) => {
-  const { premium } = useAuth();
+  const { canAccessFeature } = useAuth();
   const { toast } = useToast();
-  const isPro = premium.isPremium && premium.type === "subscription";
+  const isPro = canAccessFeature("comparison_tool");
 
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<ComparisonResult | null>(null);

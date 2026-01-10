@@ -49,7 +49,7 @@ const tones: { value: Tone; label: string; description: string }[] = [
 
 export function ManagerScriptGenerator({ formData, analysis }: ManagerScriptGeneratorProps) {
   const { toast } = useToast();
-  const { session, premium } = useAuth();
+  const { session, isPro, canAccessFeature } = useAuth();
   
   const [selectedManager, setSelectedManager] = useState<ManagerType>("supportive");
   const [selectedTone, setSelectedTone] = useState<Tone>("collaborative");
@@ -59,7 +59,7 @@ export function ManagerScriptGenerator({ formData, analysis }: ManagerScriptGene
   const [showTips, setShowTips] = useState(false);
   const [showWarnings, setShowWarnings] = useState(false);
 
-  const isProSubscriber = premium.isPremium && premium.type === "subscription";
+  const isProSubscriber = canAccessFeature("manager_specific");
 
   const generateScript = async () => {
     if (!isProSubscriber) {

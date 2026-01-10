@@ -32,7 +32,7 @@ interface SalaryResultsProps {
 
 export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProps) {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<"one_time" | "subscription">("one_time");
+  const [selectedPlan, setSelectedPlan] = useState<"one_time" | "pro_monthly" | "pro_annual">("one_time");
   const navigate = useNavigate();
   const { user, session } = useAuth();
   const totalComp = formData.currentSalary + formData.bonus;
@@ -62,7 +62,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
     excellent: "text-success",
   };
 
-  const handleUpgrade = async (plan: "one_time" | "subscription") => {
+  const handleUpgrade = async (plan: "one_time" | "pro_monthly" | "pro_annual") => {
     // Store data in sessionStorage for the premium page
     sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
     sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
@@ -74,6 +74,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
     }
     
     setIsCheckoutLoading(true);
+    setSelectedPlan(plan);
     
     try {
       const response = await fetch(
@@ -85,7 +86,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
             Authorization: `Bearer ${session?.access_token}`,
           },
           body: JSON.stringify({
-            priceType: plan === "subscription" ? "subscription" : "one_time",
+            priceType: plan,
           }),
         }
       );
@@ -293,8 +294,8 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           </p>
         </div>
 
-        {/* Two-Tier Comparison */}
-        <div className="grid gap-4 sm:grid-cols-2">
+        {/* Three-Tier Pricing */}
+        <div className="grid gap-4 lg:grid-cols-3">
           {/* One-Time Tier */}
           <Card 
             className={`p-5 relative cursor-pointer transition-all ${
@@ -367,14 +368,14 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
             </div>
           </Card>
 
-          {/* Subscription Tier */}
+          {/* Pro Monthly Tier */}
           <Card 
             className={`p-5 relative cursor-pointer transition-all ${
-              selectedPlan === "subscription" 
+              selectedPlan === "pro_monthly" 
                 ? "border-2 border-primary ring-2 ring-primary/20" 
                 : "border hover:border-primary/50"
             }`}
-            onClick={() => setSelectedPlan("subscription")}
+            onClick={() => setSelectedPlan("pro_monthly")}
           >
             {/* Pro Badge */}
             <div className="absolute -top-3 left-4">
@@ -386,16 +387,16 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
 
             <div className="pt-2">
               <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-2xl font-bold text-foreground">$4.99</span>
+                <span className="text-2xl font-bold text-foreground">$5</span>
                 <span className="text-sm text-muted-foreground">/month</span>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">"I want leverage, not just an answer"</p>
+              <p className="text-sm text-muted-foreground mb-4">"I want ongoing leverage"</p>
 
               <p className="text-xs font-medium text-muted-foreground mb-2">Everything in One-Time, plus:</p>
               <ul className="space-y-2.5">
                 <li className="flex items-start gap-2 text-sm">
                   <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Manager-specific negotiation scripts</span>
+                  <span className="text-foreground">Manager-specific scripts</span>
                 </li>
                 <li className="flex items-start gap-2 text-sm">
                   <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
@@ -417,14 +418,14 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
 
               <Button 
                 className="w-full mt-5" 
-                variant={selectedPlan === "subscription" ? "default" : "outline"}
+                variant={selectedPlan === "pro_monthly" ? "default" : "outline"}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleUpgrade("subscription");
+                  handleUpgrade("pro_monthly");
                 }}
                 disabled={isCheckoutLoading}
               >
-                {isCheckoutLoading && selectedPlan === "subscription" ? (
+                {isCheckoutLoading && selectedPlan === "pro_monthly" ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     Loading...
@@ -433,7 +434,80 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
                   "Sign in to go Pro"
                 ) : (
                   <>
-                    Go Pro
+                    Go Pro Monthly
+                    <Sparkles className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </Card>
+
+          {/* Pro Annual Tier */}
+          <Card 
+            className={`p-5 relative cursor-pointer transition-all ${
+              selectedPlan === "pro_annual" 
+                ? "border-2 border-primary ring-2 ring-primary/20" 
+                : "border hover:border-primary/50"
+            }`}
+            onClick={() => setSelectedPlan("pro_annual")}
+          >
+            {/* Best Value Badge */}
+            <div className="absolute -top-3 left-4">
+              <span className="bg-gradient-to-r from-warning to-warning/80 text-warning-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                Best Value
+              </span>
+            </div>
+
+            <div className="pt-2">
+              <div className="flex items-baseline gap-1 mb-1">
+                <span className="text-2xl font-bold text-foreground">$49</span>
+                <span className="text-sm text-muted-foreground">/year</span>
+              </div>
+              <p className="text-sm text-success font-medium mb-4">Save $11 vs monthly</p>
+
+              <p className="text-xs font-medium text-muted-foreground mb-2">Everything in Pro Monthly:</p>
+              <ul className="space-y-2.5">
+                <li className="flex items-start gap-2 text-sm">
+                  <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Manager-specific scripts</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">"What if they say no?" generator</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Unlimited pay checks</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Offer comparison tool</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm">
+                  <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-foreground">Career tracking & saved history</span>
+                </li>
+              </ul>
+
+              <Button 
+                className="w-full mt-5" 
+                variant={selectedPlan === "pro_annual" ? "default" : "outline"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleUpgrade("pro_annual");
+                }}
+                disabled={isCheckoutLoading}
+              >
+                {isCheckoutLoading && selectedPlan === "pro_annual" ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Loading...
+                  </>
+                ) : !user ? (
+                  "Sign in to go Pro"
+                ) : (
+                  <>
+                    Go Pro Annual
                     <Sparkles className="w-4 h-4 ml-2" />
                   </>
                 )}

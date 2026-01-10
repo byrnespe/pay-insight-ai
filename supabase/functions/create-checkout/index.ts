@@ -7,9 +7,19 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Price IDs
-const LIFETIME_PRICE = "price_1SnseSIXbwEf8N1FrMOzpqaE";
-const MONTHLY_PRICE = "price_1Snsd9IXbwEf8N1F8HUy2ZvI";
+// Stripe price IDs for the three products
+const PRICES = {
+  one_time: "price_1SnseSIXbwEf8N1FrMOzpqaE",      // $9 one-time
+  pro_monthly: "price_1SntVzIXbwEf8N1FkJ9dfKtq",   // $5/month
+  pro_annual: "price_1SntZRIXbwEf8N1FqkoBg99g",    // $49/year
+};
+
+type PriceType = "one_time" | "pro_monthly" | "pro_annual";
+
+const logStep = (step: string, details?: unknown) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+  console.log(`[CREATE-CHECKOUT] ${step}${detailsStr}`);
+};
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -26,8 +36,15 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const { priceType } = await req.json();
+    const { priceType } = await req.json() as { priceType: PriceType };
     const origin = req.headers.get("origin") || "http://localhost:5173";
+    
+    logStep("Request received", { priceType });
+
+    // Validate price type
+    if (!priceType || !PRICES[priceType]) {
+      throw new Error(`Invalid priceType: ${priceType}. Must be one_time, pro_monthly, or pro_annual`);
+    }
 
     // Check if user is authenticated
     const supabaseClient = createClient(
@@ -38,6 +55,7 @@ serve(async (req) => {
     const authHeader = req.headers.get("Authorization");
     let customerEmail: string | undefined;
     let customerId: string | undefined;
+    let userId: string | undefined;
 
     if (authHeader) {
       const token = authHeader.replace("Bearer ", "");
@@ -45,19 +63,23 @@ serve(async (req) => {
       
       if (userData.user?.email) {
         customerEmail = userData.user.email;
+        userId = userData.user.id;
         
         // Check if customer exists
         const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
         if (customers.data.length > 0) {
           customerId = customers.data[0].id;
         }
+        logStep("User authenticated", { email: customerEmail, customerId });
       }
     }
 
-    const isSubscription = priceType === "subscription";
-    const priceId = isSubscription ? MONTHLY_PRICE : LIFETIME_PRICE;
+    const priceId = PRICES[priceType];
+    const isSubscription = priceType === "pro_monthly" || priceType === "pro_annual";
 
-    // Create checkout session
+    logStep("Creating checkout session", { priceId, isSubscription });
+
+    // Create checkout session with metadata for tracking
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : customerEmail,
@@ -68,9 +90,15 @@ serve(async (req) => {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/premium?success=true`,
+      success_url: `${origin}/premium?success=true&type=${priceType}`,
       cancel_url: `${origin}/?canceled=true`,
+      metadata: {
+        product_type: priceType,
+        user_id: userId || "anonymous",
+      },
     });
+
+    logStep("Checkout session created", { sessionId: session.id, url: session.url });
 
     return new Response(
       JSON.stringify({ url: session.url }),
