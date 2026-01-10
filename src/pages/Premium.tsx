@@ -19,6 +19,7 @@ import { PremiumInsights } from "@/types/premium";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { RejectionResponseGenerator } from "@/components/RejectionResponseGenerator";
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -283,6 +284,11 @@ const Premium = () => {
                 </div>
               </Card>
             </section>
+
+            {/* What If They Say No - Pro Feature */}
+            {formData && analysis && (
+              <RejectionResponseGenerator formData={formData} analysis={analysis} />
+            )}
 
             {/* Talking Points */}
             <section>
