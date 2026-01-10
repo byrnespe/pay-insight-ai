@@ -15,6 +15,7 @@ export interface SalaryAnalysis {
   percentile75Salary: number;
   difference: number;
   differencePercent: number;
+  stressAdjustedCompensation: number;
   verdict: 'underpaid' | 'overpaid' | 'fair';
   effortToPayRatio: 'poor' | 'average' | 'good' | 'excellent';
   negotiationLeverage: 'low' | 'medium' | 'high';

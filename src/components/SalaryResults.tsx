@@ -1,7 +1,8 @@
 import { SalaryAnalysis, SalaryFormData } from "@/types/salary";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageSquare, Settings, ExternalLink, Lock } from "lucide-react";
+import { ArrowLeft, TrendingUp, Scale, Target, MessageSquare, Settings, ExternalLink, Lock, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 interface SalaryResultsProps {
   analysis: SalaryAnalysis;
@@ -10,6 +11,7 @@ interface SalaryResultsProps {
 }
 
 export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProps) {
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const totalComp = formData.currentSalary + formData.bonus;
   
   const verdictColors = {
@@ -25,16 +27,49 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   };
 
   const leverageColors = {
-    low: "bg-muted text-muted-foreground",
-    medium: "bg-warning/10 text-warning",
-    high: "bg-success/10 text-success",
+    low: "text-muted-foreground",
+    medium: "text-warning",
+    high: "text-success",
   };
 
   const effortColors = {
-    poor: "bg-verdict-underpaid/10 text-verdict-underpaid",
-    average: "bg-warning/10 text-warning",
-    good: "bg-success/10 text-success",
-    excellent: "bg-success/10 text-success",
+    poor: "text-verdict-underpaid",
+    average: "text-warning",
+    good: "text-success",
+    excellent: "text-success",
+  };
+
+  const handleUpgrade = async () => {
+    setIsCheckoutLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            priceType: "one_time",
+            formData,
+            analysis,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("No checkout URL returned");
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    } finally {
+      setIsCheckoutLoading(false);
+    }
   };
 
   return (
@@ -67,42 +102,84 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         </p>
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Card className="p-4">
-          <p className="text-sm text-muted-foreground">Your Total Compensation</p>
-          <p className="text-2xl font-bold text-foreground">${totalComp.toLocaleString()}</p>
+      {/* Three Insight Cards */}
+      <div className="grid gap-4 sm:grid-cols-3">
+        {/* Market Card */}
+        <Card className="p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <TrendingUp className="w-4 h-4 text-primary" />
+            </div>
+            <h3 className="font-semibold text-foreground">Market Position</h3>
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Your Comp</span>
+              <span className="font-medium text-foreground">${totalComp.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Median</span>
+              <span className="font-medium text-foreground">${analysis.medianSalary.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">75th %ile</span>
+              <span className="font-medium text-foreground">${analysis.percentile75Salary.toLocaleString()}</span>
+            </div>
+          </div>
         </Card>
-        <Card className="p-4">
-          <p className="text-sm text-muted-foreground">Market Median</p>
-          <p className="text-2xl font-bold text-foreground">${analysis.medianSalary.toLocaleString()}</p>
+
+        {/* Effort vs Pay Card */}
+        <Card className="p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Scale className="w-4 h-4 text-primary" />
+            </div>
+            <h3 className="font-semibold text-foreground">Effort vs Pay</h3>
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Hours/Week</span>
+              <span className="font-medium text-foreground">{formData.hoursPerWeek}h</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Stress Level</span>
+              <span className="font-medium text-foreground">{formData.stressLevel}/10</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Ratio</span>
+              <span className={`font-semibold ${effortColors[analysis.effortToPayRatio]}`}>
+                {analysis.effortToPayRatio.charAt(0).toUpperCase() + analysis.effortToPayRatio.slice(1)}
+              </span>
+            </div>
+          </div>
         </Card>
-        <Card className="p-4">
-          <p className="text-sm text-muted-foreground">75th Percentile</p>
-          <p className="text-2xl font-bold text-foreground">${analysis.percentile75Salary.toLocaleString()}</p>
-        </Card>
-        <Card className="p-4">
-          <p className="text-sm text-muted-foreground">Effort-to-Pay Ratio</p>
-          <div className="flex items-center gap-2 mt-1">
-            <span className={`text-sm font-medium px-2 py-1 rounded ${effortColors[analysis.effortToPayRatio]}`}>
-              {analysis.effortToPayRatio.charAt(0).toUpperCase() + analysis.effortToPayRatio.slice(1)}
-            </span>
+
+        {/* Leverage Card */}
+        <Card className="p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Target className="w-4 h-4 text-primary" />
+            </div>
+            <h3 className="font-semibold text-foreground">Leverage</h3>
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Negotiation</span>
+              <span className={`font-semibold ${leverageColors[analysis.negotiationLeverage]}`}>
+                {analysis.negotiationLeverage.charAt(0).toUpperCase() + analysis.negotiationLeverage.slice(1)}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Stress-Adj. Rate</span>
+              <span className="font-medium text-foreground">${Math.round(analysis.stressAdjustedCompensation)}/hr</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Satisfaction</span>
+              <span className="font-medium text-foreground">{formData.jobSatisfaction}/10</span>
+            </div>
           </div>
         </Card>
       </div>
-
-      {/* Negotiation Leverage */}
-      <Card className="p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-muted-foreground">Negotiation Leverage</p>
-            <p className="font-medium text-foreground mt-1">Your position strength for salary discussions</p>
-          </div>
-          <span className={`text-sm font-medium px-3 py-1.5 rounded ${leverageColors[analysis.negotiationLeverage]}`}>
-            {analysis.negotiationLeverage.charAt(0).toUpperCase() + analysis.negotiationLeverage.slice(1)}
-          </span>
-        </div>
-      </Card>
 
       {/* Explanation */}
       <div className="space-y-2">
@@ -152,21 +229,33 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
       </div>
 
       {/* Premium Upsell */}
-      <Card className="p-6 border-2 border-dashed border-muted">
+      <Card className="p-6 border-2 border-primary/20 bg-primary/5">
         <div className="flex items-start gap-4">
-          <div className="p-2 rounded-lg bg-muted">
-            <Lock className="w-5 h-5 text-muted-foreground" />
+          <div className="p-2 rounded-lg bg-primary/10">
+            <Lock className="w-5 h-5 text-primary" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-foreground">Unlock Premium Insights</h3>
             <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-              <li>• Personalized negotiation script for your role</li>
-              <li>• 10 alternative roles with higher compensation</li>
-              <li>• Exportable PDF report for your records</li>
-              <li>• AI-powered interview prep tips</li>
+              <li>• Personalized negotiation script</li>
+              <li>• Talking points for raise discussions</li>
+              <li>• 10 alternative roles with higher pay</li>
+              <li>• Exportable PDF report</li>
             </ul>
-            <Button className="mt-4" variant="default">
-              Upgrade for $9
+            <Button 
+              className="mt-4" 
+              variant="default"
+              onClick={handleUpgrade}
+              disabled={isCheckoutLoading}
+            >
+              {isCheckoutLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Upgrade for $9"
+              )}
             </Button>
           </div>
         </div>

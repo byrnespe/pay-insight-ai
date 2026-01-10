@@ -38,12 +38,13 @@ You must respond with a valid JSON object (no markdown, no code blocks) with thi
 {
   "medianSalary": number (estimated market median for this role/location/experience),
   "percentile75Salary": number (75th percentile compensation),
-  "difference": number (user salary minus median, can be negative),
+  "difference": number (user total comp minus median, can be negative if underpaid),
   "differencePercent": number (percentage difference from median),
+  "stressAdjustedCompensation": number (effective hourly rate accounting for stress - calculate as: total_comp / (hours_per_week * 52) * (10 - stress_level) / 5),
   "verdict": "underpaid" | "overpaid" | "fair",
   "effortToPayRatio": "poor" | "average" | "good" | "excellent",
   "negotiationLeverage": "low" | "medium" | "high",
-  "explanation": string (2-3 sentences explaining the analysis in plain English),
+  "explanation": string (2-3 sentences explaining the analysis in plain English, be direct and honest),
   "paths": {
     "negotiate": string (specific negotiation advice for their situation),
     "optimize": string (workload optimization advice based on hours/stress),
@@ -56,9 +57,10 @@ Base your analysis on realistic market data for 2024-2025. Consider:
 - Industry pay scales
 - Experience level premiums
 - Workload (hours) and stress factors in effort-to-pay ratio
+- High stress reduces effective compensation value
 - Job satisfaction as a factor in negotiation leverage
 
-Be direct and honest. If someone is significantly underpaid, say so clearly.`;
+Be direct and honest. If someone is significantly underpaid, say so clearly. No HR jargon.`;
 
     const userPrompt = `Analyze this person's salary situation:
 
