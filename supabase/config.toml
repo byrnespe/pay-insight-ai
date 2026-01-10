@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.generate-rejection-responses]
 verify_jwt = false
+
+[functions.generate-manager-scripts]
+verify_jwt = false
