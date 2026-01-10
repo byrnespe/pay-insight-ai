@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { RejectionResponseGenerator } from "@/components/RejectionResponseGenerator";
 import { ManagerScriptGenerator } from "@/components/ManagerScriptGenerator";
+import { OfferComparisonTool } from "@/components/OfferComparisonTool";
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -294,6 +295,11 @@ const Premium = () => {
             {/* What If They Say No - Pro Feature */}
             {formData && analysis && (
               <RejectionResponseGenerator formData={formData} analysis={analysis} />
+            )}
+
+            {/* Offer Comparison Tool - Pro Feature */}
+            {formData && (
+              <OfferComparisonTool formData={formData} />
             )}
 
             {/* Talking Points */}
