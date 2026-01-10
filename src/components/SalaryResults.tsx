@@ -41,6 +41,11 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
 
   const handleUpgrade = async () => {
     setIsCheckoutLoading(true);
+    
+    // Store data in sessionStorage for the premium page
+    sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
+    sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
+    
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
@@ -52,8 +57,6 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           },
           body: JSON.stringify({
             priceType: "one_time",
-            formData,
-            analysis,
           }),
         }
       );
