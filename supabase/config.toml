@@ -1,0 +1,4 @@
+project_id = "cfexquivmmsyhgchkebu"
+
+[functions.analyze-salary]
+verify_jwt = false
