@@ -1,8 +1,10 @@
 import { SalaryAnalysis, SalaryFormData } from "@/types/salary";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, TrendingUp, Scale, Target, MessageSquare, Settings, ExternalLink, Lock, Loader2 } from "lucide-react";
+import { ArrowLeft, TrendingUp, Scale, Target, MessageSquare, Settings, ExternalLink, Lock, Loader2, User } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SalaryResultsProps {
   analysis: SalaryAnalysis;
@@ -12,6 +14,9 @@ interface SalaryResultsProps {
 
 export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProps) {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<"lifetime" | "subscription">("lifetime");
+  const navigate = useNavigate();
+  const { user, session } = useAuth();
   const totalComp = formData.currentSalary + formData.bonus;
   
   const verdictColors = {
@@ -40,11 +45,17 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   };
 
   const handleUpgrade = async () => {
-    setIsCheckoutLoading(true);
-    
     // Store data in sessionStorage for the premium page
     sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
     sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
+
+    // If not logged in, redirect to auth
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    
+    setIsCheckoutLoading(true);
     
     try {
       const response = await fetch(
@@ -53,10 +64,10 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            Authorization: `Bearer ${session?.access_token}`,
           },
           body: JSON.stringify({
-            priceType: "one_time",
+            priceType: selectedPlan === "subscription" ? "subscription" : "one_time",
           }),
         }
       );
@@ -78,13 +89,26 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   return (
     <div className="space-y-8">
       {/* Back button */}
-      <button
-        onClick={onReset}
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Start over
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={onReset}
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Start over
+        </button>
+
+        {user ? (
+          <span className="text-sm text-muted-foreground flex items-center gap-1">
+            <User className="w-4 h-4" />
+            {user.email}
+          </span>
+        ) : (
+          <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
+            Sign in
+          </Button>
+        )}
+      </div>
 
       {/* Verdict */}
       <div className={`p-6 rounded-lg ${verdictBgColors[analysis.verdict]}`}>
@@ -245,8 +269,35 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
               <li>• 10 alternative roles with higher pay</li>
               <li>• Exportable PDF report</li>
             </ul>
+
+            {/* Plan selection */}
+            <div className="flex gap-3 mt-4">
+              <button
+                onClick={() => setSelectedPlan("lifetime")}
+                className={`flex-1 p-3 rounded-lg border-2 text-left transition-colors ${
+                  selectedPlan === "lifetime"
+                    ? "border-primary bg-primary/10"
+                    : "border-border hover:border-primary/50"
+                }`}
+              >
+                <p className="font-semibold text-foreground">$9</p>
+                <p className="text-xs text-muted-foreground">One-time, lifetime</p>
+              </button>
+              <button
+                onClick={() => setSelectedPlan("subscription")}
+                className={`flex-1 p-3 rounded-lg border-2 text-left transition-colors ${
+                  selectedPlan === "subscription"
+                    ? "border-primary bg-primary/10"
+                    : "border-border hover:border-primary/50"
+                }`}
+              >
+                <p className="font-semibold text-foreground">$4.99/mo</p>
+                <p className="text-xs text-muted-foreground">Monthly access</p>
+              </button>
+            </div>
+
             <Button 
-              className="mt-4" 
+              className="mt-4 w-full sm:w-auto" 
               variant="default"
               onClick={handleUpgrade}
               disabled={isCheckoutLoading}
@@ -256,8 +307,10 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   Loading...
                 </>
+              ) : !user ? (
+                "Sign in to upgrade"
               ) : (
-                "Upgrade for $9"
+                `Upgrade for ${selectedPlan === "lifetime" ? "$9" : "$4.99/mo"}`
               )}
             </Button>
           </div>

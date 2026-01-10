@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -11,26 +11,31 @@ import {
   Check,
   Loader2,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Download,
+  Lock
 } from "lucide-react";
 import { PremiumInsights } from "@/types/premium";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Premium = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, premium, loading: authLoading } = useAuth();
   
   const [insights, setInsights] = useState<PremiumInsights | null>(null);
+  const [formData, setFormData] = useState<SalaryFormData | null>(null);
+  const [analysis, setAnalysis] = useState<SalaryAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copiedSection, setCopiedSection] = useState<string | null>(null);
   const [expandedRoles, setExpandedRoles] = useState<number[]>([]);
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
 
   useEffect(() => {
     const loadInsights = async () => {
-      // Get data from sessionStorage (set before checkout)
       const storedFormData = sessionStorage.getItem("underpaid_formData");
       const storedAnalysis = sessionStorage.getItem("underpaid_analysis");
 
@@ -40,8 +45,11 @@ const Premium = () => {
         return;
       }
 
-      const formData: SalaryFormData = JSON.parse(storedFormData);
-      const analysis: SalaryAnalysis = JSON.parse(storedAnalysis);
+      const parsedFormData: SalaryFormData = JSON.parse(storedFormData);
+      const parsedAnalysis: SalaryAnalysis = JSON.parse(storedAnalysis);
+      
+      setFormData(parsedFormData);
+      setAnalysis(parsedAnalysis);
 
       try {
         const response = await fetch(
@@ -52,7 +60,7 @@ const Premium = () => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
             },
-            body: JSON.stringify({ formData, analysis }),
+            body: JSON.stringify({ formData: parsedFormData, analysis: parsedAnalysis }),
           }
         );
 
@@ -94,7 +102,73 @@ const Premium = () => {
     return `${s.opening}\n\n${s.valueProposition}\n\n${s.askStatement}\n\n${s.handlePushback}\n\n${s.closing}`;
   };
 
-  if (isLoading) {
+  const handleDownloadPdf = async () => {
+    if (!user) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to download PDF reports.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
+    if (!premium.isPremium) {
+      toast({
+        title: "Premium required",
+        description: "PDF export is available for premium subscribers.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData || !analysis || !insights) return;
+
+    setIsPdfLoading(true);
+    try {
+      const { data: { session } } = await import("@/integrations/supabase/client").then(m => m.supabase.auth.getSession());
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-pdf`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.access_token}`,
+          },
+          body: JSON.stringify({ formData, analysis, insights }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to generate PDF");
+      }
+
+      const { html } = await response.json();
+      
+      // Open HTML in new window for printing/saving as PDF
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.print();
+      }
+
+      toast({ title: "PDF ready", description: "Use your browser's print dialog to save as PDF." });
+    } catch (err) {
+      console.error("PDF generation error:", err);
+      toast({
+        title: "PDF generation failed",
+        description: err instanceof Error ? err.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsPdfLoading(false);
+    }
+  };
+
+  if (isLoading || authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
@@ -120,13 +194,30 @@ const Premium = () => {
     <div className="min-h-screen bg-background">
       <div className="container py-12 sm:py-16 max-w-3xl">
         {/* Header */}
-        <button
-          onClick={() => navigate("/")}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to results
-        </button>
+        <div className="flex items-center justify-between mb-8">
+          <button
+            onClick={() => navigate("/")}
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to results
+          </button>
+
+          <Button
+            variant="outline"
+            onClick={handleDownloadPdf}
+            disabled={isPdfLoading || !premium.isPremium}
+          >
+            {isPdfLoading ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : !premium.isPremium ? (
+              <Lock className="w-4 h-4 mr-2" />
+            ) : (
+              <Download className="w-4 h-4 mr-2" />
+            )}
+            {isPdfLoading ? "Generating..." : "Export PDF"}
+          </Button>
+        </div>
 
         <header className="mb-10">
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
@@ -135,6 +226,11 @@ const Premium = () => {
           <p className="text-muted-foreground">
             Personalized strategies to maximize your earning potential.
           </p>
+          {premium.isPremium && (
+            <p className="text-sm text-success mt-2">
+              ✓ Premium {premium.type === "lifetime" ? "(Lifetime)" : "(Monthly)"}
+            </p>
+          )}
         </header>
 
         {insights && (

@@ -1,10 +1,15 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@14.21.0";
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import Stripe from "https://esm.sh/stripe@18.5.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+// Price IDs
+const LIFETIME_PRICE = "price_1SnseSIXbwEf8N1FrMOzpqaE";
+const MONTHLY_PRICE = "price_1Snsd9IXbwEf8N1F8HUy2ZvI";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -18,41 +23,48 @@ serve(async (req) => {
     }
 
     const stripe = new Stripe(STRIPE_SECRET_KEY, {
-      apiVersion: "2023-10-16",
+      apiVersion: "2025-08-27.basil",
     });
 
     const { priceType } = await req.json();
     const origin = req.headers.get("origin") || "http://localhost:5173";
 
-    // Create or get the product
-    const products = await stripe.products.list({ limit: 10, active: true });
-    let product = products.data.find((p: Stripe.Product) => p.name === "Underpaid Premium Insights");
-    
-    if (!product) {
-      product = await stripe.products.create({
-        name: "Underpaid Premium Insights",
-        description: "Negotiation script, talking points, alternative roles, and exportable PDF report",
-      });
+    // Check if user is authenticated
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
+    );
+
+    const authHeader = req.headers.get("Authorization");
+    let customerEmail: string | undefined;
+    let customerId: string | undefined;
+
+    if (authHeader) {
+      const token = authHeader.replace("Bearer ", "");
+      const { data: userData } = await supabaseClient.auth.getUser(token);
+      
+      if (userData.user?.email) {
+        customerEmail = userData.user.email;
+        
+        // Check if customer exists
+        const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+        if (customers.data.length > 0) {
+          customerId = customers.data[0].id;
+        }
+      }
     }
 
-    // Create or get the price
-    const prices = await stripe.prices.list({ product: product.id, active: true });
-    let price = prices.data.find((p: Stripe.Price) => p.unit_amount === 900 && p.type === "one_time");
-    
-    if (!price) {
-      price = await stripe.prices.create({
-        product: product.id,
-        unit_amount: 900, // $9.00
-        currency: "usd",
-      });
-    }
+    const isSubscription = priceType === "subscription";
+    const priceId = isSubscription ? MONTHLY_PRICE : LIFETIME_PRICE;
 
     // Create checkout session
     const session = await stripe.checkout.sessions.create({
-      mode: "payment",
+      customer: customerId,
+      customer_email: customerId ? undefined : customerEmail,
+      mode: isSubscription ? "subscription" : "payment",
       line_items: [
         {
-          price: price.id,
+          price: priceId,
           quantity: 1,
         },
       ],
@@ -62,18 +74,13 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ url: session.url }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("create-checkout error:", error);
     return new Response(
       JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

@@ -8,3 +8,9 @@ verify_jwt = false
 
 [functions.generate-premium-insights]
 verify_jwt = false
+
+[functions.check-premium]
+verify_jwt = false
+
+[functions.generate-pdf]
+verify_jwt = false
