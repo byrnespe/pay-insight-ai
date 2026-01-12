@@ -7,14 +7,23 @@ import { analyzeSalary } from "@/lib/salaryAnalysis";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { User, Crown, LogOut } from "lucide-react";
 
 const Index = () => {
   const [analysis, setAnalysis] = useState<SalaryAnalysis | null>(null);
   const [formData, setFormData] = useState<SalaryFormData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { user, signOut, loading, isPro } = useAuth();
+
   const handleSubmit = async (data: SalaryFormData) => {
     setIsLoading(true);
     setFormData(data);
@@ -32,23 +41,48 @@ const Index = () => {
       setIsLoading(false);
     }
   };
+
   const handleReset = () => {
     setAnalysis(null);
     setFormData(null);
   };
-  const { user, signOut, loading } = useAuth();
 
-  return <div className="min-h-screen bg-background">
+  return (
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="container flex justify-end py-4">
         {!loading && (
           user ? (
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-muted-foreground">{user.email}</span>
-              <Button variant="ghost" size="sm" onClick={signOut}>
-                Sign out
-              </Button>
-            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <User className="h-4 w-4" />
+                  <span className="max-w-[150px] truncate">{user.email}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium">{user.email}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {isPro ? "Pro Member" : "Free Account"}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/premium" className="cursor-pointer">
+                    <Crown className="mr-2 h-4 w-4" />
+                    {isPro ? "Manage Subscription" : "Upgrade to Pro"}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={signOut} className="cursor-pointer text-destructive focus:text-destructive">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <Button asChild variant="outline" size="sm">
               <Link to="/auth">Sign in</Link>
@@ -82,6 +116,8 @@ const Index = () => {
             <SalaryResults analysis={analysis} formData={formData!} onReset={handleReset} />
           </div>}
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
