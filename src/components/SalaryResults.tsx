@@ -23,6 +23,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { ShareResults } from "./ShareResults";
 
 interface SalaryResultsProps {
   analysis: SalaryAnalysis;
@@ -235,6 +236,12 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         <h2 className="text-lg font-semibold text-foreground">Analysis</h2>
         <p className="text-muted-foreground leading-relaxed">{analysis.explanation}</p>
       </div>
+
+      {/* Share Results */}
+      <ShareResults 
+        verdict={analysis.verdict} 
+        differencePercent={analysis.differencePercent} 
+      />
 
       {/* Action Paths */}
       <div className="space-y-4">
