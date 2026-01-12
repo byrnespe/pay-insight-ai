@@ -86,13 +86,17 @@ serve(async (req) => {
       if (productId === PRODUCTS.proMonthly) {
         hasActiveSubscription = true;
         subscriptionPlan = "monthly";
-        subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
+        if (subscription.current_period_end) {
+          subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
+        }
         logStep("Found monthly subscription", { subscriptionId: subscription.id });
         break;
       } else if (productId === PRODUCTS.proAnnual) {
         hasActiveSubscription = true;
         subscriptionPlan = "annual";
-        subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
+        if (subscription.current_period_end) {
+          subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
+        }
         logStep("Found annual subscription", { subscriptionId: subscription.id });
         break;
       }
