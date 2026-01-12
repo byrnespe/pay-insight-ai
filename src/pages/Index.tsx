@@ -6,6 +6,7 @@ import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { analyzeSalary } from "@/lib/salaryAnalysis";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,14 +16,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Crown, LogOut } from "lucide-react";
+import { User, Crown, LogOut, Settings, FileText } from "lucide-react";
 
 const Index = () => {
   const [analysis, setAnalysis] = useState<SalaryAnalysis | null>(null);
   const [formData, setFormData] = useState<SalaryFormData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isManagingMembership, setIsManagingMembership] = useState(false);
   const { toast } = useToast();
-  const { user, signOut, loading, isPro } = useAuth();
+  const { user, signOut, loading, isPro, hasReport } = useAuth();
 
   const handleSubmit = async (data: SalaryFormData) => {
     setIsLoading(true);
@@ -47,6 +49,40 @@ const Index = () => {
     setFormData(null);
   };
 
+  const handleManageMembership = async () => {
+    setIsManagingMembership(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast({
+          title: "Not authenticated",
+          description: "Please sign in to manage your membership.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await supabase.functions.invoke("customer-portal");
+      
+      if (response.error) {
+        throw new Error(response.error.message || "Failed to open membership portal");
+      }
+
+      if (response.data?.url) {
+        window.open(response.data.url, "_blank");
+      }
+    } catch (error) {
+      console.error("Manage membership error:", error);
+      toast({
+        title: "Unable to open membership portal",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsManagingMembership(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -65,17 +101,60 @@ const Index = () => {
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium">{user.email}</p>
                     <p className="text-xs text-muted-foreground">
-                      {isPro ? "Pro Member" : "Free Account"}
+                      {isPro ? "Pro Member" : hasReport ? "Report Purchased" : "Free Account"}
                     </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/premium" className="cursor-pointer">
-                    <Crown className="mr-2 h-4 w-4" />
-                    {isPro ? "Manage Subscription" : "Upgrade to Pro"}
-                  </Link>
-                </DropdownMenuItem>
+                
+                {/* Pro members get Premium Insights + Manage Membership */}
+                {isPro && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link to="/premium" className="cursor-pointer">
+                        <Crown className="mr-2 h-4 w-4" />
+                        Premium Insights
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={handleManageMembership} 
+                      className="cursor-pointer"
+                      disabled={isManagingMembership}
+                    >
+                      <Settings className="mr-2 h-4 w-4" />
+                      {isManagingMembership ? "Opening..." : "Manage Membership"}
+                    </DropdownMenuItem>
+                  </>
+                )}
+
+                {/* One-time report users get View Report + Upgrade to Pro */}
+                {!isPro && hasReport && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link to="/premium" className="cursor-pointer">
+                        <FileText className="mr-2 h-4 w-4" />
+                        View Report
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/premium" className="cursor-pointer">
+                        <Crown className="mr-2 h-4 w-4" />
+                        Upgrade to Pro
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+
+                {/* Free users only get Upgrade to Pro */}
+                {!isPro && !hasReport && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/premium" className="cursor-pointer">
+                      <Crown className="mr-2 h-4 w-4" />
+                      Upgrade to Pro
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={signOut} className="cursor-pointer text-destructive focus:text-destructive">
                   <LogOut className="mr-2 h-4 w-4" />
