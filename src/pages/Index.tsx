@@ -86,9 +86,20 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="container flex justify-end py-4">
+      <nav className="container flex justify-end items-center gap-3 py-4">
         {!loading && (
-          user ? (
+          <>
+            {/* Quick access button for members */}
+            {user && (isPro || hasReport) && (
+              <Button asChild variant="outline" size="sm" className="gap-2">
+                <Link to="/premium">
+                  {isPro ? <Crown className="h-4 w-4" /> : <FileText className="h-4 w-4" />}
+                  {isPro ? "Premium Insights" : "View Report"}
+                </Link>
+              </Button>
+            )}
+            
+            {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-2">
@@ -166,7 +177,8 @@ const Index = () => {
             <Button asChild variant="outline" size="sm">
               <Link to="/auth">Sign in</Link>
             </Button>
-          )
+          )}
+          </>
         )}
       </nav>
 
