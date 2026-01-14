@@ -150,15 +150,11 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           Start over
         </button>
 
-        {user ? (
+        {user && (
           <span className="text-sm text-muted-foreground flex items-center gap-1">
             <User className="w-4 h-4" />
             {user.email}
           </span>
-        ) : (
-          <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
-            Sign in
-          </Button>
         )}
       </div>
 
