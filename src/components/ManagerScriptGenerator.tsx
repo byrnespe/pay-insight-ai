@@ -21,6 +21,7 @@ import { ManagerScript } from "@/types/premium";
 interface ManagerScriptGeneratorProps {
   formData: SalaryFormData;
   analysis: SalaryAnalysis;
+  onUpgrade?: () => void;
 }
 
 type ManagerType = "supportive" | "skeptical" | "numbers-focused" | "busy" | "new";
@@ -47,7 +48,7 @@ const tones: { value: Tone; label: string; description: string }[] = [
   { value: "diplomatic", label: "Diplomatic", description: "Polite but firm" },
 ];
 
-export function ManagerScriptGenerator({ formData, analysis }: ManagerScriptGeneratorProps) {
+export function ManagerScriptGenerator({ formData, analysis, onUpgrade }: ManagerScriptGeneratorProps) {
   const { toast } = useToast();
   const { session, isPro, canAccessFeature } = useAuth();
   
@@ -162,7 +163,7 @@ export function ManagerScriptGenerator({ formData, analysis }: ManagerScriptGene
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
               Get negotiation scripts tailored to your manager's personality type, with multiple tone options.
             </p>
-            <Button variant="outline" disabled>
+            <Button variant="outline" onClick={onUpgrade}>
               Upgrade to Pro to unlock
             </Button>
           </div>

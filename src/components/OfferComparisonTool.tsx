@@ -32,6 +32,7 @@ import {
 
 interface OfferComparisonToolProps {
   formData: { jobTitle: string; currentSalary: number; bonus: number };
+  onUpgrade?: () => void;
 }
 
 interface ComparisonResult {
@@ -70,7 +71,7 @@ interface ComparisonResult {
   };
 }
 
-export const OfferComparisonTool = ({ formData }: OfferComparisonToolProps) => {
+export const OfferComparisonTool = ({ formData, onUpgrade }: OfferComparisonToolProps) => {
   const { canAccessFeature } = useAuth();
   const { toast } = useToast();
   const isPro = canAccessFeature("comparison_tool");
@@ -204,6 +205,9 @@ export const OfferComparisonTool = ({ formData }: OfferComparisonToolProps) => {
               <p className="text-sm text-muted-foreground max-w-xs">
                 Compare job offers with detailed financial and qualitative analysis. Available with Pro subscription.
               </p>
+              <Button variant="outline" onClick={onUpgrade}>
+                Upgrade to Pro to unlock
+              </Button>
             </div>
           </div>
 

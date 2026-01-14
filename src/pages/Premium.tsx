@@ -27,7 +27,7 @@ import { PostPaymentPasswordSetup } from "@/components/PostPaymentPasswordSetup"
 const Premium = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, hasReport, canExportPdf, entitlements, loading: authLoading } = useAuth();
+  const { user, session, hasReport, canExportPdf, entitlements, loading: authLoading } = useAuth();
   
   const [insights, setInsights] = useState<PremiumInsights | null>(null);
   const [formData, setFormData] = useState<SalaryFormData | null>(null);
@@ -38,6 +38,7 @@ const Premium = () => {
   const [expandedRoles, setExpandedRoles] = useState<number[]>([]);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
   const [showPostPaymentMessage, setShowPostPaymentMessage] = useState(false);
+  const [isUpgradeLoading, setIsUpgradeLoading] = useState(false);
 
   // Check for post-payment success state
   useEffect(() => {
@@ -115,6 +116,53 @@ const Premium = () => {
         ? prev.filter(i => i !== index)
         : [...prev, index]
     );
+  };
+
+  const handleUpgradeToPro = async () => {
+    setIsUpgradeLoading(true);
+    try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      
+      // Add auth token if user is logged in
+      if (session?.access_token) {
+        headers.Authorization = `Bearer ${session.access_token}`;
+      }
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
+        {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            priceType: "pro_monthly",
+          }),
+        }
+      );
+
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("No checkout URL returned", data);
+        toast({
+          title: "Checkout failed",
+          description: data.error || "Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+      toast({
+        title: "Checkout failed",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUpgradeLoading(false);
+    }
   };
 
   const getFullScript = () => {
@@ -312,17 +360,17 @@ const Premium = () => {
 
             {/* Manager-Specific Scripts - Pro Feature */}
             {formData && analysis && (
-              <ManagerScriptGenerator formData={formData} analysis={analysis} />
+              <ManagerScriptGenerator formData={formData} analysis={analysis} onUpgrade={handleUpgradeToPro} />
             )}
 
             {/* What If They Say No - Pro Feature */}
             {formData && analysis && (
-              <RejectionResponseGenerator formData={formData} analysis={analysis} />
+              <RejectionResponseGenerator formData={formData} analysis={analysis} onUpgrade={handleUpgradeToPro} />
             )}
 
             {/* Offer Comparison Tool - Pro Feature */}
             {formData && (
-              <OfferComparisonTool formData={formData} />
+              <OfferComparisonTool formData={formData} onUpgrade={handleUpgradeToPro} />
             )}
 
             {/* Talking Points */}
