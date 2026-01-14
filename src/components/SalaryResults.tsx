@@ -19,12 +19,14 @@ import {
   BarChart3,
   History,
   Shield,
-  X
+  X,
+  Save
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
+import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
@@ -44,8 +46,11 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<"one_time" | "pro_monthly" | "pro_annual">("one_time");
   const [showUpsellPopup, setShowUpsellPopup] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
-  const { user, session, isPro, hasReport } = useAuth();
+  const { user, session, isPro, hasReport, canAccessFeature } = useAuth();
+  const { toast } = useToast();
   const totalComp = formData.currentSalary + formData.bonus;
 
   // Show upsell popup after 10 seconds for non-Pro, non-report users
@@ -138,9 +143,53 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   // Calculate the salary gap for dynamic headline
   const salaryGap = Math.abs(analysis.difference);
 
+  const handleSaveReport = async () => {
+    if (!session?.access_token) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to save reports.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-report`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({ formData, analysis }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to save report");
+      }
+
+      setIsSaved(true);
+      toast({ title: "Report saved", description: "You can access it anytime from your Premium dashboard." });
+    } catch (error) {
+      console.error("Save error:", error);
+      toast({
+        title: "Failed to save",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
-      {/* Back button */}
+      {/* Back button and save */}
       <div className="flex items-center justify-between">
         <button
           onClick={onReset}
@@ -150,12 +199,33 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           Start over
         </button>
 
-        {user && (
-          <span className="text-sm text-muted-foreground flex items-center gap-1">
-            <User className="w-4 h-4" />
-            {user.email}
-          </span>
-        )}
+        <div className="flex items-center gap-3">
+          {/* Save button - Pro only */}
+          {canAccessFeature("saved_reports") && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSaveReport}
+              disabled={isSaving || isSaved}
+            >
+              {isSaving ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : isSaved ? (
+                <Check className="w-4 h-4 mr-2" />
+              ) : (
+                <Save className="w-4 h-4 mr-2" />
+              )}
+              {isSaving ? "Saving..." : isSaved ? "Saved" : "Save"}
+            </Button>
+          )}
+          
+          {user && (
+            <span className="text-sm text-muted-foreground flex items-center gap-1">
+              <User className="w-4 h-4" />
+              {user.email}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Verdict */}
