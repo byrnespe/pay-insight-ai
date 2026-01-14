@@ -22,6 +22,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { RejectionResponseGenerator } from "@/components/RejectionResponseGenerator";
 import { ManagerScriptGenerator } from "@/components/ManagerScriptGenerator";
 import { OfferComparisonTool } from "@/components/OfferComparisonTool";
+import { PostPaymentPasswordSetup } from "@/components/PostPaymentPasswordSetup";
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -213,24 +214,9 @@ const Premium = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container py-12 sm:py-16 max-w-3xl">
-        {/* Post-payment message for new users */}
+        {/* Post-payment password setup for new users */}
         {showPostPaymentMessage && (
-          <Card className="p-6 mb-8 border-success/50 bg-success/5">
-            <div className="flex items-start gap-4">
-              <div className="p-2 rounded-full bg-success/10">
-                <Check className="w-5 h-5 text-success" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground mb-1">Payment successful!</h3>
-                <p className="text-muted-foreground text-sm mb-3">
-                  We've created an account for you. Check your email to set your password and access your report anytime.
-                </p>
-                <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
-                  Sign in now
-                </Button>
-              </div>
-            </div>
-          </Card>
+          <PostPaymentPasswordSetup onComplete={() => setShowPostPaymentMessage(false)} />
         )}
 
         {/* Header */}
