@@ -25,9 +25,11 @@ const SplashScreen = ({ onComplete, minDisplayTime = 1500 }: SplashScreenProps) 
     >
       <div className="flex flex-col items-center gap-4">
         {/* Logo */}
-        <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-slate-700 shadow-lg">
-          <span className="text-4xl font-bold text-white">U</span>
-        </div>
+        <img 
+          src="/favicon.png" 
+          alt="Underpaid" 
+          className="h-20 w-20 rounded-2xl shadow-lg"
+        />
         
         {/* App name */}
         <h1 className="text-2xl font-semibold text-white">Underpaid</h1>
