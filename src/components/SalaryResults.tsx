@@ -53,6 +53,11 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   const { toast } = useToast();
   const totalComp = formData.currentSalary + formData.bonus;
 
+  // Scroll to top when results are displayed
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   // Show upsell popup after 10 seconds for non-Pro, non-report users
   useEffect(() => {
     // Don't show to Pro subscribers or users who already have the report
