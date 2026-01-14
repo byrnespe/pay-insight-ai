@@ -119,15 +119,37 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    /* Safe area padding for notched devices (PWA) */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight font-semibold;
+  }
+
+  /* Ensure minimum touch target size for interactive elements */
+  button, [role="button"], a {
+    min-height: 44px;
+    @apply touch-manipulation;
+  }
+  
+  /* Exception for inline links and small icons */
+  a.inline, .text-sm a, .text-xs a {
+    min-height: auto;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Touch-friendly utility */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
