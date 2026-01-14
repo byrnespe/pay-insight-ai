@@ -36,17 +36,17 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const { priceType } = await req.json() as { priceType: PriceType };
+    const { priceType, email: providedEmail } = await req.json() as { priceType: PriceType; email?: string };
     const origin = req.headers.get("origin") || "http://localhost:5173";
     
-    logStep("Request received", { priceType });
+    logStep("Request received", { priceType, providedEmail });
 
     // Validate price type
     if (!priceType || !PRICES[priceType]) {
       throw new Error(`Invalid priceType: ${priceType}. Must be one_time, pro_monthly, or pro_annual`);
     }
 
-    // Check if user is authenticated
+    // Check if user is authenticated (optional - supports guest checkout)
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_ANON_KEY") ?? ""
@@ -74,13 +74,24 @@ serve(async (req) => {
       }
     }
 
+    // If no authenticated user, check if email was provided
+    if (!customerEmail && providedEmail) {
+      customerEmail = providedEmail;
+      const customers = await stripe.customers.list({ email: customerEmail, limit: 1 });
+      if (customers.data.length > 0) {
+        customerId = customers.data[0].id;
+      }
+      logStep("Guest checkout with email", { email: customerEmail, customerId });
+    }
+
     const priceId = PRICES[priceType];
     const isSubscription = priceType === "pro_monthly" || priceType === "pro_annual";
 
-    logStep("Creating checkout session", { priceId, isSubscription });
+    logStep("Creating checkout session", { priceId, isSubscription, customerId, customerEmail });
 
     // Create checkout session with metadata for tracking
-    const session = await stripe.checkout.sessions.create({
+    // Guest users will enter email in Stripe Checkout
+    const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       customer: customerId,
       customer_email: customerId ? undefined : customerEmail,
       mode: isSubscription ? "subscription" : "payment",
@@ -94,9 +105,17 @@ serve(async (req) => {
       cancel_url: `${origin}/?canceled=true`,
       metadata: {
         product_type: priceType,
-        user_id: userId || "anonymous",
+        user_id: userId || "guest",
       },
-    });
+      // Enable customer creation for guest checkouts
+      customer_creation: customerId ? undefined : "always",
+      // Allow promotion codes for marketing
+      allow_promotion_codes: true,
+      // Apple Pay / Google Pay are automatically enabled when card is a payment method
+      payment_method_types: isSubscription ? ["card"] : ["card"],
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });
 
