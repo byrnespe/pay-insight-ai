@@ -107,13 +107,14 @@ serve(async (req) => {
         product_type: priceType,
         user_id: userId || "guest",
       },
-      // Enable customer creation for guest checkouts
-      customer_creation: customerId ? undefined : "always",
       // Allow promotion codes for marketing
       allow_promotion_codes: true,
-      // Apple Pay / Google Pay are automatically enabled when card is a payment method
-      payment_method_types: isSubscription ? ["card"] : ["card"],
     };
+
+    // Enable customer creation for guest checkouts (only valid in payment mode)
+    if (!isSubscription && !customerId) {
+      sessionConfig.customer_creation = "always";
+    }
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
 
