@@ -111,8 +111,11 @@ serve(async (req) => {
       allow_promotion_codes: true,
     };
 
-    // Enable customer creation for guest checkouts (only valid in payment mode)
-    if (!isSubscription && !customerId) {
+    // customer_creation is only valid in payment mode.
+    // Defensive: ensure it's never sent for subscriptions.
+    if (isSubscription) {
+      delete (sessionConfig as Record<string, unknown>).customer_creation;
+    } else if (!customerId) {
       sessionConfig.customer_creation = "always";
     }
 
