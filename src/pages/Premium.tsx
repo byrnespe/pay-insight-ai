@@ -36,6 +36,23 @@ const Premium = () => {
   const [copiedSection, setCopiedSection] = useState<string | null>(null);
   const [expandedRoles, setExpandedRoles] = useState<number[]>([]);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
+  const [showPostPaymentMessage, setShowPostPaymentMessage] = useState(false);
+
+  // Check for post-payment success state
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSuccess = urlParams.get("success") === "true";
+    const purchaseType = urlParams.get("type");
+    
+    if (isSuccess && !user && !authLoading) {
+      // User just completed payment but isn't logged in yet
+      // Their account was created by webhook, show them a message
+      setShowPostPaymentMessage(true);
+      
+      // Clear the URL params to prevent showing message on refresh
+      window.history.replaceState({}, document.title, "/premium");
+    }
+  }, [user, authLoading]);
 
   useEffect(() => {
     const loadInsights = async () => {
@@ -196,6 +213,26 @@ const Premium = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container py-12 sm:py-16 max-w-3xl">
+        {/* Post-payment message for new users */}
+        {showPostPaymentMessage && (
+          <Card className="p-6 mb-8 border-success/50 bg-success/5">
+            <div className="flex items-start gap-4">
+              <div className="p-2 rounded-full bg-success/10">
+                <Check className="w-5 h-5 text-success" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Payment successful!</h3>
+                <p className="text-muted-foreground text-sm mb-3">
+                  We've created an account for you. Check your email to set your password and access your report anytime.
+                </p>
+                <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
+                  Sign in now
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <button

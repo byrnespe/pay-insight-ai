@@ -95,24 +95,26 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
     sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
     sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
 
-    // If not logged in, redirect to auth
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-    
+    // Go directly to checkout - no auth required
+    // User will enter email in Stripe Checkout if not logged in
     setIsCheckoutLoading(true);
     setSelectedPlan(plan);
     
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      
+      // Add auth token if user is logged in
+      if (session?.access_token) {
+        headers.Authorization = `Bearer ${session.access_token}`;
+      }
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session?.access_token}`,
-          },
+          headers,
           body: JSON.stringify({
             priceType: plan,
           }),
@@ -124,7 +126,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
       if (data.url) {
         window.location.href = data.url;
       } else {
-        console.error("No checkout URL returned");
+        console.error("No checkout URL returned", data);
       }
     } catch (error) {
       console.error("Checkout error:", error);
@@ -390,11 +392,9 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     Loading...
                   </>
-                ) : !user ? (
-                  "Sign in to get clarity"
                 ) : (
                   <>
-                    Get Clarity
+                    Get Clarity — $9
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
@@ -464,11 +464,9 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     Loading...
                   </>
-                ) : !user ? (
-                  "Sign in to go Pro"
                 ) : (
                   <>
-                    Go Pro Monthly
+                    Go Pro — $5/mo
                     <Sparkles className="w-4 h-4 ml-2" />
                   </>
                 )}
@@ -537,11 +535,9 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                     Loading...
                   </>
-                ) : !user ? (
-                  "Sign in to go Pro"
                 ) : (
                   <>
-                    Go Pro Annual
+                    Go Pro — $49/yr
                     <Sparkles className="w-4 h-4 ml-2" />
                   </>
                 )}
