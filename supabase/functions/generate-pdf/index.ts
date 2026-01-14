@@ -1,14 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { STRIPE_PRODUCTS, isProProduct, isOneTimeProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-const LIFETIME_PRODUCT = "prod_TlPTgbTLG9sWns";
-const MONTHLY_PRODUCT = "prod_TlPSh6bqmfCjT9";
 
 interface SalaryFormData {
   jobTitle: string;
@@ -59,7 +57,7 @@ async function verifyPremium(email: string, stripe: Stripe): Promise<boolean> {
 
   const customerId = customers.data[0].id;
 
-  // Check subscriptions
+  // Check for Pro subscriptions (monthly or annual)
   const subscriptions = await stripe.subscriptions.list({
     customer: customerId,
     status: "active",
@@ -68,10 +66,10 @@ async function verifyPremium(email: string, stripe: Stripe): Promise<boolean> {
 
   for (const sub of subscriptions.data) {
     const productId = sub.items.data[0]?.price?.product;
-    if (productId === MONTHLY_PRODUCT) return true;
+    if (isProProduct(productId as string)) return true;
   }
 
-  // Check lifetime purchases
+  // Check for one-time purchases
   const sessions = await stripe.checkout.sessions.list({
     customer: customerId,
     status: "complete",
@@ -84,7 +82,7 @@ async function verifyPremium(email: string, stripe: Stripe): Promise<boolean> {
       for (const item of lineItems.data) {
         if (item.price?.id) {
           const price = await stripe.prices.retrieve(item.price.id);
-          if (price.product === LIFETIME_PRODUCT) return true;
+          if (isOneTimeProduct(price.product as string)) return true;
         }
       }
     }

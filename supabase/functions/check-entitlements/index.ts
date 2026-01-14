@@ -1,17 +1,11 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { STRIPE_PRODUCTS, isProProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-
-// Stripe product IDs
-const PRODUCTS = {
-  oneTime: "prod_TlPTgbTLG9sWns",
-  proMonthly: "prod_TlQM1qmocuhKC4",
-  proAnnual: "prod_TlQQBwGEKJtcI4",
 };
 
 const logStep = (step: string, details?: unknown) => {
@@ -83,7 +77,7 @@ serve(async (req) => {
     for (const subscription of subscriptions.data) {
       const productId = subscription.items.data[0]?.price?.product;
       
-      if (productId === PRODUCTS.proMonthly) {
+      if (productId === STRIPE_PRODUCTS.proMonthly.productId) {
         hasActiveSubscription = true;
         subscriptionPlan = "monthly";
         if (subscription.current_period_end) {
@@ -91,7 +85,7 @@ serve(async (req) => {
         }
         logStep("Found monthly subscription", { subscriptionId: subscription.id });
         break;
-      } else if (productId === PRODUCTS.proAnnual) {
+      } else if (productId === STRIPE_PRODUCTS.proAnnual.productId) {
         hasActiveSubscription = true;
         subscriptionPlan = "annual";
         if (subscription.current_period_end) {
@@ -103,7 +97,6 @@ serve(async (req) => {
     }
 
     // Check for completed one-time purchases
-    // Look at completed checkout sessions for one-time payment
     let hasOneTimePurchase = false;
     
     const sessions = await stripe.checkout.sessions.list({
@@ -119,7 +112,7 @@ serve(async (req) => {
           const priceId = item.price?.id;
           const productId = item.price?.product;
           
-          if (productId === PRODUCTS.oneTime || priceId === "price_1SnseSIXbwEf8N1FrMOzpqaE") {
+          if (productId === STRIPE_PRODUCTS.oneTime.productId || priceId === STRIPE_PRODUCTS.oneTime.priceId) {
             hasOneTimePurchase = true;
             logStep("Found one-time purchase", { sessionId: session.id });
             break;

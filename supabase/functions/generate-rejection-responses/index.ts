@@ -1,13 +1,11 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { STRIPE_PRODUCTS, isProProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-// Stripe product IDs
-const SUBSCRIPTION_PRODUCT_ID = "prod_TlPSh6bqmfCjT9";
 
 interface SalaryFormData {
   jobTitle: string;
@@ -80,8 +78,9 @@ serve(async (req) => {
       limit: 10,
     });
 
+    // Check for either monthly or annual Pro subscription
     const hasProSubscription = subscriptions.data.some((sub: { items: { data: Array<{ price: { product: string } }> } }) => 
-      sub.items.data.some((item: { price: { product: string } }) => item.price.product === SUBSCRIPTION_PRODUCT_ID)
+      sub.items.data.some((item: { price: { product: string } }) => isProProduct(item.price.product as string))
     );
 
     if (!hasProSubscription) {

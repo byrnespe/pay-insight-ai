@@ -1,15 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { STRIPE_PRODUCTS, isProProduct, isOneTimeProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-// Product IDs for premium access
-const LIFETIME_PRODUCT = "prod_TlPTgbTLG9sWns";
-const MONTHLY_PRODUCT = "prod_TlPSh6bqmfCjT9";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -56,7 +53,7 @@ serve(async (req) => {
 
     const customerId = customers.data[0].id;
 
-    // Check for active subscription (monthly)
+    // Check for active Pro subscription (monthly or annual)
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
       status: "active",
@@ -65,11 +62,13 @@ serve(async (req) => {
 
     for (const sub of subscriptions.data) {
       const productId = sub.items.data[0]?.price?.product;
-      if (productId === MONTHLY_PRODUCT) {
+      if (isProProduct(productId as string)) {
+        const plan = productId === STRIPE_PRODUCTS.proMonthly.productId ? "monthly" : "annual";
         return new Response(
           JSON.stringify({
             isPremium: true,
             type: "subscription",
+            plan,
             subscriptionEnd: new Date(sub.current_period_end * 1000).toISOString(),
           }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -77,7 +76,7 @@ serve(async (req) => {
       }
     }
 
-    // Check for lifetime purchase (completed checkout sessions)
+    // Check for one-time purchase (completed checkout sessions)
     const sessions = await stripe.checkout.sessions.list({
       customer: customerId,
       status: "complete",
@@ -92,7 +91,7 @@ serve(async (req) => {
           const priceId = item.price?.id;
           if (priceId) {
             const price = await stripe.prices.retrieve(priceId);
-            if (price.product === LIFETIME_PRODUCT) {
+            if (isOneTimeProduct(price.product as string)) {
               return new Response(
                 JSON.stringify({
                   isPremium: true,

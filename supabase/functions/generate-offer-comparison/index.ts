@@ -1,13 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { STRIPE_PRODUCTS, isProProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-const MONTHLY_PRODUCT_ID = "prod_SMmxCPaHRXgDZO";
 
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
@@ -58,8 +57,9 @@ serve(async (req) => {
       limit: 10,
     });
 
+    // Check for either monthly or annual Pro subscription
     const hasProSubscription = subscriptions.data.some((sub: any) =>
-      sub.items.data.some((item: any) => item.price.product === MONTHLY_PRODUCT_ID)
+      sub.items.data.some((item: any) => isProProduct(item.price.product as string))
     );
 
     if (!hasProSubscription) {
@@ -133,7 +133,7 @@ Provide a comprehensive comparison in this JSON format:
   }
 }`;
 
-    const aiResponse = await fetch("https://api.lovable.dev/v1/chat/completions", {
+    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
