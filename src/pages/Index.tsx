@@ -16,7 +16,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { User, Crown, LogOut, Settings, FileText } from "lucide-react";
+
+const faqItems = [
+  {
+    question: "How does this tool work?",
+    answer: "You enter your job details, salary, and work conditions. Our AI analyzes this against market data to determine if you're being paid fairly for your role, experience, and location. The analysis considers factors like hours worked, stress levels, and job satisfaction to give you a complete picture."
+  },
+  {
+    question: "Is my data stored or shared?",
+    answer: "No. Your data is analyzed in real-time and is not stored on our servers. We do not share your information with employers, recruiters, or any third parties. Your privacy is our priority."
+  },
+  {
+    question: "How accurate is the salary analysis?",
+    answer: "Our analysis uses current market data and AI to provide estimates. While no tool can be 100% accurate due to the many variables in compensation, our results give you a reliable benchmark for understanding your market position and preparing for salary conversations."
+  },
+  {
+    question: "What do I do if I'm underpaid?",
+    answer: "The analysis provides actionable paths forward: negotiate with your current employer, optimize your workload, or explore new opportunities. For more detailed guidance, including manager-specific scripts and rejection response strategies, consider our premium options."
+  },
+  {
+    question: "Do I need to create an account?",
+    answer: "No account is required to run a basic analysis. However, creating an account allows you to save your results, access premium features like PDF exports and negotiation scripts, and track your compensation over time."
+  }
+];
 
 const Index = () => {
   const [analysis, setAnalysis] = useState<SalaryAnalysis | null>(null);
@@ -196,6 +225,25 @@ const Index = () => {
             <div className="max-w-xl mx-auto">
               <SalaryForm onSubmit={handleSubmit} isLoading={isLoading} />
             </div>
+
+            {/* FAQ Section */}
+            <section className="mt-20 max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-foreground text-center mb-6">
+                Frequently Asked Questions
+              </h2>
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger className="text-left text-foreground hover:no-underline">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </section>
 
             {/* Trust indicators */}
             <footer className="mt-16 text-center">
