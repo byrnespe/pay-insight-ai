@@ -327,7 +327,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         </div>
 
         {/* Three-Tier Pricing */}
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-6 sm:gap-4 lg:grid-cols-3">
           {/* One-Time Tier */}
           <Card 
             className={`p-5 relative cursor-pointer transition-all ${
@@ -543,13 +543,13 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         </div>
 
         {/* Trust Indicators */}
-        <div className="text-center space-y-1.5">
+        <div className="text-center space-y-2 py-2">
           <p className="text-sm text-muted-foreground">
             <Shield className="w-3.5 h-3.5 inline mr-1" />
             30-day money-back guarantee
           </p>
           <p className="text-xs text-muted-foreground">
-            Cancel Pro anytime — your $9 report stays forever
+            No account required • Cancel Pro anytime — your $9 report stays forever
           </p>
         </div>
       </div>

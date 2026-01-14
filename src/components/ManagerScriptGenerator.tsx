@@ -189,12 +189,13 @@ export function ManagerScriptGenerator({ formData, analysis, onUpgrade }: Manage
         {/* Manager Type Selection */}
         <div>
           <p className="text-sm font-medium text-foreground mb-3">What's your manager like?</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+          {/* Horizontal scroll on mobile, grid on larger screens */}
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 sm:mx-0 sm:px-0 sm:overflow-visible sm:grid sm:grid-cols-3 lg:grid-cols-5 scrollbar-hide">
             {managerTypes.map((type) => (
               <button
                 key={type.value}
                 onClick={() => setSelectedManager(type.value)}
-                className={`p-3 rounded-lg border text-left transition-all ${
+                className={`p-3 rounded-lg border text-left transition-all shrink-0 w-32 sm:w-auto min-h-[72px] ${
                   selectedManager === type.value
                     ? "border-primary bg-primary/10 ring-2 ring-primary/20"
                     : "border-border hover:border-primary/50"
@@ -202,7 +203,7 @@ export function ManagerScriptGenerator({ formData, analysis, onUpgrade }: Manage
               >
                 <span className="text-lg">{type.icon}</span>
                 <p className="font-medium text-foreground text-sm mt-1">{type.label}</p>
-                <p className="text-xs text-muted-foreground line-clamp-1">{type.description}</p>
+                <p className="text-xs text-muted-foreground line-clamp-2 sm:line-clamp-1">{type.description}</p>
               </button>
             ))}
           </div>

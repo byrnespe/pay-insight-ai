@@ -151,18 +151,18 @@ export const PostPaymentPasswordSetup = ({ onComplete }: PostPaymentPasswordSetu
   }
 
   return (
-    <Card className="p-6 mb-8 border-success/50 bg-success/5">
-      <div className="flex items-start gap-4">
-        <div className="p-2 rounded-full bg-success/10">
+    <Card className="p-4 sm:p-6 mb-8 border-success/50 bg-success/5">
+      <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+        <div className="p-2 rounded-full bg-success/10 shrink-0">
           <Check className="w-5 h-5 text-success" />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <h3 className="font-semibold text-foreground mb-1">Payment successful!</h3>
           <p className="text-muted-foreground text-sm mb-4">
             Enter your email to access your account and report.
           </p>
 
-          <div className="space-y-4 max-w-sm">
+          <div className="space-y-4 w-full sm:max-w-sm">
             <div className="space-y-2">
               <Label htmlFor="email">Email address</Label>
               <Input
@@ -172,6 +172,7 @@ export const PostPaymentPasswordSetup = ({ onComplete }: PostPaymentPasswordSetu
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSendMagicLink()}
+                className="h-12 text-base"
               />
               <p className="text-xs text-muted-foreground">
                 Use the same email you used for payment.
@@ -181,7 +182,7 @@ export const PostPaymentPasswordSetup = ({ onComplete }: PostPaymentPasswordSetu
             <Button
               onClick={handleSendMagicLink}
               disabled={isLoading || !email.trim()}
-              className="w-full"
+              className="w-full h-12 text-base"
             >
               {isLoading ? (
                 <>
