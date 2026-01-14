@@ -18,12 +18,21 @@ import {
   RefreshCw,
   BarChart3,
   History,
-  Shield
+  Shield,
+  X
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 interface SalaryResultsProps {
   analysis: SalaryAnalysis;
@@ -34,9 +43,27 @@ interface SalaryResultsProps {
 export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProps) {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<"one_time" | "pro_monthly" | "pro_annual">("one_time");
+  const [showUpsellPopup, setShowUpsellPopup] = useState(false);
   const navigate = useNavigate();
-  const { user, session } = useAuth();
+  const { user, session, isPro, hasReport } = useAuth();
   const totalComp = formData.currentSalary + formData.bonus;
+
+  // Show upsell popup after 10 seconds for non-Pro, non-report users
+  useEffect(() => {
+    // Don't show to Pro subscribers or users who already have the report
+    if (isPro || hasReport) return;
+
+    // Check if already shown this session
+    const alreadyShown = sessionStorage.getItem("underpaid_upsell_shown");
+    if (alreadyShown) return;
+
+    const timer = setTimeout(() => {
+      setShowUpsellPopup(true);
+      sessionStorage.setItem("underpaid_upsell_shown", "true");
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [isPro, hasReport]);
   
   const verdictColors = {
     underpaid: "text-verdict-underpaid",
@@ -534,6 +561,45 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
           </p>
         </div>
       </div>
+
+      {/* Upsell Popup for PDF Export */}
+      <Dialog open={showUpsellPopup} onOpenChange={setShowUpsellPopup}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-foreground">Save this analysis for later</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              Export your full report as a PDF for $9 (one-time). Includes your verdict, market data, and a basic negotiation script.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
+            <Button
+              variant="outline"
+              onClick={() => setShowUpsellPopup(false)}
+            >
+              Maybe later
+            </Button>
+            <Button
+              onClick={() => {
+                setShowUpsellPopup(false);
+                handleUpgrade("one_time");
+              }}
+              disabled={isCheckoutLoading}
+            >
+              {isCheckoutLoading && selectedPlan === "one_time" ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4 mr-2" />
+                  Get PDF Export — $9
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
