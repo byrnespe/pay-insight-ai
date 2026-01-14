@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { User, Crown, LogOut, Settings, FileText } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const faqItems = [
   {
@@ -122,7 +123,8 @@ const Index = () => {
           <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
         {!loading && (
           <>
             {/* Quick access button for members */}
