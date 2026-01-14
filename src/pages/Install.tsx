@@ -98,9 +98,11 @@ const Install = () => {
       <main className="container mx-auto px-4 py-8 max-w-lg">
         {/* App Preview */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span className="text-primary-foreground text-2xl font-bold">U</span>
-          </div>
+          <img 
+            src="/favicon.png" 
+            alt="Underpaid" 
+            className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-lg"
+          />
           <h2 className="text-2xl font-semibold mb-2">Underpaid</h2>
           <p className="text-muted-foreground">
             Install for quick access, offline support, and a native app experience.
