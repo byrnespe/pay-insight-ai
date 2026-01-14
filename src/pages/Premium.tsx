@@ -26,6 +26,7 @@ import { ManagerScriptGenerator } from "@/components/ManagerScriptGenerator";
 import { OfferComparisonTool } from "@/components/OfferComparisonTool";
 import { PostPaymentPasswordSetup } from "@/components/PostPaymentPasswordSetup";
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -280,20 +281,23 @@ const Premium = () => {
             Back to results
           </button>
 
-          <Button
-            variant="outline"
-            onClick={handleDownloadPdf}
-            disabled={isPdfLoading || !canExportPdf}
-          >
-            {isPdfLoading ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : !canExportPdf ? (
-              <Lock className="w-4 h-4 mr-2" />
-            ) : (
-              <Download className="w-4 h-4 mr-2" />
-            )}
-            {isPdfLoading ? "Generating..." : "Export PDF"}
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              variant="outline"
+              onClick={handleDownloadPdf}
+              disabled={isPdfLoading || !canExportPdf}
+            >
+              {isPdfLoading ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : !canExportPdf ? (
+                <Lock className="w-4 h-4 mr-2" />
+              ) : (
+                <Download className="w-4 h-4 mr-2" />
+              )}
+              {isPdfLoading ? "Generating..." : "Export PDF"}
+            </Button>
+          </div>
         </div>
 
         <header className="mb-10">
