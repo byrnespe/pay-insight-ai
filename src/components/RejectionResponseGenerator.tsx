@@ -21,9 +21,10 @@ import { RejectionResponse } from "@/types/premium";
 interface RejectionResponseGeneratorProps {
   formData: SalaryFormData;
   analysis: SalaryAnalysis;
+  onUpgrade?: () => void;
 }
 
-export function RejectionResponseGenerator({ formData, analysis }: RejectionResponseGeneratorProps) {
+export function RejectionResponseGenerator({ formData, analysis, onUpgrade }: RejectionResponseGeneratorProps) {
   const { toast } = useToast();
   const { session, canAccessFeature } = useAuth();
   
@@ -144,7 +145,7 @@ export function RejectionResponseGenerator({ formData, analysis }: RejectionResp
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
               Get battle-tested responses for handling rejections and objections during your salary negotiation.
             </p>
-            <Button variant="outline" disabled>
+            <Button variant="outline" onClick={onUpgrade}>
               Upgrade to Pro to unlock
             </Button>
           </div>
