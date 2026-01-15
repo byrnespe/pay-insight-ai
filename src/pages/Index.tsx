@@ -261,6 +261,9 @@ const Index = () => {
                 Your data is analyzed securely and never stored.
               </p>
               <div className="flex justify-center gap-4 text-sm">
+                <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+                  About
+                </Link>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
                   Privacy Policy
                 </Link>
