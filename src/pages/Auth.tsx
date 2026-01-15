@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Shield } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Auth = () => {
@@ -61,6 +61,19 @@ const Auth = () => {
           Back
         </button>
 
+        {/* Branding Header */}
+        <div className="flex flex-col items-center mb-8">
+          <img
+            src="/favicon.png"
+            alt="Underpaid logo"
+            className="w-12 h-12 rounded-lg mb-3"
+          />
+          <h2 className="text-xl font-semibold text-foreground">Underpaid</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Compensation insights you can trust
+          </p>
+        </div>
+
         <Card className="p-6">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-foreground">
@@ -83,6 +96,7 @@ const Auth = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
               />
             </div>
 
@@ -96,6 +110,7 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
+                autoComplete={isLogin ? "current-password" : "new-password"}
               />
             </div>
 
@@ -123,6 +138,31 @@ const Auth = () => {
                 ? "Don't have an account? Sign up"
                 : "Already have an account? Sign in"}
             </button>
+          </div>
+
+          {/* Security Reassurance */}
+          <div className="mt-6 pt-4 border-t border-border">
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mb-3">
+              <Shield className="w-3.5 h-3.5" />
+              <span>Your credentials are encrypted and securely stored.</span>
+            </div>
+            <p className="text-xs text-center text-muted-foreground">
+              By continuing, you agree to our{" "}
+              <Link
+                to="/privacy"
+                className="underline hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </Link>{" "}
+              and{" "}
+              <Link
+                to="/terms"
+                className="underline hover:text-foreground transition-colors"
+              >
+                Terms of Service
+              </Link>
+              .
+            </p>
           </div>
         </Card>
       </div>
