@@ -38,3 +38,9 @@ verify_jwt = false
 
 [functions.get-saved-reports]
 verify_jwt = false
+
+[functions.get-user-pdfs]
+verify_jwt = false
+
+[functions.delete-user-pdf]
+verify_jwt = false

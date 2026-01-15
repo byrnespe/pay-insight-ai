@@ -15,7 +15,8 @@ import {
   Download,
   Lock,
   History,
-  Sparkles
+  Sparkles,
+  FileText
 } from "lucide-react";
 import { PremiumInsights } from "@/types/premium";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
@@ -26,6 +27,7 @@ import { ManagerScriptGenerator } from "@/components/ManagerScriptGenerator";
 import { OfferComparisonTool } from "@/components/OfferComparisonTool";
 import { PostPaymentPasswordSetup } from "@/components/PostPaymentPasswordSetup";
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
+import { SavedPdfReports } from "@/components/SavedPdfReports";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Premium = () => {
@@ -408,6 +410,45 @@ const Premium = () => {
                       <p className="font-medium text-foreground">Save and access your analysis history</p>
                       <p className="text-sm text-muted-foreground mt-1">
                         Pro subscribers can save up to 20 reports and load them anytime.
+                      </p>
+                    </div>
+                    <Button onClick={handleUpgradeToPro} disabled={isUpgradeLoading}>
+                      {isUpgradeLoading ? (
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      ) : (
+                        <Sparkles className="w-4 h-4 mr-2" />
+                      )}
+                      Upgrade
+                    </Button>
+                  </div>
+                </Card>
+              )}
+            </section>
+
+            {/* Saved PDF Reports */}
+            <section>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <FileText className="w-5 h-5 text-primary" />
+                </div>
+                <h2 className="text-xl font-semibold text-foreground">Exported PDF Reports</h2>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Access your previously exported PDF reports anytime.
+              </p>
+              
+              {canExportPdf ? (
+                <SavedPdfReports />
+              ) : (
+                <Card className="p-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-full bg-muted">
+                      <Lock className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-foreground">Save and access your PDF exports</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Premium subscribers can export and store PDF reports for future access.
                       </p>
                     </div>
                     <Button onClick={handleUpgradeToPro} disabled={isUpgradeLoading}>

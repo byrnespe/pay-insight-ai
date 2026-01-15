@@ -278,6 +278,11 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_ANON_KEY") ?? ""
     );
 
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
+
     // Verify authentication
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
@@ -321,8 +326,40 @@ serve(async (req) => {
 
     const htmlContent = generatePDFContent(formData, analysis, insights);
 
+    // Upload to storage bucket
+    const sanitizedJobTitle = formData.jobTitle.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+    const fileName = `${userData.user.id}/${Date.now()}-${sanitizedJobTitle}.html`;
+
+    const { error: uploadError } = await supabaseAdmin
+      .storage
+      .from("salary-reports")
+      .upload(fileName, new Blob([htmlContent], { type: "text/html" }), {
+        contentType: "text/html",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      console.error("Storage upload error:", uploadError);
+      // Still return the HTML even if storage fails
+      return new Response(
+        JSON.stringify({ html: htmlContent, stored: false }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Generate a signed URL for immediate download
+    const { data: signedUrl } = await supabaseAdmin
+      .storage
+      .from("salary-reports")
+      .createSignedUrl(fileName, 3600); // 1 hour expiry
+
     return new Response(
-      JSON.stringify({ html: htmlContent }),
+      JSON.stringify({ 
+        html: htmlContent, 
+        stored: true,
+        downloadUrl: signedUrl?.signedUrl,
+        fileName 
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
