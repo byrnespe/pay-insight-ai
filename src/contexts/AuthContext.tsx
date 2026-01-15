@@ -21,6 +21,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: Error | null }>;
+  updatePassword: (newPassword: string) => Promise<{ error: Error | null }>;
 }
 
 const defaultEntitlementStatus: EntitlementStatus = {
@@ -127,6 +129,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setEntitlements(defaultEntitlementStatus);
   };
 
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth?mode=reset`,
+    });
+    return { error: error ? new Error(error.message) : null };
+  };
+
+  const updatePassword = async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    return { error: error ? new Error(error.message) : null };
+  };
+
   // Computed helper values
   const hasReport = entitlements.entitlements.report.full_analysis;
   const isPro = entitlements.entitlements.pro.active;
@@ -181,6 +195,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signIn,
         signUp,
         signOut,
+        resetPassword,
+        updatePassword,
       }}
     >
       {children}
