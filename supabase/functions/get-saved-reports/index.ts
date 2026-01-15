@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { isProProduct } from "../_shared/stripe-config.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -66,14 +67,9 @@ serve(async (req) => {
       limit: 10,
     });
 
-    const proProductIds = [
-      "prod_STmxgWJcRjNoau", // Pro Monthly
-      "prod_STmyOgUzKqwCNO", // Pro Annual
-    ];
-
     const hasProSubscription = subscriptions.data.some((sub: { items: { data: Array<{ price: { product: string } }> } }) =>
       sub.items.data.some((item: { price: { product: string } }) =>
-        proProductIds.includes(item.price.product as string)
+        isProProduct(item.price.product as string)
       )
     );
 
