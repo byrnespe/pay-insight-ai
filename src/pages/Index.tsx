@@ -255,11 +255,19 @@ const Index = () => {
               </Accordion>
             </section>
 
-            {/* Trust indicators */}
-            <footer className="mt-16 text-center">
+            {/* Footer */}
+            <footer className="mt-16 text-center space-y-3">
               <p className="text-sm text-muted-foreground">
                 Your data is analyzed securely and never stored.
               </p>
+              <div className="flex justify-center gap-4 text-sm">
+                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Terms of Service
+                </Link>
+              </div>
             </footer>
           </> : <div className="max-w-xl mx-auto">
             <SalaryResults analysis={analysis} formData={formData!} onReset={handleReset} />
