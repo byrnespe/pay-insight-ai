@@ -39,17 +39,7 @@ const App = () => {
           <Sonner />
           <BrowserRouter>
             <AuthProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/premium" element={<Premium />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/install" element={<Install />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/about" element={<About />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <AppRoutes />
               <InstallPrompt />
             </AuthProvider>
           </BrowserRouter>
@@ -58,5 +48,19 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
+const AppRoutes = () => (
+  <Routes>
+    <Route path="/" element={<Index />} />
+    <Route path="/premium" element={<Premium />} />
+    <Route path="/auth" element={<Auth />} />
+    <Route path="/install" element={<Install />} />
+    <Route path="/privacy" element={<Privacy />} />
+    <Route path="/terms" element={<Terms />} />
+    <Route path="/about" element={<About />} />
+    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+    <Route path="*" element={<NotFound />} />
+  </Routes>
+);
 
 export default App;
