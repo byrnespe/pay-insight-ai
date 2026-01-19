@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { RejectionResponse } from "@/types/premium";
 
@@ -50,7 +51,7 @@ export function RejectionResponseGenerator({ formData, analysis, onUpgrade }: Re
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-rejection-responses`,
+        `${BACKEND_URL}/functions/v1/generate-rejection-responses`,
         {
           method: "POST",
           headers: {

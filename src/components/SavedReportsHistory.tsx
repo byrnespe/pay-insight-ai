@@ -12,7 +12,8 @@ import {
   AlertCircle
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/backend/client";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import { useToast } from "@/hooks/use-toast";
 import { SalaryAnalysis, SalaryFormData } from "@/types/salary";
 import {
@@ -63,7 +64,7 @@ export function SavedReportsHistory({ onLoadReport }: SavedReportsHistoryProps) 
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-saved-reports`,
+        `${BACKEND_URL}/functions/v1/get-saved-reports`,
         {
           method: "POST",
           headers: {

@@ -1,4 +1,4 @@
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+import { BACKEND_URL } from "@/integrations/backend/config";
 
 /**
  * Get the public URL for a brand asset stored in the brand-assets bucket
@@ -6,7 +6,7 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
  * @returns The full public URL to the asset
  */
 export function getBrandAssetUrl(path: string): string {
-  return `${SUPABASE_URL}/storage/v1/object/public/brand-assets/${path}`;
+  return `${BACKEND_URL}/storage/v1/object/public/brand-assets/${path}`;
 }
 
 /**

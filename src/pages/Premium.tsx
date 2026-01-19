@@ -29,6 +29,7 @@ import { PostPaymentPasswordSetup } from "@/components/PostPaymentPasswordSetup"
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
 import { SavedPdfReports } from "@/components/SavedPdfReports";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { BACKEND_PUBLISHABLE_KEY, BACKEND_URL } from "@/integrations/backend/config";
 
 const Premium = () => {
   const navigate = useNavigate();
@@ -81,12 +82,12 @@ const Premium = () => {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-premium-insights`,
+          `${BACKEND_URL}/functions/v1/generate-premium-insights`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+              Authorization: `Bearer ${BACKEND_PUBLISHABLE_KEY}`,
             },
             body: JSON.stringify({ formData: parsedFormData, analysis: parsedAnalysis }),
           }
@@ -137,7 +138,7 @@ const Premium = () => {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
+        `${BACKEND_URL}/functions/v1/create-checkout`,
         {
           method: "POST",
           headers,
@@ -201,10 +202,10 @@ const Premium = () => {
 
     setIsPdfLoading(true);
     try {
-      const { data: { session } } = await import("@/integrations/supabase/client").then(m => m.supabase.auth.getSession());
+      const { data: { session } } = await import("@/integrations/backend/client").then(m => m.supabase.auth.getSession());
       
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-pdf`,
+        `${BACKEND_URL}/functions/v1/generate-pdf`,
         {
           method: "POST",
           headers: {

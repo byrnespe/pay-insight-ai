@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { ManagerScript } from "@/types/premium";
 
@@ -75,7 +76,7 @@ export function ManagerScriptGenerator({ formData, analysis, onUpgrade }: Manage
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-manager-scripts`,
+        `${BACKEND_URL}/functions/v1/generate-manager-scripts`,
         {
           method: "POST",
           headers: {

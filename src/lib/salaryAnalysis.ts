@@ -1,13 +1,14 @@
 import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
+import { BACKEND_PUBLISHABLE_KEY, BACKEND_URL } from "@/integrations/backend/config";
 
-const ANALYZE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/analyze-salary`;
+const ANALYZE_URL = `${BACKEND_URL}/functions/v1/analyze-salary`;
 
 export async function analyzeSalary(data: SalaryFormData): Promise<SalaryAnalysis> {
   const response = await fetch(ANALYZE_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+      Authorization: `Bearer ${BACKEND_PUBLISHABLE_KEY}`,
     },
     body: JSON.stringify(data),
   });
