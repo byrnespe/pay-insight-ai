@@ -1,10 +1,18 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { ArrowLeft, Clock, Share2, Twitter, Linkedin } from "lucide-react";
+import { Clock, Share2, Twitter, Linkedin, ChevronRight, Home } from "lucide-react";
 import { getBlogPost, getRelatedPosts } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import MarkdownContent from "@/components/MarkdownContent";
 import { useEffect } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -78,6 +86,36 @@ const BlogPost = () => {
       {/* Article */}
       <article className="py-12">
         <div className="max-w-3xl mx-auto px-4">
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/" className="flex items-center gap-1">
+                    <Home className="h-3.5 w-3.5" />
+                    <span className="sr-only sm:not-sr-only">Home</span>
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRight className="h-3.5 w-3.5" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/blog">Blog</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRight className="h-3.5 w-3.5" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage className="max-w-[200px] truncate">
+                  {post.title}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
           {/* Meta */}
           <div className="flex items-center gap-3 mb-6">
             <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
@@ -232,6 +270,36 @@ const BlogPost = () => {
               "name": "Underpaid",
               "url": "https://www.underpaidapp.com"
             }
+          })
+        }}
+      />
+      {/* BreadcrumbList JSON-LD for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.underpaidapp.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://www.underpaidapp.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": shareUrl
+              }
+            ]
           })
         }}
       />
