@@ -9,7 +9,8 @@ import {
   AlertCircle
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/backend/client";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,7 +50,7 @@ export const SavedPdfReports = () => {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-user-pdfs`,
+        `${BACKEND_URL}/functions/v1/get-user-pdfs`,
         {
           headers: {
             Authorization: `Bearer ${session.access_token}`,
@@ -90,7 +91,7 @@ export const SavedPdfReports = () => {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-user-pdf`,
+        `${BACKEND_URL}/functions/v1/delete-user-pdf`,
         {
           method: "POST",
           headers: {

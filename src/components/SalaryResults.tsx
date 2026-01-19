@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
 import { useToast } from "@/hooks/use-toast";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import {
   Dialog,
   DialogContent,
@@ -121,7 +122,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`,
+        `${BACKEND_URL}/functions/v1/create-checkout`,
         {
           method: "POST",
           headers,
@@ -161,7 +162,7 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
     setIsSaving(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/save-report`,
+        `${BACKEND_URL}/functions/v1/save-report`,
         {
           method: "POST",
           headers: {

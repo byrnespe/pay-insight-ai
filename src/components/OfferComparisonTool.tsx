@@ -21,7 +21,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/backend/client";
+import { BACKEND_URL } from "@/integrations/backend/config";
 import {
   Select,
   SelectContent,
@@ -123,7 +124,7 @@ export const OfferComparisonTool = ({ formData, onUpgrade }: OfferComparisonTool
       const { data: { session } } = await supabase.auth.getSession();
       
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-offer-comparison`,
+        `${BACKEND_URL}/functions/v1/generate-offer-comparison`,
         {
           method: "POST",
           headers: {
