@@ -117,11 +117,16 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="container flex justify-between items-center gap-3 py-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <img src="/favicon.png" alt="Underpaid" className="h-8 w-8 rounded-lg" />
-          <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
-        </Link>
+        {/* Logo and Nav Links */}
+        <div className="flex items-center gap-6">
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/favicon.png" alt="Underpaid" className="h-8 w-8 rounded-lg" />
+            <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
+          </Link>
+          <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline">
+            Blog
+          </Link>
+        </div>
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
