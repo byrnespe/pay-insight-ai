@@ -109,11 +109,10 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
               id="salary"
               type="text"
               inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="e.g., 70,000"
+              placeholder="e.g., 70000"
               value={formData.currentSalary === 0 ? "" : formData.currentSalary.toLocaleString()}
               onChange={(e) => {
-                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                const numericValue = e.target.value.replace(/[^0-9]/g, "");
                 updateField("currentSalary", numericValue === "" ? 0 : parseInt(numericValue));
               }}
               required
@@ -127,11 +126,10 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
               id="bonus"
               type="text"
               inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="e.g., 5,000"
+              placeholder="e.g., 5000"
               value={formData.bonus === 0 ? "" : formData.bonus.toLocaleString()}
               onChange={(e) => {
-                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                const numericValue = e.target.value.replace(/[^0-9]/g, "");
                 updateField("bonus", numericValue === "" ? 0 : parseInt(numericValue));
               }}
               className="h-12"
