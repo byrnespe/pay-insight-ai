@@ -81,12 +81,18 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
             <Label htmlFor="experience">Years of Experience</Label>
             <Input
               id="experience"
-              type="number"
-              min={0}
-              max={50}
-              value={formData.yearsExperience}
-              onChange={(e) => updateField("yearsExperience", parseInt(e.target.value) || 0)}
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder="e.g., 5"
+              value={formData.yearsExperience === 0 ? "" : formData.yearsExperience.toString()}
+              onChange={(e) => {
+                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                const parsed = numericValue === "" ? 0 : Math.min(50, parseInt(numericValue));
+                updateField("yearsExperience", parsed);
+              }}
               required
+              className="h-12"
             />
           </div>
         </div>
@@ -101,12 +107,17 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
             <Label htmlFor="salary">Annual Salary ($)</Label>
             <Input
               id="salary"
-              type="number"
-              min={0}
-              step={1000}
-              value={formData.currentSalary}
-              onChange={(e) => updateField("currentSalary", parseInt(e.target.value) || 0)}
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder="e.g., 70,000"
+              value={formData.currentSalary === 0 ? "" : formData.currentSalary.toLocaleString()}
+              onChange={(e) => {
+                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                updateField("currentSalary", numericValue === "" ? 0 : parseInt(numericValue));
+              }}
               required
+              className="h-12"
             />
           </div>
           
@@ -114,11 +125,16 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
             <Label htmlFor="bonus">Annual Bonus / Commission ($)</Label>
             <Input
               id="bonus"
-              type="number"
-              min={0}
-              step={1000}
-              value={formData.bonus}
-              onChange={(e) => updateField("bonus", parseInt(e.target.value) || 0)}
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder="e.g., 5,000"
+              value={formData.bonus === 0 ? "" : formData.bonus.toLocaleString()}
+              onChange={(e) => {
+                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                updateField("bonus", numericValue === "" ? 0 : parseInt(numericValue));
+              }}
+              className="h-12"
             />
           </div>
         </div>
