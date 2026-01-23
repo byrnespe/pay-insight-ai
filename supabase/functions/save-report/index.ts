@@ -8,6 +8,11 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const logStep = (step: string, details?: unknown) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+  console.log(`[SAVE-REPORT] ${step}${detailsStr}`);
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -40,29 +45,67 @@ serve(async (req) => {
       );
     }
 
-    // Check if user has saved_reports entitlement (Pro only)
+    logStep("User authenticated", { userId: user.id, email: user.email });
+
+    // Initialize Stripe
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
       apiVersion: "2025-08-27.basil",
     });
 
-    // Find customer by email
-    const customers = await stripe.customers.list({
-      email: user.email,
-      limit: 1,
-    });
+    // Try to find Stripe customer - prioritize stripe_customer_id from user metadata
+    let customerId: string | null = null;
+    
+    // Method 1: Check user metadata for stripe_customer_id
+    const stripeCustomerIdFromMetadata = user.user_metadata?.stripe_customer_id;
+    if (stripeCustomerIdFromMetadata) {
+      logStep("Found stripe_customer_id in user metadata", { customerId: stripeCustomerIdFromMetadata });
+      customerId = stripeCustomerIdFromMetadata;
+    }
 
-    if (customers.data.length === 0) {
+    // Method 2: Check profiles table for stripe_customer_id
+    if (!customerId) {
+      const supabaseAdmin = createClient(
+        Deno.env.get("SUPABASE_URL") ?? "",
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+      );
+      
+      const { data: profile } = await supabaseAdmin
+        .from("profiles")
+        .select("stripe_customer_id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (profile?.stripe_customer_id) {
+        logStep("Found stripe_customer_id in profiles table", { customerId: profile.stripe_customer_id });
+        customerId = profile.stripe_customer_id;
+      }
+    }
+
+    // Method 3: Fallback to email lookup
+    if (!customerId && user.email) {
+      const customers = await stripe.customers.list({
+        email: user.email,
+        limit: 1,
+      });
+
+      if (customers.data.length > 0) {
+        logStep("Found customer by email", { customerId: customers.data[0].id });
+        customerId = customers.data[0].id;
+      } else {
+        logStep("No Stripe customer found by email", { email: user.email });
+      }
+    }
+
+    if (!customerId) {
       return new Response(
         JSON.stringify({ error: "Pro subscription required to save reports" }),
         { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const customer = customers.data[0];
-
     // Check for active Pro subscription
     const subscriptions = await stripe.subscriptions.list({
-      customer: customer.id,
+      customer: customerId,
       status: "active",
       limit: 10,
     });
@@ -72,6 +115,8 @@ serve(async (req) => {
         isProProduct(item.price.product as string)
       )
     );
+
+    logStep("Pro subscription check", { hasProSubscription });
 
     if (!hasProSubscription) {
       return new Response(
@@ -129,12 +174,14 @@ serve(async (req) => {
       .single();
 
     if (insertError) {
-      console.error("Insert error:", insertError);
+      logStep("Insert error", { error: insertError.message });
       return new Response(
         JSON.stringify({ error: "Failed to save report" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    logStep("Report saved successfully", { reportId: savedReport.id });
 
     return new Response(
       JSON.stringify({ success: true, reportId: savedReport.id }),
