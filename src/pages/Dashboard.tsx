@@ -156,8 +156,11 @@ const Dashboard = () => {
               <Link to="/dashboard" className="text-foreground font-medium">
                 Dashboard
               </Link>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                Blog
+              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                Salaries
+              </Link>
+              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+                Benchmarks
               </Link>
             </div>
           </div>
@@ -355,21 +358,21 @@ const Dashboard = () => {
       {/* Footer */}
       <footer className="py-8 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-6 text-sm text-muted-foreground mb-4">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground mb-4">
             <Link to="/" className="hover:text-foreground transition-colors">
               Calculator
+            </Link>
+            <Link to="/salaries" className="hover:text-foreground transition-colors">
+              Salaries
+            </Link>
+            <Link to="/benchmarks" className="hover:text-foreground transition-colors">
+              Benchmarks
             </Link>
             <Link to="/blog" className="hover:text-foreground transition-colors">
               Blog
             </Link>
-            <Link to="/about" className="hover:text-foreground transition-colors">
-              About
-            </Link>
             <Link to="/privacy" className="hover:text-foreground transition-colors">
               Privacy
-            </Link>
-            <Link to="/terms" className="hover:text-foreground transition-colors">
-              Terms
             </Link>
           </div>
           <p className="text-xs text-muted-foreground">

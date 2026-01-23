@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, ArrowRight, LayoutDashboard } from "lucide-react";
+import { Clock, ArrowRight } from "lucide-react";
 import { blogPosts, categories, getBlogPostsByCategory } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { useAuth } from "@/contexts/AuthContext";
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const posts = getBlogPostsByCategory(activeCategory);
-  const { user } = useAuth();
 
   const categoryLabels: Record<string, string> = {
     negotiation: "Negotiation Tips",
@@ -32,16 +30,14 @@ const Blog = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
-              {user && (
-                <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Dashboard
-                </Link>
-              )}
+              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                Salaries
+              </Link>
+              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+                Benchmarks
+              </Link>
               <Link to="/blog" className="text-foreground font-medium">
                 Blog
-              </Link>
-              <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                About
               </Link>
             </div>
           </div>
@@ -137,21 +133,21 @@ const Blog = () => {
       {/* Footer */}
       <footer className="py-8 border-t border-border">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-6 text-sm text-muted-foreground mb-4">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground mb-4">
             <Link to="/" className="hover:text-foreground transition-colors">
               Calculator
             </Link>
-            <Link to="/blog" className="hover:text-foreground transition-colors">
-              Blog
+            <Link to="/salaries" className="hover:text-foreground transition-colors">
+              Salaries
+            </Link>
+            <Link to="/benchmarks" className="hover:text-foreground transition-colors">
+              Benchmarks
             </Link>
             <Link to="/about" className="hover:text-foreground transition-colors">
               About
             </Link>
             <Link to="/privacy" className="hover:text-foreground transition-colors">
               Privacy
-            </Link>
-            <Link to="/terms" className="hover:text-foreground transition-colors">
-              Terms
             </Link>
           </div>
           <p className="text-xs text-muted-foreground">

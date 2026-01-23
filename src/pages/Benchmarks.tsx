@@ -47,6 +47,12 @@ const Benchmarks = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                Salaries
+              </Link>
+              <Link to="/benchmarks" className="text-foreground font-medium">
+                Benchmarks
+              </Link>
               <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
                 Blog
               </Link>
@@ -260,14 +266,14 @@ const Benchmarks = () => {
             <Link to="/" className="hover:text-foreground transition-colors">
               Salary Check
             </Link>
+            <Link to="/salaries" className="hover:text-foreground transition-colors">
+              Salaries
+            </Link>
             <Link to="/exploitation-check" className="hover:text-foreground transition-colors">
-              Exploitation Check
+              Hours Check
             </Link>
             <Link to="/red-flags" className="hover:text-foreground transition-colors">
               Red Flags
-            </Link>
-            <Link to="/cost-of-staying" className="hover:text-foreground transition-colors">
-              Cost of Staying
             </Link>
             <Link to="/blog" className="hover:text-foreground transition-colors">
               Blog
