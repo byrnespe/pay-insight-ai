@@ -9,7 +9,8 @@ import {
   Briefcase, 
   Calendar,
   ChevronRight,
-  AlertCircle
+  Crown,
+  Sparkles
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/backend/client";
@@ -46,14 +47,16 @@ interface SavedReport {
 
 interface SavedReportsHistoryProps {
   onLoadReport?: (formData: SalaryFormData, analysis: SalaryAnalysis) => void;
+  onUpgrade?: () => void;
 }
 
-export function SavedReportsHistory({ onLoadReport }: SavedReportsHistoryProps) {
+export function SavedReportsHistory({ onLoadReport, onUpgrade }: SavedReportsHistoryProps) {
   const [reports, setReports] = useState<SavedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
+  const [accessReason, setAccessReason] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const { session, canAccessFeature } = useAuth();
+  const { session } = useAuth();
   const { toast } = useToast();
 
   const fetchReports = async () => {
@@ -78,12 +81,15 @@ export function SavedReportsHistory({ onLoadReport }: SavedReportsHistoryProps) 
       
       if (data.error) {
         console.error("Error fetching reports:", data.error);
+        setAccessReason(data.reason || "error");
       } else {
         setReports(data.reports || []);
         setHasAccess(data.hasAccess);
+        setAccessReason(data.reason || null);
       }
     } catch (error) {
       console.error("Failed to fetch reports:", error);
+      setAccessReason("error");
     } finally {
       setIsLoading(false);
     }
@@ -165,8 +171,29 @@ export function SavedReportsHistory({ onLoadReport }: SavedReportsHistoryProps) 
     );
   }
 
+  // Show upgrade prompt if user doesn't have Pro access
   if (!hasAccess) {
-    return null; // Parent component will show upgrade prompt
+    return (
+      <Card className="p-6">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="p-3 rounded-full bg-primary/10">
+            <Crown className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <p className="font-medium text-foreground">Saved Reports History</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Save and access your past analyses with a Pro subscription.
+            </p>
+          </div>
+          {onUpgrade && (
+            <Button onClick={onUpgrade} className="gap-2">
+              <Sparkles className="w-4 h-4" />
+              Upgrade to Pro
+            </Button>
+          )}
+        </div>
+      </Card>
+    );
   }
 
   if (reports.length === 0) {

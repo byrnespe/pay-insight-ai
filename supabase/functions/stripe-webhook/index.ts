@@ -79,6 +79,7 @@ serve(async (req) => {
       logStep("Processing checkout session", { 
         sessionId: session.id, 
         customerEmail: session.customer_email || session.customer_details?.email,
+        customerId: session.customer,
         paymentStatus: session.payment_status,
         mode: session.mode,
       });
@@ -92,6 +93,7 @@ serve(async (req) => {
       }
 
       const customerEmail = session.customer_email || session.customer_details?.email;
+      const stripeCustomerId = session.customer as string;
       
       if (!customerEmail) {
         logStep("No customer email found, skipping account creation");
@@ -110,8 +112,48 @@ serve(async (req) => {
       const existingUser = existingUsers?.users?.find(u => u.email === customerEmail);
 
       if (existingUser) {
-        logStep("User already exists", { userId: existingUser.id, email: customerEmail });
-        return new Response(JSON.stringify({ received: true, userExists: true }), {
+        logStep("User already exists, updating with Stripe customer ID", { 
+          userId: existingUser.id, 
+          email: customerEmail,
+          stripeCustomerId 
+        });
+        
+        // Update the existing user's metadata with stripe_customer_id
+        const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(
+          existingUser.id,
+          {
+            user_metadata: {
+              ...existingUser.user_metadata,
+              stripe_customer_id: stripeCustomerId,
+              purchase_type: session.mode === "subscription" ? "subscription" : "one_time",
+              last_purchase_at: new Date().toISOString(),
+            },
+          }
+        );
+
+        if (updateError) {
+          logStep("Error updating user metadata", { error: updateError.message });
+        } else {
+          logStep("User metadata updated successfully");
+        }
+
+        // Also update the profiles table with stripe_customer_id
+        const { error: profileError } = await supabaseAdmin
+          .from("profiles")
+          .update({ stripe_customer_id: stripeCustomerId })
+          .eq("user_id", existingUser.id);
+
+        if (profileError) {
+          logStep("Error updating profile with stripe_customer_id", { error: profileError.message });
+        } else {
+          logStep("Profile updated with stripe_customer_id");
+        }
+
+        return new Response(JSON.stringify({ 
+          received: true, 
+          userExists: true,
+          stripeCustomerLinked: true 
+        }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
@@ -124,7 +166,7 @@ serve(async (req) => {
         password: tempPassword,
         email_confirm: true, // Auto-confirm since they paid
         user_metadata: {
-          stripe_customer_id: session.customer,
+          stripe_customer_id: stripeCustomerId,
           purchase_type: session.mode === "subscription" ? "subscription" : "one_time",
           created_via: "stripe_checkout",
         },
@@ -139,6 +181,23 @@ serve(async (req) => {
       }
 
       logStep("User created successfully", { userId: newUser.user?.id, email: customerEmail });
+
+      // Update the profiles table with stripe_customer_id (profile is auto-created by trigger)
+      if (newUser.user?.id) {
+        // Small delay to ensure the trigger has created the profile
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const { error: profileError } = await supabaseAdmin
+          .from("profiles")
+          .update({ stripe_customer_id: stripeCustomerId })
+          .eq("user_id", newUser.user.id);
+
+        if (profileError) {
+          logStep("Error updating new profile with stripe_customer_id", { error: profileError.message });
+        } else {
+          logStep("New profile updated with stripe_customer_id");
+        }
+      }
 
       // Send password reset email so user can set their own password
       const { error: resetError } = await supabaseAdmin.auth.admin.generateLink({

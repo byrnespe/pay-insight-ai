@@ -19,8 +19,8 @@ import {
   BarChart3,
   History,
   Shield,
-  X,
-  Save
+  Save,
+  Crown
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +58,12 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  // Store form data for premium page access
+  useEffect(() => {
+    sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
+    sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
+  }, [formData, analysis]);
 
   // Show upsell popup after 10 seconds for non-Pro, non-report users
   useEffect(() => {
@@ -102,10 +108,6 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   };
 
   const handleUpgrade = async (plan: "one_time" | "pro_monthly" | "pro_annual") => {
-    // Store data in sessionStorage for the premium page
-    sessionStorage.setItem("underpaid_formData", JSON.stringify(formData));
-    sessionStorage.setItem("underpaid_analysis", JSON.stringify(analysis));
-
     // Go directly to checkout - no auth required
     // User will enter email in Stripe Checkout if not logged in
     setIsCheckoutLoading(true);
@@ -192,6 +194,9 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
       setIsSaving(false);
     }
   };
+
+  // Determine if user is a paying customer (Pro or one-time purchase)
+  const isPayingCustomer = isPro || hasReport;
 
   return (
     <div className="space-y-8">
@@ -385,253 +390,297 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         </Card>
       </div>
 
-      {/* Premium Tier Comparison */}
-      <div className="space-y-6 pt-4">
-        {/* Dynamic Headline */}
-        <div className="text-center space-y-2">
-          <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-            {analysis.verdict === 'underpaid' 
-              ? `Get the tools to close that $${salaryGap.toLocaleString()} gap`
-              : analysis.verdict === 'overpaid'
-              ? `Protect your position and maximize your leverage`
-              : `Prepare for your next move`
-            }
-          </h2>
-          <p className="text-muted-foreground">
-            This report gives clarity. <span className="font-medium text-foreground">Pro gives leverage when things change.</span>
-          </p>
-        </div>
-
-        {/* Three-Tier Pricing */}
-        <div className="grid gap-6 sm:gap-4 lg:grid-cols-3">
-          {/* One-Time Tier */}
-          <Card 
-            className={`p-5 relative cursor-pointer transition-all ${
-              selectedPlan === "one_time" 
-                ? "border-2 border-primary ring-2 ring-primary/20" 
-                : "border hover:border-primary/50"
-            }`}
-            onClick={() => setSelectedPlan("one_time")}
-          >
-            {/* Best For Most Badge */}
-            <div className="absolute -top-3 left-4">
-              <span className="bg-primary text-primary-foreground text-xs font-semibold px-2.5 py-1 rounded-full">
-                Best for most
-              </span>
-            </div>
-
-            <div className="pt-2">
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-2xl font-bold text-foreground">$9</span>
-                <span className="text-sm text-muted-foreground">one-time</span>
+      {/* For paying customers: Show "Go to Premium Insights" CTA instead of pricing */}
+      {isPayingCustomer ? (
+        <div className="space-y-4 pt-4">
+          <Card className="p-6 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <div className="text-center space-y-4">
+              <div className="flex items-center justify-center gap-2">
+                {isPro ? (
+                  <Crown className="w-6 h-6 text-primary" />
+                ) : (
+                  <FileText className="w-6 h-6 text-primary" />
+                )}
+                <h2 className="text-xl font-bold text-foreground">
+                  {isPro ? "Your Pro Tools Are Ready" : "Your Full Report Is Ready"}
+                </h2>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">"I just want clarity"</p>
-
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                  <span className="text-foreground">Full compensation analysis</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                  <span className="text-foreground">Verdict and shareable summary</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                  <span className="text-foreground">Basic negotiation script</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                  <span className="text-foreground">Action paths overview</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                  <span className="text-foreground">PDF export (one snapshot)</span>
-                </li>
-              </ul>
-
+              <p className="text-muted-foreground max-w-md mx-auto">
+                {isPro 
+                  ? "Access negotiation scripts, manager-specific tactics, offer comparison, and more."
+                  : "View your complete analysis with negotiation scripts and talking points."
+                }
+              </p>
               <Button 
-                className="w-full mt-5" 
-                variant={selectedPlan === "one_time" ? "default" : "outline"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleUpgrade("one_time");
-                }}
-                disabled={isCheckoutLoading}
+                size="lg" 
+                onClick={() => navigate("/premium")}
+                className="gap-2"
               >
-                {isCheckoutLoading && selectedPlan === "one_time" ? (
+                {isPro ? (
                   <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Loading...
+                    <Crown className="w-4 h-4" />
+                    Go to Premium Insights
                   </>
                 ) : (
                   <>
-                    Get Clarity — $9
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    <FileText className="w-4 h-4" />
+                    View Full Report
                   </>
                 )}
-              </Button>
-            </div>
-          </Card>
-
-          {/* Pro Monthly Tier */}
-          <Card 
-            className={`p-5 relative cursor-pointer transition-all ${
-              selectedPlan === "pro_monthly" 
-                ? "border-2 border-primary ring-2 ring-primary/20" 
-                : "border hover:border-primary/50"
-            }`}
-            onClick={() => setSelectedPlan("pro_monthly")}
-          >
-            {/* Pro Badge */}
-            <div className="absolute -top-3 left-4">
-              <span className="bg-gradient-to-r from-success to-success/80 text-success-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
-                <Sparkles className="w-3 h-3" />
-                Pro
-              </span>
-            </div>
-
-            <div className="pt-2">
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-2xl font-bold text-foreground">$5</span>
-                <span className="text-sm text-muted-foreground">/month</span>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">"I want ongoing leverage"</p>
-
-              <p className="text-xs font-medium text-muted-foreground mb-2">Everything in One-Time, plus:</p>
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2 text-sm">
-                  <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Manager-specific scripts</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">"What if they say no?" generator</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Unlimited pay checks</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Offer comparison tool</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Career tracking & saved history</span>
-                </li>
-              </ul>
-
-              <Button 
-                className="w-full mt-5" 
-                variant={selectedPlan === "pro_monthly" ? "default" : "outline"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleUpgrade("pro_monthly");
-                }}
-                disabled={isCheckoutLoading}
-              >
-                {isCheckoutLoading && selectedPlan === "pro_monthly" ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Loading...
-                  </>
-                ) : (
-                  <>
-                    Go Pro — $5/mo
-                    <Sparkles className="w-4 h-4 ml-2" />
-                  </>
-                )}
-              </Button>
-            </div>
-          </Card>
-
-          {/* Pro Annual Tier */}
-          <Card 
-            className={`p-5 relative cursor-pointer transition-all ${
-              selectedPlan === "pro_annual" 
-                ? "border-2 border-primary ring-2 ring-primary/20" 
-                : "border hover:border-primary/50"
-            }`}
-            onClick={() => setSelectedPlan("pro_annual")}
-          >
-            {/* Best Value Badge */}
-            <div className="absolute -top-3 left-4">
-              <span className="bg-gradient-to-r from-warning to-warning/80 text-warning-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
-                Best Value
-              </span>
-            </div>
-
-            <div className="pt-2">
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-2xl font-bold text-foreground">$49</span>
-                <span className="text-sm text-muted-foreground">/year</span>
-              </div>
-              <p className="text-sm text-success font-medium mb-4">Save $11 vs monthly</p>
-
-              <p className="text-xs font-medium text-muted-foreground mb-2">Everything in Pro Monthly:</p>
-              <ul className="space-y-2.5">
-                <li className="flex items-start gap-2 text-sm">
-                  <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Manager-specific scripts</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">"What if they say no?" generator</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Unlimited pay checks</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Offer comparison tool</span>
-                </li>
-                <li className="flex items-start gap-2 text-sm">
-                  <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">Career tracking & saved history</span>
-                </li>
-              </ul>
-
-              <Button 
-                className="w-full mt-5" 
-                variant={selectedPlan === "pro_annual" ? "default" : "outline"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleUpgrade("pro_annual");
-                }}
-                disabled={isCheckoutLoading}
-              >
-                {isCheckoutLoading && selectedPlan === "pro_annual" ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Loading...
-                  </>
-                ) : (
-                  <>
-                    Go Pro — $49/yr
-                    <Sparkles className="w-4 h-4 ml-2" />
-                  </>
-                )}
+                <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
           </Card>
         </div>
+      ) : (
+        /* Premium Tier Comparison - Only for non-paying users */
+        <div className="space-y-6 pt-4">
+          {/* Dynamic Headline */}
+          <div className="text-center space-y-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground">
+              {analysis.verdict === 'underpaid' 
+                ? `Get the tools to close that $${salaryGap.toLocaleString()} gap`
+                : analysis.verdict === 'overpaid'
+                ? `Protect your position and maximize your leverage`
+                : `Prepare for your next move`
+              }
+            </h2>
+            <p className="text-muted-foreground">
+              This report gives clarity. <span className="font-medium text-foreground">Pro gives leverage when things change.</span>
+            </p>
+          </div>
 
-        {/* Trust Indicators */}
-        <div className="text-center space-y-2 py-2">
-          <p className="text-sm text-muted-foreground">
-            <Shield className="w-3.5 h-3.5 inline mr-1" />
-            30-day money-back guarantee
-          </p>
-          <p className="text-xs text-muted-foreground">
-            No account required • Cancel Pro anytime — your $9 report stays forever
-          </p>
+          {/* Three-Tier Pricing */}
+          <div className="grid gap-6 sm:gap-4 lg:grid-cols-3">
+            {/* One-Time Tier */}
+            <Card 
+              className={`p-5 relative cursor-pointer transition-all ${
+                selectedPlan === "one_time" 
+                  ? "border-2 border-primary ring-2 ring-primary/20" 
+                  : "border hover:border-primary/50"
+              }`}
+              onClick={() => setSelectedPlan("one_time")}
+            >
+              {/* Best For Most Badge */}
+              <div className="absolute -top-3 left-4">
+                <span className="bg-primary text-primary-foreground text-xs font-semibold px-2.5 py-1 rounded-full">
+                  Best for most
+                </span>
+              </div>
+
+              <div className="pt-2">
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-2xl font-bold text-foreground">$9</span>
+                  <span className="text-sm text-muted-foreground">one-time</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">"I just want clarity"</p>
+
+                <ul className="space-y-2.5">
+                  <li className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                    <span className="text-foreground">Full compensation analysis</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                    <span className="text-foreground">Verdict and shareable summary</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                    <span className="text-foreground">Basic negotiation script</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                    <span className="text-foreground">Action paths overview</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-success mt-0.5 shrink-0" />
+                    <span className="text-foreground">PDF export (one snapshot)</span>
+                  </li>
+                </ul>
+
+                <Button 
+                  className="w-full mt-5" 
+                  variant={selectedPlan === "one_time" ? "default" : "outline"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpgrade("one_time");
+                  }}
+                  disabled={isCheckoutLoading}
+                >
+                  {isCheckoutLoading && selectedPlan === "one_time" ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      Get Clarity — $9
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </Card>
+
+            {/* Pro Monthly Tier */}
+            <Card 
+              className={`p-5 relative cursor-pointer transition-all ${
+                selectedPlan === "pro_monthly" 
+                  ? "border-2 border-primary ring-2 ring-primary/20" 
+                  : "border hover:border-primary/50"
+              }`}
+              onClick={() => setSelectedPlan("pro_monthly")}
+            >
+              {/* Pro Badge */}
+              <div className="absolute -top-3 left-4">
+                <span className="bg-gradient-to-r from-success to-success/80 text-success-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" />
+                  Pro
+                </span>
+              </div>
+
+              <div className="pt-2">
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-2xl font-bold text-foreground">$5</span>
+                  <span className="text-sm text-muted-foreground">/month</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">"I want ongoing leverage"</p>
+
+                <p className="text-xs font-medium text-muted-foreground mb-2">Everything in One-Time, plus:</p>
+                <ul className="space-y-2.5">
+                  <li className="flex items-start gap-2 text-sm">
+                    <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Manager-specific scripts</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">"What if they say no?" generator</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Unlimited pay checks</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Offer comparison tool</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Career tracking & saved history</span>
+                  </li>
+                </ul>
+
+                <Button 
+                  className="w-full mt-5" 
+                  variant={selectedPlan === "pro_monthly" ? "default" : "outline"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpgrade("pro_monthly");
+                  }}
+                  disabled={isCheckoutLoading}
+                >
+                  {isCheckoutLoading && selectedPlan === "pro_monthly" ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      Go Pro — $5/mo
+                      <Sparkles className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </Card>
+
+            {/* Pro Annual Tier */}
+            <Card 
+              className={`p-5 relative cursor-pointer transition-all ${
+                selectedPlan === "pro_annual" 
+                  ? "border-2 border-primary ring-2 ring-primary/20" 
+                  : "border hover:border-primary/50"
+              }`}
+              onClick={() => setSelectedPlan("pro_annual")}
+            >
+              {/* Best Value Badge */}
+              <div className="absolute -top-3 left-4">
+                <span className="bg-gradient-to-r from-warning to-warning/80 text-warning-foreground text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1">
+                  Best Value
+                </span>
+              </div>
+
+              <div className="pt-2">
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-2xl font-bold text-foreground">$49</span>
+                  <span className="text-sm text-muted-foreground">/year</span>
+                </div>
+                <p className="text-sm text-success font-medium mb-4">Save $11 vs monthly</p>
+
+                <p className="text-xs font-medium text-muted-foreground mb-2">Everything in Pro Monthly:</p>
+                <ul className="space-y-2.5">
+                  <li className="flex items-start gap-2 text-sm">
+                    <MessageSquare className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Manager-specific scripts</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">"What if they say no?" generator</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <RefreshCw className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Unlimited pay checks</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <BarChart3 className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Offer comparison tool</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <History className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span className="text-foreground">Career tracking & saved history</span>
+                  </li>
+                </ul>
+
+                <Button 
+                  className="w-full mt-5" 
+                  variant={selectedPlan === "pro_annual" ? "default" : "outline"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpgrade("pro_annual");
+                  }}
+                  disabled={isCheckoutLoading}
+                >
+                  {isCheckoutLoading && selectedPlan === "pro_annual" ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      Go Pro — $49/yr
+                      <Sparkles className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="text-center space-y-2 py-2">
+            <p className="text-sm text-muted-foreground">
+              <Shield className="w-3.5 h-3.5 inline mr-1" />
+              30-day money-back guarantee
+            </p>
+            <p className="text-xs text-muted-foreground">
+              No account required • Cancel Pro anytime — your $9 report stays forever
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Upsell Popup for PDF Export */}
-      <Dialog open={showUpsellPopup} onOpenChange={setShowUpsellPopup}>
+      {/* Upsell Popup for PDF Export - Only for non-paying users */}
+      <Dialog open={showUpsellPopup && !isPayingCustomer} onOpenChange={setShowUpsellPopup}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-foreground">Save this analysis for later</DialogTitle>
