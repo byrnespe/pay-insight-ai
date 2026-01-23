@@ -10,6 +10,7 @@ import InstallPrompt from "@/components/InstallPrompt";
 import SplashScreen from "@/components/SplashScreen";
 import Index from "./pages/Index";
 import Premium from "./pages/Premium";
+import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import Install from "./pages/Install";
 import Privacy from "./pages/Privacy";
@@ -18,7 +19,6 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -55,6 +55,7 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Index />} />
     <Route path="/premium" element={<Premium />} />
+    <Route path="/dashboard" element={<Dashboard />} />
     <Route path="/auth" element={<Auth />} />
     <Route path="/install" element={<Install />} />
     <Route path="/privacy" element={<Privacy />} />

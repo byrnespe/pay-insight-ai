@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, ArrowRight, LayoutDashboard } from "lucide-react";
 import { blogPosts, categories, getBlogPostsByCategory } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const posts = getBlogPostsByCategory(activeCategory);
+  const { user } = useAuth();
 
   const categoryLabels: Record<string, string> = {
     negotiation: "Negotiation Tips",
@@ -30,6 +32,11 @@ const Blog = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              {user && (
+                <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Dashboard
+                </Link>
+              )}
               <Link to="/blog" className="text-foreground font-medium">
                 Blog
               </Link>
