@@ -90,8 +90,11 @@ const RedFlags = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                Blog
+              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                Salaries
+              </Link>
+              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+                Benchmarks
               </Link>
             </div>
           </div>
@@ -242,12 +245,15 @@ const RedFlags = () => {
       {/* Footer */}
       <footer className="py-8 border-t border-border mt-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-6 text-sm text-muted-foreground mb-4">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground mb-4">
             <Link to="/" className="hover:text-foreground transition-colors">
               Salary Check
             </Link>
-            <Link to="/exploitation-check" className="hover:text-foreground transition-colors">
-              Exploitation Check
+            <Link to="/salaries" className="hover:text-foreground transition-colors">
+              Salaries
+            </Link>
+            <Link to="/benchmarks" className="hover:text-foreground transition-colors">
+              Benchmarks
             </Link>
             <Link to="/cost-of-staying" className="hover:text-foreground transition-colors">
               Cost of Staying

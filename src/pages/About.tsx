@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -8,13 +7,23 @@ const About = () => {
       {/* Header */}
       <header className="border-b border-border">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to home
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-2">
+              <img src="/favicon.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
+              <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
+            </Link>
+            <div className="flex items-center gap-4 text-sm">
+              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                Home
+              </Link>
+              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                Salaries
+              </Link>
+              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+                Benchmarks
+              </Link>
+            </div>
+          </div>
           <ThemeToggle />
         </div>
       </header>

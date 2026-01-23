@@ -123,9 +123,17 @@ const Index = () => {
             <img src="/favicon.png" alt="Underpaid" className="h-8 w-8 rounded-lg" />
             <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
           </Link>
-          <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:inline">
-            Blog
-          </Link>
+          <div className="hidden sm:flex items-center gap-4 text-sm">
+            <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+              Salaries
+            </Link>
+            <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+              Benchmarks
+            </Link>
+            <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+              Blog
+            </Link>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
@@ -274,7 +282,13 @@ const Index = () => {
               <p className="text-sm text-muted-foreground">
                 Your data is analyzed securely and never stored.
               </p>
-              <div className="flex justify-center gap-4 text-sm">
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Salaries
+                </Link>
+                <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Benchmarks
+                </Link>
                 <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                   About
                 </Link>
@@ -282,10 +296,10 @@ const Index = () => {
                   Blog
                 </Link>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
+                  Privacy
                 </Link>
                 <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Terms of Service
+                  Terms
                 </Link>
               </div>
             </footer>
