@@ -22,7 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { User, Crown, LogOut, Settings, FileText } from "lucide-react";
+import { User, Crown, LogOut, Settings, FileText, LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const faqItems = [
@@ -159,6 +159,15 @@ const Index = () => {
                     </p>
                   </div>
                 </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                
+                {/* Dashboard link for all logged-in users */}
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="cursor-pointer">
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 
                 {/* Pro members get Premium Insights + Manage Membership */}
