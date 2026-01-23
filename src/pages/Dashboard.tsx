@@ -8,7 +8,9 @@ import {
   Loader2,
   Calendar,
   CreditCard,
-  Sparkles
+  Sparkles,
+  TrendingUp,
+  Gift
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -18,6 +20,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
 import { SavedPdfReports } from "@/components/SavedPdfReports";
 import { AccountSettings } from "@/components/AccountSettings";
+import { ReferralSection } from "@/components/ReferralSection";
 import { BACKEND_URL } from "@/integrations/backend/config";
 import { supabase } from "@/integrations/backend/client";
 
@@ -329,6 +332,16 @@ const Dashboard = () => {
             </Card>
           )}
         </section>
+
+        {/* Referral Section - Pro only */}
+        {isPro && (
+          <section className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-foreground">Referrals</h2>
+            </div>
+            <ReferralSection />
+          </section>
+        )}
 
         {/* Account Settings */}
         <section className="mb-8">
