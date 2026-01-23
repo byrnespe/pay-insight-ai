@@ -19,6 +19,14 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import ExploitationCheck from "./pages/ExploitationCheck";
+import RedFlags from "./pages/RedFlags";
+import CostOfStaying from "./pages/CostOfStaying";
+import Benchmarks from "./pages/Benchmarks";
+import Templates from "./pages/Templates";
+import Salaries from "./pages/Salaries";
+import Timeline from "./pages/Timeline";
+
 const queryClient = new QueryClient();
 
 const App = () => {
@@ -63,6 +71,13 @@ const AppRoutes = () => (
     <Route path="/about" element={<About />} />
     <Route path="/blog" element={<Blog />} />
     <Route path="/blog/:slug" element={<BlogPost />} />
+    <Route path="/exploitation-check" element={<ExploitationCheck />} />
+    <Route path="/red-flags" element={<RedFlags />} />
+    <Route path="/cost-of-staying" element={<CostOfStaying />} />
+    <Route path="/benchmarks" element={<Benchmarks />} />
+    <Route path="/templates" element={<Templates />} />
+    <Route path="/salaries" element={<Salaries />} />
+    <Route path="/timeline" element={<Timeline />} />
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
   </Routes>
