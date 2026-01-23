@@ -232,7 +232,7 @@ const Index = () => {
         </div>
         
         {/* Second row: Nav Links */}
-        <div className="flex items-center gap-4 text-sm mt-3">
+        <div className="flex items-center justify-center gap-4 text-sm mt-3">
           <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
             Salaries
           </Link>
