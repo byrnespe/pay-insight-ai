@@ -26,6 +26,9 @@ import Benchmarks from "./pages/Benchmarks";
 import Templates from "./pages/Templates";
 import Salaries from "./pages/Salaries";
 import Timeline from "./pages/Timeline";
+import Launch from "./pages/Launch";
+import { useUTMTracking } from "@/hooks/useUTMTracking";
+import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 
 const queryClient = new QueryClient();
 
@@ -59,9 +62,14 @@ const App = () => {
   );
 };
 
-const AppRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Index />} />
+const AppRoutes = () => {
+  useUTMTracking();
+  
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/launch" element={<Launch />} />
     <Route path="/premium" element={<Premium />} />
     <Route path="/dashboard" element={<Dashboard />} />
     <Route path="/auth" element={<Auth />} />
@@ -78,9 +86,12 @@ const AppRoutes = () => (
     <Route path="/templates" element={<Templates />} />
     <Route path="/salaries" element={<Salaries />} />
     <Route path="/timeline" element={<Timeline />} />
-    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-);
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <ExitIntentPopup />
+    </>
+  );
+};
 
 export default App;
