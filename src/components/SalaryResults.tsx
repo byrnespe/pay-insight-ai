@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
 import { DataSourcesBadge } from "./DataSourcesBadge";
+import { CareerOneStopAttribution } from "./CareerOneStopAttribution";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
 import {
@@ -356,6 +357,11 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         verdict={analysis.verdict} 
         differencePercent={analysis.differencePercent} 
       />
+
+      {/* CareerOneStop Attribution - Required per API terms */}
+      {analysis.dataSources?.government && (
+        <CareerOneStopAttribution />
+      )}
 
       {/* Action Paths */}
       <div className="space-y-4">
