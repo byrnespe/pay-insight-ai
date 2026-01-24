@@ -98,8 +98,18 @@ export function DataSourcesBadge({ dataSources, confidence, citations }: DataSou
                 <ul className="space-y-1">
                   {dataSources.government && (
                     <li className="flex items-center gap-2">
-                      <Building2 className="h-3 w-3 text-blue-500" />
-                      Bureau of Labor Statistics (Government)
+                      <img 
+                        src="https://www.careeronestop.org/TridionMultimedia/tcm24-10203_COSLogo.png"
+                        alt="CareerOneStop" 
+                        className="h-3 w-auto"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const fallback = e.currentTarget.nextElementSibling;
+                          if (fallback) (fallback as HTMLElement).style.display = 'block';
+                        }}
+                      />
+                      <Building2 className="h-3 w-3 text-blue-500 hidden" />
+                      Bureau of Labor Statistics via CareerOneStop
                     </li>
                   )}
                   {dataSources.webSearch && (
