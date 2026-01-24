@@ -1,4 +1,6 @@
 import { getUTMData, getTrafficSource } from "./useUTMTracking";
+import { BACKEND_URL } from "@/integrations/backend/config";
+import { supabase } from "@/integrations/supabase/client";
 
 type EventName = 
   | "analysis_started"
@@ -16,11 +18,21 @@ interface EventProperties {
   [key: string]: string | number | boolean | undefined;
 }
 
-// Simple analytics tracking that logs events
-// Can be extended to send to analytics service
+// Generate or retrieve session ID
+function getSessionId(): string {
+  let sessionId = sessionStorage.getItem("underpaid_session_id");
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    sessionStorage.setItem("underpaid_session_id", sessionId);
+  }
+  return sessionId;
+}
+
+// Simple analytics tracking that logs events and sends to backend
 export function trackEvent(event: EventName, properties?: EventProperties) {
   const utm = getUTMData();
   const source = getTrafficSource();
+  const sessionId = getSessionId();
   
   const eventData = {
     event,
@@ -28,6 +40,7 @@ export function trackEvent(event: EventName, properties?: EventProperties) {
     source,
     utm,
     page: window.location.pathname,
+    session_id: sessionId,
     ...properties,
   };
 
@@ -46,8 +59,46 @@ export function trackEvent(event: EventName, properties?: EventProperties) {
   }
   localStorage.setItem("underpaid_events", JSON.stringify(events));
 
-  // Future: Send to analytics backend
-  // await fetch('/api/analytics', { method: 'POST', body: JSON.stringify(eventData) });
+  // Send to backend (fire and forget)
+  sendEventToBackend(event, sessionId, source, utm, properties);
+}
+
+async function sendEventToBackend(
+  event: EventName,
+  sessionId: string,
+  source: string,
+  utm: ReturnType<typeof getUTMData>,
+  properties?: EventProperties
+) {
+  try {
+    // Get auth token if available
+    const { data: { session } } = await supabase.auth.getSession();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (session?.access_token) {
+      headers['Authorization'] = `Bearer ${session.access_token}`;
+    }
+
+    await fetch(`${BACKEND_URL}/functions/v1/track-event`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        event,
+        session_id: sessionId,
+        page: window.location.pathname,
+        source,
+        utm,
+        properties,
+      }),
+    });
+  } catch (error) {
+    // Silent fail - analytics shouldn't break UX
+    if (import.meta.env.DEV) {
+      console.warn('[Analytics] Failed to send event to backend:', error);
+    }
+  }
 }
 
 export function getStoredEvents() {
