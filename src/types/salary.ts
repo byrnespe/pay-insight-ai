@@ -25,4 +25,12 @@ export interface SalaryAnalysis {
     optimize: string;
     exit: string;
   };
+  dataSources?: {
+    government: boolean;
+    webSearch: boolean;
+    crowdsourced: number;
+    benchmark: boolean;
+  };
+  confidence?: 'high' | 'medium' | 'low';
+  citations?: string[];
 }
