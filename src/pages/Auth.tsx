@@ -177,7 +177,7 @@ const Auth = () => {
         {/* Branding Header */}
         <div className="flex flex-col items-center mb-8">
           <img
-            src="/favicon.png"
+            src="/icons/icon-180.png"
             alt="Underpaid logo"
             className="w-12 h-12 rounded-lg mb-3"
           />
