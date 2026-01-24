@@ -10,6 +10,7 @@ import { TimelineChart } from "@/components/TimelineChart";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/backend/client";
+import { useSEO } from "@/hooks/useSEO";
 
 interface TimelineEntry {
   id: string;
@@ -24,6 +25,12 @@ interface TimelineEntry {
 }
 
 const Timeline = () => {
+  useSEO({
+    title: "Salary Timeline | Track Your Compensation Over Time",
+    description: "Track your salary milestones and visualize compensation growth over time. Compare against inflation. Pro feature.",
+    canonical: "/timeline",
+    noIndex: true, // Pro-only feature, don't index
+  });
   const navigate = useNavigate();
   const { user, loading, isPro } = useAuth();
   const { toast } = useToast();

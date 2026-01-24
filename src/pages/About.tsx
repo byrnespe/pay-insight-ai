@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useSEO } from "@/hooks/useSEO";
 
 const About = () => {
+  useSEO({
+    title: "About Underpaid | Our Mission & Values",
+    description: "Underpaid provides honest, data-driven salary analysis to help workers understand their compensation. No HR jargon, just clarity and leverage.",
+    canonical: "/about",
+  });
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

@@ -5,8 +5,14 @@ import { blogPosts, categories, getBlogPostsByCategory } from "@/data/blogPosts"
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useSEO } from "@/hooks/useSEO";
 
 const Blog = () => {
+  useSEO({
+    title: "Salary & Negotiation Blog | Tips, Guides & Career Advice",
+    description: "Practical guidance for understanding your compensation, negotiating effectively, and making informed career decisions. Expert salary tips and industry insights.",
+    canonical: "/blog",
+  });
   const [activeCategory, setActiveCategory] = useState("all");
   const posts = getBlogPostsByCategory(activeCategory);
 

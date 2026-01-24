@@ -13,11 +13,20 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useSEO } from "@/hooks/useSEO";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPost(slug) : undefined;
   const relatedPosts = slug ? getRelatedPosts(slug, 3) : [];
+
+  // Dynamic SEO based on the blog post
+  useSEO({
+    title: post?.title || "Blog",
+    description: post?.metaDescription || post?.excerpt || "Salary and negotiation insights from Underpaid.",
+    canonical: `/blog/${slug}`,
+    ogType: "article",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

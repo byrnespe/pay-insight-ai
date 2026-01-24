@@ -12,8 +12,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { industryBenchmarks, roleLevels, locations } from "@/data/industryBenchmarks";
+import { useSEO } from "@/hooks/useSEO";
 
 const Benchmarks = () => {
+  useSEO({
+    title: "Industry Salary Benchmarks | Compare Pay by Role & Location",
+    description: "Explore salary benchmarks across 14 industries and 13 global locations. Find median pay ranges by experience level to understand your market value.",
+    canonical: "/benchmarks",
+  });
   const [selectedIndustry, setSelectedIndustry] = useState<string>("technology");
   const [selectedLevel, setSelectedLevel] = useState<string>("mid");
   const [selectedLocation, setSelectedLocation] = useState<string>("sf");
