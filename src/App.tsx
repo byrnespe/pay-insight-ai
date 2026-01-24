@@ -27,6 +27,7 @@ import Templates from "./pages/Templates";
 import Salaries from "./pages/Salaries";
 import Timeline from "./pages/Timeline";
 import Launch from "./pages/Launch";
+import Admin from "./pages/Admin";
 import { useUTMTracking } from "@/hooks/useUTMTracking";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 
@@ -86,6 +87,7 @@ const AppRoutes = () => {
     <Route path="/templates" element={<Templates />} />
     <Route path="/salaries" element={<Salaries />} />
     <Route path="/timeline" element={<Timeline />} />
+    <Route path="/admin" element={<Admin />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
