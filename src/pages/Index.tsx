@@ -120,7 +120,7 @@ const Index = () => {
         {/* Top row: Logo and Sign in */}
         <div className="flex justify-between items-center gap-3">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/favicon.png" alt="Underpaid" className="h-8 w-8 rounded-lg" />
+            <img src="/icons/icon-180.png" alt="Underpaid" className="h-8 w-8 rounded-lg" />
             <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
           </Link>
 

@@ -99,7 +99,7 @@ const Install = () => {
         {/* App Preview */}
         <div className="text-center mb-8">
           <img 
-            src="/favicon.png" 
+            src="/icons/icon-180.png" 
             alt="Underpaid" 
             className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-lg"
           />

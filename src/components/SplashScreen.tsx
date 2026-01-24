@@ -26,7 +26,7 @@ const SplashScreen = ({ onComplete, minDisplayTime = 1500 }: SplashScreenProps) 
       <div className="flex flex-col items-center gap-4">
         {/* Logo */}
         <img 
-          src="/favicon.png" 
+          src="/icons/icon-180.png" 
           alt="Underpaid" 
           className="h-20 w-20 rounded-2xl shadow-lg"
         />

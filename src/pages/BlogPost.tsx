@@ -64,7 +64,7 @@ const BlogPost = () => {
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2">
-              <img src="/favicon.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
+              <img src="/icons/icon-180.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
               <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
             </Link>
             <div className="flex items-center gap-4 text-sm">
