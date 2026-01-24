@@ -26,6 +26,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
+import { DataSourcesBadge } from "./DataSourcesBadge";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
 import {
@@ -241,7 +242,14 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
 
       {/* Verdict */}
       <div className={`p-6 rounded-lg ${verdictBgColors[analysis.verdict]}`}>
-        <p className="text-sm font-medium text-muted-foreground mb-2">The Verdict</p>
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-2">
+          <p className="text-sm font-medium text-muted-foreground">The Verdict</p>
+          <DataSourcesBadge 
+            dataSources={analysis.dataSources}
+            confidence={analysis.confidence}
+            citations={analysis.citations}
+          />
+        </div>
         <h1 className={`text-2xl sm:text-3xl font-bold ${verdictColors[analysis.verdict]}`}>
           {analysis.verdict === 'underpaid' && (
             <>You are likely underpaid by ${Math.abs(analysis.difference).toLocaleString()}</>
