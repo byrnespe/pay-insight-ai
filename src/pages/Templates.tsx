@@ -23,6 +23,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
+import { useSEO } from "@/hooks/useSEO";
 
 interface TemplateCategory {
   id: string;
@@ -112,6 +113,13 @@ const TEMPLATE_CATEGORIES: TemplateCategory[] = [
 ];
 
 const Templates = () => {
+  useSEO({
+    title: "Email Templates | AI-Powered Negotiation Scripts",
+    description: "Generate professional email templates for salary negotiations, raise requests, offer counter-proposals, and more. Pro feature.",
+    canonical: "/templates",
+    noIndex: true, // Pro-only feature, don't index
+  });
+
   const navigate = useNavigate();
   const { user, session, loading, isPro } = useAuth();
   const { toast } = useToast();

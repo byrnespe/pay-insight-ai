@@ -12,8 +12,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { redFlagCategories, getScoreInterpretation } from "@/data/redFlags";
+import { useSEO } from "@/hooks/useSEO";
 
 const RedFlags = () => {
+  useSEO({
+    title: "Company Red Flags Checklist | Workplace Warning Signs",
+    description: "Identify warning signs in your workplace with our interactive red flags checklist. Evaluate compensation, workload, management, and culture concerns.",
+    canonical: "/red-flags",
+  });
   const [selectedFlags, setSelectedFlags] = useState<Set<string>>(new Set());
   const [showResults, setShowResults] = useState(false);
 

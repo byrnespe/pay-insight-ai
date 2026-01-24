@@ -8,8 +8,14 @@ import { SalaryBrowser } from "@/components/SalaryBrowser";
 import { SalarySubmissionForm } from "@/components/SalarySubmissionForm";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/backend/client";
+import { useSEO } from "@/hooks/useSEO";
 
 const Salaries = () => {
+  useSEO({
+    title: "Anonymous Salary Database | Real Salaries Shared by Professionals",
+    description: "Browse anonymous salary data shared by real professionals. Contribute your salary to unlock full access to community compensation insights.",
+    canonical: "/salaries",
+  });
   const { user } = useAuth();
   const [hasFullAccess, setHasFullAccess] = useState(false);
   const [isCheckingAccess, setIsCheckingAccess] = useState(true);

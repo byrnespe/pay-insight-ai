@@ -23,8 +23,15 @@ import { AccountSettings } from "@/components/AccountSettings";
 import { ReferralSection } from "@/components/ReferralSection";
 import { BACKEND_URL } from "@/integrations/backend/config";
 import { supabase } from "@/integrations/backend/client";
+import { useSEO } from "@/hooks/useSEO";
 
 const Dashboard = () => {
+  useSEO({
+    title: "Dashboard | Manage Your Reports & Account",
+    description: "Access your saved salary analyses, exported PDF reports, and account settings.",
+    canonical: "/dashboard",
+    noIndex: true, // User-specific page, don't index
+  });
   const navigate = useNavigate();
   const { user, session, loading, entitlements, hasReport, isPro } = useAuth();
   const [displayName, setDisplayName] = useState<string | null>(null);

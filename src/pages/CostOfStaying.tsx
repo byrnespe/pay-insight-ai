@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSEO } from "@/hooks/useSEO";
 
 interface YearProjection {
   year: number;
@@ -24,6 +25,11 @@ interface YearProjection {
 }
 
 const CostOfStaying = () => {
+  useSEO({
+    title: "Cost of Staying Calculator | See Your Lost Earnings Over Time",
+    description: "Calculate how much staying in an underpaid role costs over 1-10 years. Visualize cumulative earnings loss and the true cost of waiting to negotiate.",
+    canonical: "/cost-of-staying",
+  });
   const [currentSalary, setCurrentSalary] = useState<number>(75000);
   const [marketRate, setMarketRate] = useState<number>(95000);
   const [annualRaise, setAnnualRaise] = useState<number>(3);
