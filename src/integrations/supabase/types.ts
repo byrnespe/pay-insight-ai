@@ -19,7 +19,6 @@ export type Database = {
           base_salary: number
           bonus: number | null
           company_size: string | null
-          contributor_id: string | null
           equity_value: number | null
           id: string
           industry: string
@@ -33,7 +32,6 @@ export type Database = {
           base_salary: number
           bonus?: number | null
           company_size?: string | null
-          contributor_id?: string | null
           equity_value?: number | null
           id?: string
           industry: string
@@ -47,7 +45,6 @@ export type Database = {
           base_salary?: number
           bonus?: number | null
           company_size?: string | null
-          contributor_id?: string | null
           equity_value?: number | null
           id?: string
           industry?: string
