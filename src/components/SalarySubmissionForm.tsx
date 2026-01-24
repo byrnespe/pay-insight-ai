@@ -70,11 +70,10 @@ export function SalarySubmissionForm({ onSuccess }: SalarySubmissionFormProps) {
     setIsSubmitting(true);
 
     try {
-      // Insert anonymous salary
+      // Insert anonymous salary (no contributor_id to ensure true anonymity)
       const { data: salaryData, error: salaryError } = await supabase
         .from("anonymous_salaries")
         .insert({
-          contributor_id: user.id,
           job_title: formData.job_title,
           industry: formData.industry,
           location: formData.location,
