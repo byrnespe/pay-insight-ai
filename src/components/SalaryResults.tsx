@@ -30,6 +30,7 @@ import { DataSourcesBadge } from "./DataSourcesBadge";
 import { CareerOneStopAttribution } from "./CareerOneStopAttribution";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
+import { trackEvent } from "@/hooks/useAnalytics";
 import {
   Dialog,
   DialogContent,
@@ -56,10 +57,15 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
   const { toast } = useToast();
   const totalComp = formData.currentSalary + formData.bonus;
 
-  // Scroll to top when results are displayed
+  // Track analysis completed and scroll to top
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    trackEvent("analysis_completed", {
+      verdict: analysis.verdict,
+      difference_percent: analysis.differencePercent,
+      leverage: analysis.negotiationLeverage,
+    });
+  }, [analysis]);
 
   // Store form data for premium page access
   useEffect(() => {

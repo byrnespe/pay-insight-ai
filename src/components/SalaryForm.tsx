@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { SalaryFormData } from "@/types/salary";
+import { trackEvent } from "@/hooks/useAnalytics";
 
 interface SalaryFormProps {
   onSubmit: (data: SalaryFormData) => void;
@@ -25,6 +26,11 @@ export function SalaryForm({ onSubmit, isLoading }: SalaryFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent("analysis_started", {
+      job_title: formData.jobTitle,
+      industry: formData.industry,
+      location: formData.location,
+    });
     onSubmit(formData);
   };
 
