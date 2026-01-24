@@ -81,13 +81,16 @@ const Premium = () => {
       setAnalysis(parsedAnalysis);
 
       try {
+        // Get fresh session for authentication
+        const { data: { session: currentSession } } = await import("@/integrations/backend/client").then(m => m.supabase.auth.getSession());
+        
         const response = await fetch(
           `${BACKEND_URL}/functions/v1/generate-premium-insights`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${BACKEND_PUBLISHABLE_KEY}`,
+              Authorization: `Bearer ${currentSession?.access_token}`,
             },
             body: JSON.stringify({ formData: parsedFormData, analysis: parsedAnalysis }),
           }
