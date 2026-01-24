@@ -1,6 +1,6 @@
 import { getUTMData, getTrafficSource } from "./useUTMTracking";
-import { BACKEND_URL } from "@/integrations/backend/config";
-import { supabase } from "@/integrations/supabase/client";
+import { BACKEND_URL, BACKEND_PUBLISHABLE_KEY } from "@/integrations/backend/config";
+import { createClient } from "@supabase/supabase-js";
 
 type EventName = 
   | "analysis_started"
@@ -71,7 +71,9 @@ async function sendEventToBackend(
   properties?: EventProperties
 ) {
   try {
-    // Get auth token if available
+    // Create a minimal supabase client just for auth check
+    // This avoids importing the main client which may fail if env vars don't load
+    const supabase = createClient(BACKEND_URL, BACKEND_PUBLISHABLE_KEY);
     const { data: { session } } = await supabase.auth.getSession();
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
