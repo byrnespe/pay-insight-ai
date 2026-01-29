@@ -303,6 +303,9 @@ const Index = () => {
                 <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
                   Terms
                 </Link>
+                <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Admin
+                </Link>
               </div>
             </footer>
           </> : <div className="max-w-xl mx-auto">
