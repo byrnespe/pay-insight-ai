@@ -19,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
@@ -234,9 +235,7 @@ const Templates = () => {
               <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
                 Dashboard
               </Link>
-              <Link to="/templates" className="text-foreground font-medium">
-                Templates
-              </Link>
+              <CareerToolsMenu />
             </div>
           </div>
           <ThemeToggle />

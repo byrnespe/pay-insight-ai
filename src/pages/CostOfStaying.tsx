@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import {
   Select,
   SelectContent,
@@ -101,6 +102,7 @@ const CostOfStaying = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
                 Salaries
               </Link>
