@@ -5,6 +5,7 @@ import { blogPosts, categories, getBlogPostsByCategory } from "@/data/blogPosts"
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { useSEO } from "@/hooks/useSEO";
 
 const Blog = () => {
@@ -36,6 +37,7 @@ const Blog = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
                 Salaries
               </Link>
