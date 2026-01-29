@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
 import { SavedPdfReports } from "@/components/SavedPdfReports";
 import { AccountSettings } from "@/components/AccountSettings";
@@ -163,6 +164,7 @@ const Dashboard = () => {
               <Link to="/dashboard" className="text-foreground font-medium">
                 Dashboard
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
                 Salaries
               </Link>

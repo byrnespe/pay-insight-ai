@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/accordion";
 import { User, Crown, LogOut, Settings, FileText, LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 
 const faqItems = [
   {
@@ -235,6 +236,7 @@ const Index = () => {
         
         {/* Second row: Nav Links */}
         <div className="flex items-center justify-center gap-4 text-sm mt-3">
+          <CareerToolsMenu />
           <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
             Salaries
           </Link>

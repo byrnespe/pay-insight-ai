@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { TimelineEntryForm } from "@/components/TimelineEntryForm";
 import { TimelineChart } from "@/components/TimelineChart";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/backend/client";
@@ -163,9 +164,7 @@ const Timeline = () => {
               <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
                 Dashboard
               </Link>
-              <Link to="/timeline" className="text-foreground font-medium">
-                Timeline
-              </Link>
+              <CareerToolsMenu />
             </div>
           </div>
           <ThemeToggle />
