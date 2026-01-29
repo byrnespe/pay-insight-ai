@@ -4,6 +4,7 @@ import { Users, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { SalaryBrowser } from "@/components/SalaryBrowser";
 import { SalarySubmissionForm } from "@/components/SalarySubmissionForm";
 import { useAuth } from "@/contexts/AuthContext";
@@ -74,6 +75,7 @@ const Salaries = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-foreground font-medium">
                 Salaries
               </Link>

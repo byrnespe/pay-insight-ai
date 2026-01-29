@@ -4,6 +4,7 @@ import { BarChart3, ArrowRight, Building2, MapPin, Briefcase } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import {
   Select,
   SelectContent,
@@ -53,6 +54,7 @@ const Benchmarks = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
                 Salaries
               </Link>
