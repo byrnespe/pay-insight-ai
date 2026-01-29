@@ -29,6 +29,7 @@ import Timeline from "./pages/Timeline";
 import Launch from "./pages/Launch";
 import Admin from "./pages/Admin";
 import AdminUsers from "./pages/AdminUsers";
+import HealthCheck from "./pages/HealthCheck";
 import { useUTMTracking } from "@/hooks/useUTMTracking";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 
@@ -90,6 +91,7 @@ const AppRoutes = () => {
     <Route path="/timeline" element={<Timeline />} />
     <Route path="/admin" element={<Admin />} />
     <Route path="/admin/users" element={<AdminUsers />} />
+    <Route path="/health" element={<HealthCheck />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
