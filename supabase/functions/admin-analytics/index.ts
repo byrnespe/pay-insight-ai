@@ -1,10 +1,42 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import Stripe from "https://esm.sh/stripe@14.21.0?target=deno";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Types for Stripe data
+interface StripeSubscription {
+  items: {
+    data: Array<{
+      price: {
+        unit_amount: number | null;
+        recurring: { interval: string } | null;
+      };
+      quantity: number | null;
+    }>;
+  };
+}
+
+interface StripePaymentIntent {
+  status: string;
+  amount: number;
+  invoice: string | null;
+}
+
+interface StripeCharge {
+  id: string;
+  status: string;
+  amount: number;
+  currency: string;
+  billing_details: { email: string | null } | null;
+  customer: string | null;
+  invoice: string | null;
+  description: string | null;
+  created: number;
+}
 
 serve(async (req) => {
   // Handle CORS preflight
@@ -167,6 +199,130 @@ serve(async (req) => {
       ? (((recentProfiles - previousProfiles) / previousProfiles) * 100).toFixed(1)
       : '100';
 
+    // Fetch Stripe revenue data
+    let revenueData = null;
+    const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+    
+    if (stripeKey) {
+      try {
+        const stripe = new Stripe(stripeKey, { apiVersion: '2023-10-16' });
+        
+        // Get active subscriptions for MRR calculation
+        const subscriptions = await stripe.subscriptions.list({
+          status: 'active',
+          limit: 100,
+        });
+
+        let mrr = 0;
+        (subscriptions.data as StripeSubscription[]).forEach((sub: StripeSubscription) => {
+          sub.items.data.forEach((item) => {
+            const price = item.price;
+            if (price.recurring) {
+              let monthlyAmount = price.unit_amount || 0;
+              if (price.recurring.interval === 'year') {
+                monthlyAmount = monthlyAmount / 12;
+              } else if (price.recurring.interval === 'week') {
+                monthlyAmount = monthlyAmount * 4;
+              }
+              monthlyAmount *= item.quantity || 1;
+              mrr += monthlyAmount;
+            }
+          });
+        });
+
+        // Get all successful payments for total revenue
+        const payments = await stripe.paymentIntents.list({
+          limit: 100,
+        });
+
+        let totalRevenue = 0;
+        let oneTimeRevenue = 0;
+        let subscriptionRevenue = 0;
+
+        const successfulPayments = (payments.data as StripePaymentIntent[]).filter((p: StripePaymentIntent) => p.status === 'succeeded');
+        
+        for (const payment of successfulPayments) {
+          totalRevenue += payment.amount;
+          
+          // Check if this was from a subscription or one-time
+          if (payment.invoice) {
+            subscriptionRevenue += payment.amount;
+          } else {
+            oneTimeRevenue += payment.amount;
+          }
+        }
+
+        // Get recent transactions with customer and product info
+        const recentCharges = await stripe.charges.list({
+          limit: 10,
+        });
+
+        const recentTransactions = await Promise.all(
+          (recentCharges.data as StripeCharge[])
+            .filter((c: StripeCharge) => c.status === 'succeeded')
+            .map(async (charge: StripeCharge) => {
+              let customerEmail = charge.billing_details?.email || null;
+              let productName = null;
+
+              // Try to get customer email if not in billing details
+              if (!customerEmail && charge.customer) {
+                try {
+                  const customer = await stripe.customers.retrieve(charge.customer as string);
+                  if (customer && !customer.deleted) {
+                    customerEmail = customer.email;
+                  }
+                } catch (e) {
+                  console.log('Could not fetch customer:', e);
+                }
+              }
+
+              // Try to get product name from invoice
+              if (charge.invoice) {
+                try {
+                  const invoice = await stripe.invoices.retrieve(charge.invoice as string);
+                  if (invoice.lines?.data?.[0]?.description) {
+                    productName = invoice.lines.data[0].description;
+                  }
+                } catch (e) {
+                  console.log('Could not fetch invoice:', e);
+                }
+              }
+
+              // Fallback product name from metadata or description
+              if (!productName) {
+                productName = charge.description || 'Payment';
+              }
+
+              return {
+                id: charge.id,
+                amount: charge.amount,
+                currency: charge.currency,
+                status: charge.status,
+                customer_email: customerEmail,
+                product_name: productName,
+                created_at: new Date(charge.created * 1000).toISOString(),
+              };
+            })
+        );
+
+        revenueData = {
+          mrr,
+          totalRevenue,
+          oneTimeRevenue,
+          subscriptionRevenue,
+          activeSubscriptions: subscriptions.data.length,
+          recentTransactions,
+        };
+
+        console.log('Stripe revenue data fetched successfully');
+      } catch (stripeError) {
+        console.error('Error fetching Stripe data:', stripeError);
+        // Continue without revenue data
+      }
+    } else {
+      console.log('STRIPE_SECRET_KEY not configured');
+    }
+
     const response = {
       summary: {
         totalUsers: profiles.length,
@@ -179,6 +335,7 @@ serve(async (req) => {
       trafficSources,
       dailyMetrics,
       eventCounts,
+      revenue: revenueData,
     };
 
     return new Response(
