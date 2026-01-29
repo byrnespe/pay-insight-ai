@@ -1,16 +1,35 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { MetricsCards } from "@/components/admin/MetricsCards";
 import { TrafficSourcesTable } from "@/components/admin/TrafficSourcesTable";
 import { ConversionFunnel } from "@/components/admin/ConversionFunnel";
 import { DailyActivityChart } from "@/components/admin/DailyActivityChart";
 import { EventCounts } from "@/components/admin/EventCounts";
+import { RevenueMetrics } from "@/components/admin/RevenueMetrics";
 import { useAuth } from "@/contexts/AuthContext";
 import { Loader2, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
+
+interface Transaction {
+  id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  customer_email: string | null;
+  product_name: string | null;
+  created_at: string;
+}
+
+interface RevenueData {
+  mrr: number;
+  totalRevenue: number;
+  oneTimeRevenue: number;
+  subscriptionRevenue: number;
+  activeSubscriptions: number;
+  recentTransactions: Transaction[];
+}
 
 interface AnalyticsData {
   summary: {
@@ -39,6 +58,7 @@ interface AnalyticsData {
     events: number;
   }>;
   eventCounts: Record<string, number>;
+  revenue: RevenueData | null;
 }
 
 export default function Admin() {
@@ -118,6 +138,8 @@ export default function Admin() {
             </div>
 
             <DailyActivityChart data={data.dailyMetrics} />
+
+            <RevenueMetrics revenue={data.revenue} />
 
             <EventCounts counts={data.eventCounts} />
           </>
