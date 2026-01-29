@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CareerToolsMenu } from "@/components/CareerToolsMenu";
 import { useSEO } from "@/hooks/useSEO";
 
 const About = () => {
@@ -23,6 +24,7 @@ const About = () => {
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Home
               </Link>
+              <CareerToolsMenu />
               <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
                 Salaries
               </Link>
