@@ -282,7 +282,7 @@ const Index = () => {
             {/* Footer */}
             <footer className="mt-16 text-center space-y-3">
               <p className="text-sm text-muted-foreground">
-                Your data is analyzed securely and never stored.
+                Your data is analyzed securely.
               </p>
               <div className="flex flex-wrap justify-center gap-4 text-sm">
                 <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
