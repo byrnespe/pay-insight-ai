@@ -1,14 +1,21 @@
 import { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation, Link } from "react-router-dom";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-import { Loader2, ShieldX } from "lucide-react";
+import { Loader2, ShieldX, BarChart3, Users } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
+const navItems = [
+  { path: "/admin", label: "Analytics", icon: BarChart3 },
+  { path: "/admin/users", label: "Users", icon: Users },
+];
+
 export function AdminLayout({ children }: AdminLayoutProps) {
   const { isAdmin, isLoading, error } = useAdminAuth();
+  const location = useLocation();
 
   if (isLoading) {
     return (
@@ -42,14 +49,33 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">U</span>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">U</span>
+                </div>
+                <div>
+                  <h1 className="font-semibold">Underpaid Admin</h1>
+                  <p className="text-xs text-muted-foreground">Dashboard</p>
+                </div>
               </div>
-              <div>
-                <h1 className="font-semibold">Underpaid Admin</h1>
-                <p className="text-xs text-muted-foreground">Analytics Dashboard</p>
-              </div>
+              <nav className="hidden md:flex items-center gap-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                      location.pathname === item.path
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
             <a 
               href="/" 
