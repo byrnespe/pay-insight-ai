@@ -6,6 +6,7 @@ import { SalaryFormData, SalaryAnalysis } from "@/types/salary";
 import { analyzeSalary } from "@/lib/salaryAnalysis";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { supabase } from "@/integrations/backend/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -55,6 +56,7 @@ const Index = () => {
   const [isManagingMembership, setIsManagingMembership] = useState(false);
   const { toast } = useToast();
   const { user, signOut, loading, isPro, hasReport } = useAuth();
+  const { isAdmin } = useAdminAuth();
 
   const handleSubmit = async (data: SalaryFormData) => {
     setIsLoading(true);
@@ -303,9 +305,11 @@ const Index = () => {
                 <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
                   Terms
                 </Link>
-                <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Admin
-                </Link>
+                {isAdmin && (
+                  <Link to="/admin" className="text-muted-foreground hover:text-foreground transition-colors">
+                    Admin
+                  </Link>
+                )}
               </div>
             </footer>
           </> : <div className="max-w-xl mx-auto">
