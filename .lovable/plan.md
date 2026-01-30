@@ -1,155 +1,138 @@
 
-# Plan: Add Mobile Navigation with Tools Menu
+# Plan: Add 10 New Blog Posts
 
 ## Overview
-Create a responsive mobile navigation system using a hamburger menu that slides out a Sheet component. This will properly display all navigation items including the Tools menu with its Pro/Free categorization on mobile devices.
+Add 10 new blog posts to `src/data/blogPosts.ts` covering a mix of negotiation tips, salary guides, and career advice. Each post will follow the existing format with SEO-optimized titles, meta descriptions, and high-quality content targeting relevant search keywords.
 
-## Problem Statement
-Currently, all pages display navigation links in a horizontal row that doesn't adapt well to mobile screens. The CareerToolsMenu dropdown and other nav links either overflow, shrink uncomfortably, or require horizontal scrolling on small devices.
+## New Blog Posts to Create
 
-## Solution Architecture
+### Negotiation Tips (3 posts)
 
-```text
-Desktop (768px+)           Mobile (<768px)
-+------------------+       +------------------+
-| Logo  NavLinks   |       | Logo    [=] Menu |
-| Tools Salaries.. |       +------------------+
-+------------------+               |
-                                   v (opens Sheet)
-                           +------------------+
-                           | Navigation       |
-                           |   Home           |
-                           |   Tools >        |
-                           |     Free Tools   |
-                           |     Pro Tools    |
-                           |   Salaries       |
-                           |   Benchmarks     |
-                           |   Blog           |
-                           | [Theme Toggle]   |
-                           | [Sign In/User]   |
-                           +------------------+
-```
+| # | Slug | Title | Target Keywords |
+|---|------|-------|-----------------|
+| 1 | `counter-offer-strategies` | How to Handle a Counter Offer (From Your Current Employer) | counter offer, job offer negotiation |
+| 2 | `negotiating-job-offer-benefits` | Beyond Salary: Negotiating Benefits, PTO, and Perks | negotiate benefits, job offer negotiation |
+| 3 | `first-job-salary-negotiation` | Salary Negotiation for Your First Job: A Beginner's Guide | first job salary, entry level negotiation |
 
-## Implementation Steps
+### Salary Guides (4 posts)
 
-### Step 1: Create MobileNav Component
-**File:** `src/components/MobileNav.tsx`
+| # | Slug | Title | Target Keywords |
+|---|------|-------|-----------------|
+| 4 | `product-manager-salary-guide-2025` | Product Manager Salary Guide 2025: What PMs Actually Earn | product manager salary, PM compensation |
+| 5 | `data-scientist-salary-guide-2025` | Data Scientist Salary Guide 2025: Complete Compensation Breakdown | data scientist salary, data science pay |
+| 6 | `marketing-manager-salary-guide-2025` | Marketing Manager Salary Guide 2025: Salary Ranges by Industry | marketing manager salary, marketing compensation |
+| 7 | `startup-vs-big-tech-compensation` | Startup vs Big Tech: Which Actually Pays More? | startup salary, big tech compensation |
 
-A new component that renders:
-- A hamburger menu button (visible only on mobile)
-- A Sheet that slides in from the right containing:
-  - All navigation links as full-width touch targets
-  - A collapsible "Tools" section that expands to show Free and Pro tools
-  - Pro tools with lock/badge indicators for non-Pro users
-  - Theme toggle at the bottom
-  - User menu items (Sign In button or user dropdown items)
+### Career Advice (3 posts)
 
-Key features:
-- Uses the existing `useIsMobile` hook to detect mobile
-- Uses the existing `Sheet` component for the slide-out menu
-- Uses `Collapsible` component for the Tools submenu
-- Automatically closes when navigating to a new page
-- Properly handles Pro tool access (same logic as CareerToolsMenu)
-
-### Step 2: Create a Shared Navigation Component
-**File:** `src/components/Navigation.tsx`
-
-A unified navigation component that:
-- On desktop: Shows the existing horizontal navigation layout
-- On mobile: Shows logo + hamburger button that opens MobileNav
-- Accepts props for customization (e.g., which link is active)
-- Handles user authentication state display
-
-This component will replace the repeated nav code in all pages.
-
-### Step 3: Update All Pages to Use Shared Navigation
-Update each page to import and use the new `Navigation` component instead of their inline nav implementations:
-
-| Page | Current Nav Pattern | Update |
-|------|---------------------|--------|
-| Index.tsx | Custom with user menu | Use Navigation component |
-| Dashboard.tsx | Standard + "Dashboard" active | Use Navigation component |
-| ExploitationCheck.tsx | Standard | Use Navigation component |
-| RedFlags.tsx | Standard | Use Navigation component |
-| CostOfStaying.tsx | Standard | Use Navigation component |
-| Templates.tsx | Standard + "Dashboard" link | Use Navigation component |
-| Timeline.tsx | Standard + "Dashboard" link | Use Navigation component |
-| Salaries.tsx | Standard + "Salaries" active | Use Navigation component |
-| Benchmarks.tsx | Standard + "Benchmarks" active | Use Navigation component |
-| Blog.tsx | Standard + "Blog" active | Use Navigation component |
-| About.tsx | Standard | Use Navigation component |
-| Premium.tsx | Simple back button | Use Navigation component |
+| # | Slug | Title | Target Keywords |
+|---|------|-------|-----------------|
+| 8 | `when-to-leave-your-job` | 7 Signs It's Time to Leave Your Job | when to quit job, leave job signs |
+| 9 | `promotion-vs-new-job` | Should You Wait for a Promotion or Find a New Job? | promotion vs new job, career advancement |
+| 10 | `salary-transparency-conversation` | How to Talk About Salary With Coworkers (Without Making It Weird) | salary transparency, talk about pay |
 
 ---
 
-## Technical Details
+## Post Structure
 
-### MobileNav Component Structure
-```typescript
-// src/components/MobileNav.tsx
-interface MobileNavProps {
-  user: User | null;
-  isPro: boolean;
-  onSignOut: () => void;
-}
-
-// Uses:
-// - Sheet, SheetContent, SheetTrigger from ui/sheet
-// - Collapsible, CollapsibleTrigger, CollapsibleContent from ui/collapsible
-// - useIsMobile hook
-// - Same tool definitions as CareerToolsMenu
-```
-
-### Navigation Component Structure
-```typescript
-// src/components/Navigation.tsx
-interface NavigationProps {
-  activePage?: "home" | "salaries" | "benchmarks" | "blog" | "dashboard" | "tools";
-  showDashboardLink?: boolean; // For authenticated pages
-  variant?: "default" | "simple"; // Simple for pages like Premium
-}
-```
-
-### Mobile-Specific Styling
-- Navigation items: Full-width, `min-h-12` (48px) for touch targets
-- Collapsible tools section with clear indentation
-- Pro badges visible on restricted items
-- Sheet width: 85% of screen, max 320px
+Each post will follow the existing format:
+- **slug**: URL-friendly identifier
+- **title**: SEO-optimized, clear value proposition
+- **excerpt**: 1-2 sentence hook (for listing page)
+- **content**: 800-1200 words in Markdown with H2/H3 headings, bullet points, and actionable advice
+- **category**: "negotiation" | "salary-guides" | "career-advice"
+- **publishedAt**: Dates spread across recent weeks
+- **readTime**: Calculated based on content length (5-10 mins)
+- **metaDescription**: 150-160 character SEO description
 
 ---
 
-## Files to Create/Modify
+## Content Outline for Each Post
 
-| File | Action | Description |
-|------|--------|-------------|
-| `src/components/MobileNav.tsx` | Create | Mobile slide-out navigation |
-| `src/components/Navigation.tsx` | Create | Unified responsive navigation |
-| `src/pages/Index.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Dashboard.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/ExploitationCheck.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/RedFlags.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/CostOfStaying.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Templates.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Timeline.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Salaries.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Benchmarks.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Blog.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/About.tsx` | Modify | Replace inline nav with Navigation |
-| `src/pages/Premium.tsx` | Modify | Replace inline nav with Navigation |
+### 1. Counter Offer Strategies (negotiation, 7 min)
+- Why employers make counter offers
+- The hidden risks of accepting
+- How to evaluate a counter offer objectively
+- Script for declining professionally
+- When it actually makes sense to stay
+
+### 2. Negotiating Job Offer Benefits (negotiation, 6 min)
+- Benefits that are often negotiable
+- How to prioritize (PTO, remote work, signing bonus, etc.)
+- Timing: when to bring up benefits
+- Scripts for asking about each benefit type
+- What to get in writing
+
+### 3. First Job Salary Negotiation (negotiation, 6 min)
+- Why entry-level candidates should still negotiate
+- Research strategies for new grads
+- Overcoming "I have no leverage" mindset
+- Simple script for a first negotiation
+- Common mistakes new grads make
+
+### 4. Product Manager Salary Guide (salary-guides, 9 min)
+- PM compensation by level (APM to VP)
+- Company type impact (FAANG vs startup)
+- Geographic variations
+- Total comp breakdown (base, bonus, equity)
+- PM specialization premiums (Growth, Platform, Technical)
+
+### 5. Data Scientist Salary Guide (salary-guides, 9 min)
+- DS compensation by level
+- Industry variations (tech, finance, healthcare)
+- Skills that command premiums (ML, MLOps, NLP)
+- Research scientist vs applied scientist pay
+- Remote data science salaries
+
+### 6. Marketing Manager Salary Guide (salary-guides, 8 min)
+- Marketing compensation by specialty
+- Industry differences (tech, agency, CPG)
+- Impact of company size
+- CMO track vs IC track
+- In-demand marketing skills
+
+### 7. Startup vs Big Tech Compensation (salary-guides, 8 min)
+- Base salary comparison
+- Equity: RSUs vs options
+- Risk-adjusted compensation calculation
+- Career growth trade-offs
+- How to evaluate startup equity realistically
+
+### 8. When to Leave Your Job (career-advice, 6 min)
+- 7 concrete warning signs
+- Emotional vs logical decision making
+- Financial preparation before quitting
+- How to leave on good terms
+- The cost of staying too long
+
+### 9. Promotion vs New Job (career-advice, 7 min)
+- Internal promotion statistics
+- Salary increase: promotion vs job switch
+- Factors favoring internal path
+- Factors favoring external path
+- How to pursue both simultaneously
+
+### 10. Salary Transparency Conversation (career-advice, 5 min)
+- Why salary transparency helps everyone
+- How to bring it up naturally
+- What to share and what to keep private
+- Handling reluctant colleagues
+- Legal protections for discussing pay
 
 ---
 
-## User Experience Summary
+## Files to Modify
 
-**Desktop Experience (unchanged):**
-- Horizontal nav bar with logo, links, Tools dropdown, and user controls
-- CareerToolsMenu dropdown works as currently designed
+| File | Action |
+|------|--------|
+| `src/data/blogPosts.ts` | Add 10 new BlogPost objects to the blogPosts array |
 
-**Mobile Experience (new):**
-- Clean header with logo and hamburger menu icon
-- Tapping hamburger opens a sheet from the right
-- Full navigation available with large touch targets
-- Tools section expandable to see all free and Pro tools
-- Pro tools clearly marked with badges
-- User can sign in/out and toggle theme from the sheet
-- Sheet closes automatically after navigation
+---
+
+## SEO Benefits
+
+- Targets high-volume keywords for different professions (PM, Data Science, Marketing)
+- Covers the full job search journey (negotiation, evaluation, transition)
+- Adds depth to existing categories
+- Provides internal linking opportunities between related posts
+- Increases total content volume for search indexing
