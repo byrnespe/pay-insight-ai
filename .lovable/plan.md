@@ -1,84 +1,120 @@
 
-# Plan: Add Career Tools Menu with Upgrade CTAs
+# Plan: Add Mobile Navigation with Tools Menu
 
 ## Overview
-Create a "Tools" dropdown menu in the main navigation that groups career calculators and premium tools together. For users who are not logged in or not Pro members, show clear upgrade/sign-up CTAs on Pro-only items.
+Create a responsive mobile navigation system using a hamburger menu that slides out a Sheet component. This will properly display all navigation items including the Tools menu with its Pro/Free categorization on mobile devices.
+
+## Problem Statement
+Currently, all pages display navigation links in a horizontal row that doesn't adapt well to mobile screens. The CareerToolsMenu dropdown and other nav links either overflow, shrink uncomfortably, or require horizontal scrolling on small devices.
+
+## Solution Architecture
+
+```text
+Desktop (768px+)           Mobile (<768px)
++------------------+       +------------------+
+| Logo  NavLinks   |       | Logo    [=] Menu |
+| Tools Salaries.. |       +------------------+
++------------------+               |
+                                   v (opens Sheet)
+                           +------------------+
+                           | Navigation       |
+                           |   Home           |
+                           |   Tools >        |
+                           |     Free Tools   |
+                           |     Pro Tools    |
+                           |   Salaries       |
+                           |   Benchmarks     |
+                           |   Blog           |
+                           | [Theme Toggle]   |
+                           | [Sign In/User]   |
+                           +------------------+
+```
 
 ## Implementation Steps
 
-### 1. Create a Reusable CareerToolsMenu Component
-**File:** `src/components/CareerToolsMenu.tsx`
+### Step 1: Create MobileNav Component
+**File:** `src/components/MobileNav.tsx`
 
-Create a dropdown menu component that:
-- Groups tools into "Free Tools" and "Pro Tools" sections
-- Shows all tools with their respective icons
-- Displays a lock icon and "Upgrade" badge for Pro tools when the user is not a Pro member
-- For non-logged-in users, Pro items link to `/auth?returnTo=/templates` (or respective page)
-- For logged-in non-Pro users, Pro items link to `/?upgrade=pro`
-- Uses the existing `DropdownMenu` component from Radix
+A new component that renders:
+- A hamburger menu button (visible only on mobile)
+- A Sheet that slides in from the right containing:
+  - All navigation links as full-width touch targets
+  - A collapsible "Tools" section that expands to show Free and Pro tools
+  - Pro tools with lock/badge indicators for non-Pro users
+  - Theme toggle at the bottom
+  - User menu items (Sign In button or user dropdown items)
 
-**Menu Structure:**
-```text
-Tools (dropdown trigger)
-├─ Free Tools
-│   ├─ Exploitation Check - "Am I Being Exploited?"
-│   ├─ Red Flags - "Company Warning Signs"
-│   └─ Cost of Staying - "Earnings Loss Calculator"
-└─ Pro Tools
-    ├─ Email Templates - "AI Negotiation Scripts" [Pro badge]
-    └─ Salary Timeline - "Track Compensation" [Pro badge]
-```
+Key features:
+- Uses the existing `useIsMobile` hook to detect mobile
+- Uses the existing `Sheet` component for the slide-out menu
+- Uses `Collapsible` component for the Tools submenu
+- Automatically closes when navigating to a new page
+- Properly handles Pro tool access (same logic as CareerToolsMenu)
 
-### 2. Update Index Page Navigation
-**File:** `src/pages/Index.tsx`
+### Step 2: Create a Shared Navigation Component
+**File:** `src/components/Navigation.tsx`
 
-Replace the static navigation links in the second row with the new dropdown integrated:
-- Keep: Salaries, Benchmarks, Blog
-- Add: Tools dropdown menu between Home and Salaries
+A unified navigation component that:
+- On desktop: Shows the existing horizontal navigation layout
+- On mobile: Shows logo + hamburger button that opens MobileNav
+- Accepts props for customization (e.g., which link is active)
+- Handles user authentication state display
 
-### 3. Update Other Pages with Navigation
-Apply the same navigation pattern to pages that currently have their own nav bars:
-- `src/pages/Dashboard.tsx`
-- `src/pages/ExploitationCheck.tsx`
-- `src/pages/RedFlags.tsx`
-- `src/pages/CostOfStaying.tsx`
-- `src/pages/Templates.tsx`
-- `src/pages/Timeline.tsx`
-- `src/pages/Benchmarks.tsx` (if it has nav)
+This component will replace the repeated nav code in all pages.
+
+### Step 3: Update All Pages to Use Shared Navigation
+Update each page to import and use the new `Navigation` component instead of their inline nav implementations:
+
+| Page | Current Nav Pattern | Update |
+|------|---------------------|--------|
+| Index.tsx | Custom with user menu | Use Navigation component |
+| Dashboard.tsx | Standard + "Dashboard" active | Use Navigation component |
+| ExploitationCheck.tsx | Standard | Use Navigation component |
+| RedFlags.tsx | Standard | Use Navigation component |
+| CostOfStaying.tsx | Standard | Use Navigation component |
+| Templates.tsx | Standard + "Dashboard" link | Use Navigation component |
+| Timeline.tsx | Standard + "Dashboard" link | Use Navigation component |
+| Salaries.tsx | Standard + "Salaries" active | Use Navigation component |
+| Benchmarks.tsx | Standard + "Benchmarks" active | Use Navigation component |
+| Blog.tsx | Standard + "Blog" active | Use Navigation component |
+| About.tsx | Standard | Use Navigation component |
+| Premium.tsx | Simple back button | Use Navigation component |
 
 ---
 
 ## Technical Details
 
-### CareerToolsMenu Component Props/Logic
+### MobileNav Component Structure
 ```typescript
-// Uses useAuth() for:
-// - user: Check if logged in
-// - isPro: Check Pro subscription status
+// src/components/MobileNav.tsx
+interface MobileNavProps {
+  user: User | null;
+  isPro: boolean;
+  onSignOut: () => void;
+}
 
-// Tool definitions with metadata:
-const freeTools = [
-  { name: "Hours Check", description: "Am I being exploited?", path: "/exploitation-check", icon: Calculator },
-  { name: "Red Flags", description: "Company warning signs", path: "/red-flags", icon: Flag },
-  { name: "Cost of Staying", description: "Earnings loss calculator", path: "/cost-of-staying", icon: TrendingDown },
-];
-
-const proTools = [
-  { name: "Email Templates", description: "AI negotiation scripts", path: "/templates", icon: Mail },
-  { name: "Salary Timeline", description: "Track compensation", path: "/timeline", icon: TrendingUp },
-];
-
-// Pro tool link logic:
-// - If isPro: link directly to tool
-// - If user but not Pro: link to /?upgrade=pro
-// - If not logged in: link to /auth?returnTo=[tool-path]
+// Uses:
+// - Sheet, SheetContent, SheetTrigger from ui/sheet
+// - Collapsible, CollapsibleTrigger, CollapsibleContent from ui/collapsible
+// - useIsMobile hook
+// - Same tool definitions as CareerToolsMenu
 ```
 
-### Visual Design
-- Use existing `DropdownMenu` components for consistency
-- Add subtle separator between Free and Pro sections
-- Pro items show a small Crown icon and muted "Pro" label
-- Hover states match existing dropdown styling
+### Navigation Component Structure
+```typescript
+// src/components/Navigation.tsx
+interface NavigationProps {
+  activePage?: "home" | "salaries" | "benchmarks" | "blog" | "dashboard" | "tools";
+  showDashboardLink?: boolean; // For authenticated pages
+  variant?: "default" | "simple"; // Simple for pages like Premium
+}
+```
+
+### Mobile-Specific Styling
+- Navigation items: Full-width, `min-h-12` (48px) for touch targets
+- Collapsible tools section with clear indentation
+- Pro badges visible on restricted items
+- Sheet width: 85% of screen, max 320px
 
 ---
 
@@ -86,26 +122,34 @@ const proTools = [
 
 | File | Action | Description |
 |------|--------|-------------|
-| `src/components/CareerToolsMenu.tsx` | Create | New dropdown menu component |
-| `src/pages/Index.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/Dashboard.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/ExploitationCheck.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/RedFlags.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/CostOfStaying.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/Templates.tsx` | Modify | Add Tools menu to navigation |
-| `src/pages/Timeline.tsx` | Modify | Add Tools menu to navigation |
+| `src/components/MobileNav.tsx` | Create | Mobile slide-out navigation |
+| `src/components/Navigation.tsx` | Create | Unified responsive navigation |
+| `src/pages/Index.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Dashboard.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/ExploitationCheck.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/RedFlags.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/CostOfStaying.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Templates.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Timeline.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Salaries.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Benchmarks.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Blog.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/About.tsx` | Modify | Replace inline nav with Navigation |
+| `src/pages/Premium.tsx` | Modify | Replace inline nav with Navigation |
 
 ---
 
-## User Experience
+## User Experience Summary
 
-**Logged-out user sees:**
-- Free tools link directly to their pages
-- Pro tools show "Pro" badge and lock icon, clicking prompts sign-in first
+**Desktop Experience (unchanged):**
+- Horizontal nav bar with logo, links, Tools dropdown, and user controls
+- CareerToolsMenu dropdown works as currently designed
 
-**Logged-in free user sees:**
-- Free tools link directly
-- Pro tools show "Pro" badge, clicking shows upgrade prompt
-
-**Pro user sees:**
-- All tools link directly with no badges/locks
+**Mobile Experience (new):**
+- Clean header with logo and hamburger menu icon
+- Tapping hamburger opens a sheet from the right
+- Full navigation available with large touch targets
+- Tools section expandable to see all free and Pro tools
+- Pro tools clearly marked with badges
+- User can sign in/out and toggle theme from the sheet
+- Sheet closes automatically after navigation
