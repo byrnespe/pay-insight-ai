@@ -28,6 +28,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { ShareResults } from "./ShareResults";
 import { DataSourcesBadge } from "./DataSourcesBadge";
 import { CareerOneStopAttribution } from "./CareerOneStopAttribution";
+import { EmailCapture } from "./EmailCapture";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
 import { trackEvent } from "@/hooks/useAnalytics";
@@ -363,6 +364,15 @@ export function SalaryResults({ analysis, formData, onReset }: SalaryResultsProp
         verdict={analysis.verdict} 
         differencePercent={analysis.differencePercent} 
       />
+
+      {/* Email Capture - Only for non-paying users */}
+      {!isPayingCustomer && (
+        <EmailCapture 
+          jobTitle={formData.jobTitle}
+          location={formData.location}
+          source="salary_results"
+        />
+      )}
 
       {/* CareerOneStop Attribution - Required per API terms */}
       {analysis.dataSources?.government && (
