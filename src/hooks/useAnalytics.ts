@@ -12,7 +12,8 @@ type EventName =
   | "share_clicked"
   | "exit_intent_shown"
   | "exit_intent_converted"
-  | "page_view";
+  | "page_view"
+  | "newsletter_signup";
 
 interface EventProperties {
   [key: string]: string | number | boolean | undefined;
