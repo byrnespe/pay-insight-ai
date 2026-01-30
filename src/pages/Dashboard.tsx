@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
-  LayoutDashboard, 
   FileText, 
   Crown, 
   ArrowRight, 
@@ -9,15 +8,12 @@ import {
   Calendar,
   CreditCard,
   Sparkles,
-  TrendingUp,
-  Gift
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { CareerToolsMenu } from "@/components/CareerToolsMenu";
+import { Navigation } from "@/components/Navigation";
 import { SavedReportsHistory } from "@/components/SavedReportsHistory";
 import { SavedPdfReports } from "@/components/SavedPdfReports";
 import { AccountSettings } from "@/components/AccountSettings";
@@ -31,7 +27,7 @@ const Dashboard = () => {
     title: "Dashboard | Manage Your Reports & Account",
     description: "Access your saved salary analyses, exported PDF reports, and account settings.",
     canonical: "/dashboard",
-    noIndex: true, // User-specific page, don't index
+    noIndex: true,
   });
   const navigate = useNavigate();
   const { user, session, loading, entitlements, hasReport, isPro } = useAuth();
@@ -39,14 +35,12 @@ const Dashboard = () => {
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isManagingSubscription, setIsManagingSubscription] = useState(false);
 
-  // Redirect if not authenticated
   useEffect(() => {
     if (!loading && !user) {
       navigate("/auth", { state: { returnTo: "/dashboard" } });
     }
   }, [loading, user, navigate]);
 
-  // Fetch display name
   useEffect(() => {
     const fetchProfile = async () => {
       if (!user) return;
@@ -149,33 +143,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2">
-              <img src="/icons/icon-180.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
-              <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
-            </Link>
-            <div className="flex items-center gap-4 text-sm">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <Link to="/dashboard" className="text-foreground font-medium">
-                Dashboard
-              </Link>
-              <CareerToolsMenu />
-              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
-                Salaries
-              </Link>
-              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
-                Benchmarks
-              </Link>
-            </div>
-          </div>
-          <ThemeToggle />
-        </div>
-      </nav>
+      <Navigation activePage="dashboard" />
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">

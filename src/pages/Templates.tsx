@@ -19,8 +19,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { CareerToolsMenu } from "@/components/CareerToolsMenu";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Navigation } from "@/components/Navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { BACKEND_URL } from "@/integrations/backend/config";
@@ -118,7 +117,7 @@ const Templates = () => {
     title: "Email Templates | AI-Powered Negotiation Scripts",
     description: "Generate professional email templates for salary negotiations, raise requests, offer counter-proposals, and more. Pro feature.",
     canonical: "/templates",
-    noIndex: true, // Pro-only feature, don't index
+    noIndex: true,
   });
 
   const navigate = useNavigate();
@@ -221,26 +220,7 @@ const Templates = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2">
-              <img src="/icons/icon-180.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
-              <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
-            </Link>
-            <div className="flex items-center gap-4 text-sm">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
-                Dashboard
-              </Link>
-              <CareerToolsMenu />
-            </div>
-          </div>
-          <ThemeToggle />
-        </div>
-      </nav>
+      <Navigation showDashboardLink />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
