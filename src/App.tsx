@@ -25,6 +25,7 @@ import CostOfStaying from "./pages/CostOfStaying";
 import Benchmarks from "./pages/Benchmarks";
 import Templates from "./pages/Templates";
 import Salaries from "./pages/Salaries";
+import SalaryByRole from "./pages/SalaryByRole";
 import Timeline from "./pages/Timeline";
 import Launch from "./pages/Launch";
 import Admin from "./pages/Admin";
@@ -88,6 +89,7 @@ const AppRoutes = () => {
     <Route path="/benchmarks" element={<Benchmarks />} />
     <Route path="/templates" element={<Templates />} />
     <Route path="/salaries" element={<Salaries />} />
+    <Route path="/salaries/:job/:location" element={<SalaryByRole />} />
     <Route path="/timeline" element={<Timeline />} />
     <Route path="/admin" element={<Admin />} />
     <Route path="/admin/users" element={<AdminUsers />} />
