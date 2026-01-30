@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { CareerToolsMenu } from "@/components/CareerToolsMenu";
+import { Navigation } from "@/components/Navigation";
 import { useSEO } from "@/hooks/useSEO";
 
 const About = () => {
@@ -12,30 +11,7 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2">
-              <img src="/icons/icon-180.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
-              <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
-            </Link>
-            <div className="flex items-center gap-4 text-sm">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <CareerToolsMenu />
-              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
-                Salaries
-              </Link>
-              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
-                Benchmarks
-              </Link>
-            </div>
-          </div>
-          <ThemeToggle />
-        </div>
-      </header>
+      <Navigation activePage="about" />
 
       {/* Content */}
       <main className="max-w-3xl mx-auto px-4 py-12">

@@ -4,8 +4,7 @@ import { Flag, ArrowRight, Check, AlertTriangle, AlertCircle, ShieldAlert } from
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { CareerToolsMenu } from "@/components/CareerToolsMenu";
+import { Navigation } from "@/components/Navigation";
 import { 
   Accordion,
   AccordionContent,
@@ -85,30 +84,7 @@ const RedFlags = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2">
-              <img src="/icons/icon-180.png" alt="Underpaid" className="h-7 w-7 rounded-lg" />
-              <span className="font-semibold text-foreground hidden sm:inline">Underpaid</span>
-            </Link>
-            <div className="flex items-center gap-4 text-sm">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                Home
-              </Link>
-              <CareerToolsMenu />
-              <Link to="/salaries" className="text-muted-foreground hover:text-foreground transition-colors">
-                Salaries
-              </Link>
-              <Link to="/benchmarks" className="text-muted-foreground hover:text-foreground transition-colors">
-                Benchmarks
-              </Link>
-            </div>
-          </div>
-          <ThemeToggle />
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Content */}
       <main className="max-w-2xl mx-auto px-4 py-12">
