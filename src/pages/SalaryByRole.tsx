@@ -21,6 +21,7 @@ import {
   JobTitle,
   LocationData,
 } from "@/data/salaryPages";
+import { EmailCapture } from "@/components/EmailCapture";
 import { industryBenchmarks, locations as benchmarkLocations } from "@/data/industryBenchmarks";
 
 const formatSalary = (amount: number): string => {
@@ -211,6 +212,15 @@ const SalaryByRole = () => {
             <Link to="/">Analyze My Salary</Link>
           </Button>
         </Card>
+
+        {/* Email Capture */}
+        <div className="mb-8">
+          <EmailCapture 
+            jobTitle={jobData.name} 
+            location={locationData.name} 
+            source="salary_page"
+          />
+        </div>
 
         {/* Key Insights */}
         <section className="mb-8">
