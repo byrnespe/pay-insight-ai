@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
   <url>
     <loc>https://www.underpaidapp.com/</loc>
     <changefreq>weekly</changefreq>
@@ -20,6 +21,8 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Tool Pages -->
   <url>
     <loc>https://www.underpaidapp.com/exploitation-check</loc>
     <changefreq>monthly</changefreq>
@@ -36,10 +39,34 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.underpaidapp.com/templates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/timeline</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/dashboard</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/premium</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Blog Main -->
+  <url>
     <loc>https://www.underpaidapp.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Blog Posts - Existing -->
   <url>
     <loc>https://www.underpaidapp.com/blog/how-to-negotiate-salary</loc>
     <changefreq>monthly</changefreq>
@@ -70,26 +97,203 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  
+  <!-- Blog Posts - New -->
   <url>
-    <loc>https://www.underpaidapp.com/templates</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.underpaidapp.com/timeline</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.underpaidapp.com/dashboard</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.underpaidapp.com/premium</loc>
+    <loc>https://www.underpaidapp.com/blog/counter-offer-strategies</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/negotiating-job-offer-benefits</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/first-job-salary-negotiation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/product-manager-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/data-scientist-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/marketing-manager-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/startup-vs-big-tech-compensation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/when-to-leave-your-job</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/promotion-vs-new-job</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/salary-transparency-conversation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Programmatic SEO Pages - Technology Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/london</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/software-engineer/toronto</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-software-engineer/london</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/staff-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/staff-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/staff-engineer/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/staff-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/engineering-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/engineering-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/engineering-manager/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/engineering-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/frontend-developer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/frontend-developer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/frontend-developer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/backend-developer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/backend-developer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/backend-developer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/full-stack-developer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/full-stack-developer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/full-stack-developer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/devops-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/devops-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/devops-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-scientist/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-scientist/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-scientist/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/data-scientist/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-data-scientist/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-data-scientist/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/machine-learning-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/machine-learning-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/machine-learning-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/product-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/product-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/product-manager/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/product-manager/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/product-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-product-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-product-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-product-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/security-engineer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/security-engineer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/security-engineer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cloud-architect/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cloud-architect/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cloud-architect/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/tech-lead/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/tech-lead/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/tech-lead/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/mobile-developer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/mobile-developer/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- Finance Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/financial-analyst/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/financial-analyst/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/financial-analyst/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-financial-analyst/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/investment-banker/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/investment-banker/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/investment-banker/london</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/investment-banking-associate/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/private-equity-associate/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/quantitative-analyst/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/quantitative-analyst/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/accountant/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/accountant/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/controller/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cfo/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cfo/san-francisco</loc><priority>0.6</priority></url>
+  
+  <!-- Marketing Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/marketing-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/marketing-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/marketing-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-marketing-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-marketing-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/digital-marketing-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/digital-marketing-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/digital-marketing-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/content-marketing-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/content-marketing-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/content-marketing-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/seo-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/seo-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/seo-manager/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/growth-marketing-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/growth-marketing-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cmo/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/cmo/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- Sales Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/account-executive/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/account-executive/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/account-executive/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-account-executive/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-account-executive/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/sales-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/sales-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/sales-director/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/sales-director/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- HR Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/hr-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/hr-manager/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/recruiter/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/recruiter/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-recruiter/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-recruiter/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/compensation-analyst/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/compensation-analyst/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- Consulting Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/management-consultant/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/management-consultant/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/management-consultant/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-consultant/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/consulting-manager/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- Healthcare Roles -->
+  <url><loc>https://www.underpaidapp.com/salaries/healthcare-administrator/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/healthcare-administrator/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/clinical-operations-manager/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/medical-director/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/medical-director/new-york</loc><priority>0.6</priority></url>
+  
+  <!-- Static Pages -->
   <url>
     <loc>https://www.underpaidapp.com/about</loc>
     <changefreq>monthly</changefreq>
