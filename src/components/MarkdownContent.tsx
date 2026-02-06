@@ -26,30 +26,54 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
     };
 
     const parseInline = (text: string): React.ReactNode => {
-      // Handle bold and italic
       const parts: React.ReactNode[] = [];
       let remaining = text;
       let key = 0;
 
       while (remaining.length > 0) {
-        // Bold
+        // Find the earliest match among patterns
         const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
-        if (boldMatch && boldMatch.index !== undefined) {
-          if (boldMatch.index > 0) {
-            parts.push(remaining.slice(0, boldMatch.index));
+        const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
+
+        // Determine which comes first
+        const boldIndex = boldMatch?.index ?? Infinity;
+        const linkIndex = linkMatch?.index ?? Infinity;
+
+        if (boldIndex === Infinity && linkIndex === Infinity) {
+          // No more patterns
+          parts.push(remaining);
+          break;
+        }
+
+        if (linkIndex < boldIndex) {
+          // Link comes first
+          if (linkIndex > 0) {
+            parts.push(remaining.slice(0, linkIndex));
+          }
+          const isInternal = linkMatch![2].startsWith("/");
+          parts.push(
+            <a
+              key={key++}
+              href={linkMatch![2]}
+              className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+              {...(!isInternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {linkMatch![1]}
+            </a>
+          );
+          remaining = remaining.slice(linkIndex + linkMatch![0].length);
+        } else {
+          // Bold comes first
+          if (boldIndex > 0) {
+            parts.push(remaining.slice(0, boldIndex));
           }
           parts.push(
             <strong key={key++} className="font-semibold text-foreground">
-              {boldMatch[1]}
+              {boldMatch![1]}
             </strong>
           );
-          remaining = remaining.slice(boldMatch.index + boldMatch[0].length);
-          continue;
+          remaining = remaining.slice(boldIndex + boldMatch![0].length);
         }
-
-        // If no patterns match, add remaining text and break
-        parts.push(remaining);
-        break;
       }
 
       return parts.length === 1 ? parts[0] : <>{parts}</>;

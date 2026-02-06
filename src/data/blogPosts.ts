@@ -87,7 +87,7 @@ Keep it brief. State your case, then stop talking.
 
 ## Step 6: Consider the Full Package
 
-Salary is one component. If there's no flexibility on base pay, explore:
+Salary is one component. If there's no flexibility on base pay, explore other options. Read our guide on [negotiating benefits, PTO, and perks](/blog/negotiating-job-offer-benefits) for detailed strategies on:
 
 - Signing bonus
 - Annual bonus structure
@@ -123,7 +123,7 @@ Remember: the worst outcome is usually "no, but here's what we can do." Most off
 
 Negotiation is a normal part of compensation discussions. Companies expect it. The key is preparation: know your value, have data to support it, and communicate clearly.
 
-If you're unsure whether your current compensation is fair, start by understanding where you stand relative to market rates.
+If you're unsure whether your current compensation is fair, [run a free salary analysis](/) to understand where you stand relative to market rates. You can also explore our [salary data by role and location](/salaries) for additional benchmarks.
     `
   },
   {
@@ -252,7 +252,7 @@ Total compensation often includes:
 
 Software engineering compensation is influenced by many factors. Level and company type typically have the biggest impact, followed by location and specialization.
 
-If you suspect your compensation doesn't match your contribution, start by gathering data. Understand what the market pays for your skills and experience. Then you can have an informed conversation about your worth.
+If you suspect your compensation doesn't match your contribution, start by gathering data. [Check if you're underpaid with our free salary analysis tool](/) or browse [software engineer salaries by location](/salaries/software-engineer/san-francisco). You can also read about the [5 signs you're being underpaid](/blog/signs-you-are-underpaid) to identify whether it's time to negotiate.
     `
   },
   {
@@ -364,9 +364,9 @@ Walking away isn't failure. Sometimes it's the clearest path to the compensation
 
 ## The Bottom Line
 
-A denied raise is a data point, not a verdict. Use it to gather information about your standing and your options.
+A denied raise is a data point, not a verdict. Use it to gather information about your standing and your options. Try our [cost of staying calculator](/cost-of-staying) to see how much a salary gap costs you over time.
 
-Whether you stay and work toward the next conversation or start exploring alternatives, make the decision intentionally. Don't let frustration drive reactive choices, but don't let loyalty keep you in a situation that undervalues your contribution.
+Whether you stay and work toward the next conversation or start exploring alternatives, make the decision intentionally. If you decide to try again, use our [raise request email templates](/blog/how-to-ask-for-raise-email-templates) to make your case effectively. Don't let frustration drive reactive choices, but don't let loyalty keep you in a situation that undervalues your contribution.
     `
   },
   {
@@ -390,7 +390,7 @@ Inflation alone means that flat compensation is effectively a pay cut. If your s
 
 Beyond inflation, your value typically increases with experience. Two years in a role usually means more skill, more institutional knowledge, and more responsibility than when you started.
 
-**What to do:** Calculate what your salary would be with 4% annual increases. Compare that to your current pay. If there's a significant gap, you have a starting point for conversation.
+**What to do:** Calculate what your salary would be with 4% annual increases. Use our [cost of staying calculator](/cost-of-staying) to see how much that gap costs over time. If there's a significant difference, you have a starting point for conversation.
 
 ## Sign 2: New Hires at Your Level Earn More
 
@@ -457,7 +457,7 @@ List your contributions, achievements, and expanded responsibilities. Focus on i
 
 Being underpaid isn't a moral failing or a reflection of your worth. It's usually the result of market dynamics, company policies, and the simple fact that employers don't voluntarily increase costs.
 
-Recognizing the gap is the first step. What you do with that information is up to you.
+Recognizing the gap is the first step. [Run a free salary analysis](/) to see exactly where you stand, or check if unpaid overtime is reducing your effective pay with our [exploitation calculator](/exploitation-check). When you're ready to act, our guide on [how to negotiate your salary](/blog/how-to-negotiate-salary) walks you through the process step by step.
     `
   },
   {
@@ -564,7 +564,7 @@ Then make an informed decision.
 
 Geographic pay policies are company choices, not laws of nature. They can be negotiated.
 
-If you're asked to accept a pay cut for remote work, understand the policy, calculate the real impact, and make a case if the adjustment seems unfair. Your productivity isn't determined by your longitude.
+If you're asked to accept a pay cut for remote work, understand the policy, calculate the real impact, and make a case if the adjustment seems unfair. [Browse salary data by role and location](/salaries) to understand geographic differences, and read our guide on [negotiating benefits beyond salary](/blog/negotiating-job-offer-benefits) to maximize your total package. Your productivity isn't determined by your longitude.
     `
   },
   {
@@ -729,7 +729,7 @@ Thanks,
 
 Email is a tool. Use it to prepare, document, and follow up—but aim for real conversation when possible.
 
-Whatever format you choose, the fundamentals remain: know your value, present evidence, make a clear ask, and be prepared for any response.
+Whatever format you choose, the fundamentals remain: [know your value](/) with data, present evidence, make a clear ask, and be prepared for any response. For a complete negotiation framework, see our [step-by-step salary negotiation guide](/blog/how-to-negotiate-salary). And if the answer is no, here's [what to do when your raise is denied](/blog/raise-denied-what-to-do-next).
     `
   },
   {
@@ -828,9 +828,9 @@ If you genuinely believe the counter offer addresses your core concerns and you 
 
 ## The Bottom Line
 
-A counter offer is information about what your employer thinks you're worth—now that they're forced to show their hand. What you do with that information depends on why you were leaving in the first place.
+A counter offer is information about what your employer thinks you're worth—now that they're forced to show their hand. What you do with that information depends on why you were leaving in the first place. If you're unsure, our [red flags checklist](/red-flags) can help you evaluate whether the issues go deeper than pay.
 
-Money can solve money problems. It rarely solves career problems.
+Money can solve money problems. It rarely solves career problems. Read more about [when it's actually time to leave your job](/blog/when-to-leave-your-job) for a clearer framework.
     `
   },
   {
@@ -949,7 +949,7 @@ Verbal agreements are easily forgotten. If they won't put it in writing, questio
 
 Salary is just one component of compensation. When it's fixed, shift your focus to the elements where companies have more flexibility.
 
-Know your priorities, ask clearly, and get agreements in writing. The difference between a good offer and a great one is often in the details beyond base pay.
+Know your priorities, ask clearly, and get agreements in writing. For the complete negotiation playbook, see our [salary negotiation guide](/blog/how-to-negotiate-salary). And [check your market value](/) before any conversation so you're negotiating from a position of knowledge.
     `
   },
   {
@@ -1066,9 +1066,9 @@ It happens. Here's how to handle it:
 
 Negotiating your first salary feels scary because it's new. But the skills you build now—researching, asking, handling responses—will serve you throughout your career.
 
-You have nothing to lose by asking professionally. And potentially thousands to gain.
+You have nothing to lose by asking professionally. And potentially thousands to gain. Use our [cost of staying calculator](/cost-of-staying) to see how much even a small gap compounds over time.
 
-Start with research. Make a clear ask. See what happens.
+Start with research—[browse salaries by role and location](/salaries) to understand your market. Make a clear ask. See what happens.
     `
   },
   {
@@ -1248,7 +1248,7 @@ Some PM specializations command higher compensation:
 
 PM compensation has a wide range depending on company type, level, and location. The biggest factor is typically company type—a senior PM at a FAANG company can earn 2x what the same role pays at a non-tech company.
 
-If you're unsure where you stand, start gathering data. Understanding the market is the first step to ensuring you're paid fairly.
+If you're unsure where you stand, [run a salary analysis](/) or browse [product manager salaries by location](/salaries/product-manager/san-francisco). When you're ready to negotiate, our [salary negotiation guide](/blog/how-to-negotiate-salary) covers the complete process.
     `
   },
   {
@@ -1451,7 +1451,7 @@ Data science is highly remote-friendly. Compensation policies vary:
 
 Data science compensation is increasingly stratified. Generalists at non-tech companies earn less than before, while specialists in ML engineering, deep learning, and domain experts at top companies earn more.
 
-Know what your skills are worth. Specialize intentionally. And don't assume your company is paying you market rate—verify it.
+Know what your skills are worth. [Check data scientist salaries by location](/salaries/data-scientist/san-francisco) and [run a free salary analysis](/) to see where you stand. Don't assume your company is paying you market rate—[here are the signs you might be underpaid](/blog/signs-you-are-underpaid).
     `
   },
   {
@@ -1662,7 +1662,7 @@ If you want to maximize marketing compensation:
 - Build data and analytics skills
 - Target companies that value marketing strategically
 
-Know what your combination of skills, industry, and location is worth—then negotiate accordingly.
+Know what your combination of skills, industry, and location is worth—[browse marketing manager salaries by city](/salaries/marketing-manager/san-francisco) and [run a salary analysis](/) to benchmark yourself. Then [negotiate accordingly](/blog/how-to-negotiate-salary).
     `
   },
   {
@@ -1828,9 +1828,9 @@ Before accepting startup equity as compensation:
 
 ## The Bottom Line
 
-On an expected-value basis, big tech almost always pays more. The "startup pays off big" stories are survivorship bias—you don't hear about the 90% that didn't work out.
+On an expected-value basis, big tech almost always pays more. The "startup pays off big" stories are survivorship bias—you don't hear about the 90% that didn't work out. For detailed numbers, see our [software engineer salary guide](/blog/software-engineer-salary-guide-2025).
 
-If you choose a startup, do it for the experience, the ownership, and the learning. If the equity pays off, that's a bonus. But don't count on it as compensation.
+If you choose a startup, do it for the experience, the ownership, and the learning. If the equity pays off, that's a bonus. But don't count on it as compensation. Whichever path you choose, [check your market value](/) to make sure you're not leaving money on the table.
     `
   },
   {
@@ -1870,7 +1870,7 @@ If your pay hasn't increased meaningfully in 2-3 years, you're effectively takin
 - New hires at your level earn more
 - Requests for raises are deflected indefinitely
 
-**Why it matters:** Compensation gaps compound. The longer you wait, the further behind you fall—and the more catching up you need when you eventually move.
+**Why it matters:** Compensation gaps compound. Use our [cost of staying calculator](/cost-of-staying) to see the real numbers. The longer you wait, the further behind you fall—and the more catching up you need when you eventually move.
 
 ## Sign 3: The Company's Direction Is Unclear or Concerning
 
@@ -1985,9 +1985,9 @@ Staying too long is an active choice with real consequences.
 
 ## The Bottom Line
 
-If you're seeing multiple signs on this list, that's meaningful data. The question isn't whether to eventually leave—it's whether you're staying intentionally or just by default.
+If you're seeing multiple signs on this list, that's meaningful data. Take our [company red flags checklist](/red-flags) for a more detailed assessment, or use the [cost of staying calculator](/cost-of-staying) to see what staying is costing you financially.
 
-Make an active choice. Stay because you want to, or start planning your exit.
+The question isn't whether to eventually leave—it's whether you're staying intentionally or just by default. If you're torn, read our guide on [whether to wait for a promotion or find a new job](/blog/promotion-vs-new-job). Make an active choice.
     `
   },
   {
@@ -2145,9 +2145,9 @@ Multiply outcomes by probabilities. Compare the paths.
 
 ## The Bottom Line
 
-Most data suggests external moves accelerate careers faster than internal promotion—especially for compensation. But that doesn't mean it's always the right choice.
+Most data suggests external moves accelerate careers faster than internal promotion—especially for compensation. But that doesn't mean it's always the right choice. Use our [cost of staying calculator](/cost-of-staying) to quantify what waiting is costing you.
 
-Evaluate your specific situation honestly. Pursue both paths until you have real information. Then make an active decision based on evidence, not hope.
+Evaluate your specific situation honestly. [Check if you're underpaid](/) compared to market rates. Then read our [salary negotiation guide](/blog/how-to-negotiate-salary) whether you're negotiating a promotion or a new offer. Make an active decision based on evidence, not hope.
     `
   },
   {
@@ -2299,7 +2299,7 @@ Once you have pay data:
 
 Salary transparency is a skill, not a violation of etiquette. The more openly we discuss pay, the harder it becomes for companies to underpay.
 
-Start with trusted colleagues. Lead with your own information. Respect boundaries. Use what you learn to ensure you—and others—are paid fairly.
+Start with trusted colleagues. Lead with your own information. Respect boundaries. Use what you learn to ensure you—and others—are paid fairly. [Browse salary data by role and location](/salaries) for additional benchmarks, and [run a free salary analysis](/) when you're ready to take action.
     `
   }
 ];
