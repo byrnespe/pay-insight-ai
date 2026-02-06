@@ -13,6 +13,30 @@ import {
 } from "@/components/ui/accordion";
 import { redFlagCategories, getScoreInterpretation } from "@/data/redFlags";
 import { useSEO } from "@/hooks/useSEO";
+import { FAQSchema } from "@/components/FAQSchema";
+
+const redFlagsFAQs = [
+  {
+    question: "What are the biggest red flags at a company?",
+    answer: "The most critical red flags include: consistently below-market compensation with no clear path to adjustment, high employee turnover especially in your department, lack of salary transparency, being asked to do significantly more work without additional pay, and management that dismisses concerns about workload or compensation.",
+  },
+  {
+    question: "How many red flags are too many at a job?",
+    answer: "Even 1-2 critical red flags (like pay secrecy policies or retaliation for raising concerns) warrant serious attention. If you identify 5 or more flags across categories like compensation, workload, management, and culture, it typically indicates systemic issues that are unlikely to improve without leadership changes.",
+  },
+  {
+    question: "Should I quit my job if I see red flags?",
+    answer: "Not necessarily immediately. First, document the issues and attempt to address them through proper channels. If critical red flags persist after you've raised concerns—especially around compensation fairness, toxic management, or ethical issues—it's wise to start a job search while still employed.",
+  },
+  {
+    question: "What are compensation red flags to watch for?",
+    answer: "Key compensation red flags include: your salary hasn't kept pace with inflation for 2+ years, the company discourages salary discussions among employees, promises of raises or promotions are repeatedly delayed, new hires in similar roles earn significantly more than you, and bonus structures are opaque or frequently changed.",
+  },
+  {
+    question: "How do I tell if my workplace culture is toxic?",
+    answer: "Signs of toxic culture include: high turnover with no acknowledgment from leadership, blame culture where mistakes are punished rather than learned from, employees regularly working excessive hours as a norm, lack of psychological safety to voice concerns, favoritism in promotions, and management that takes credit for team achievements.",
+  },
+];
 
 const RedFlags = () => {
   useSEO({
@@ -84,6 +108,7 @@ const RedFlags = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FAQSchema faqs={redFlagsFAQs} />
       <Navigation />
 
       {/* Main Content */}

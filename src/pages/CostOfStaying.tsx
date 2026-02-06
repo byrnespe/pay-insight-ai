@@ -15,6 +15,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSEO } from "@/hooks/useSEO";
+import { FAQSchema } from "@/components/FAQSchema";
+
+const costOfStayingFAQs = [
+  {
+    question: "How much does staying in an underpaid job cost over time?",
+    answer: "The cost compounds significantly. A $20,000 salary gap with 3% annual raises costs approximately $108,000 over 5 years and $230,000 over 10 years. This doesn't include lost retirement contributions, reduced Social Security benefits, and lower future salary negotiations that use your current pay as a baseline.",
+  },
+  {
+    question: "Why does the salary gap compound over time?",
+    answer: "Because percentage-based raises apply to your current salary. If you earn $75,000 with a 3% raise, you get $2,250. Someone at market rate of $95,000 with the same 3% raise gets $2,850. The gap grows by $600 each year just from raises alone, and this effect accelerates over time.",
+  },
+  {
+    question: "Should I take a new job just for higher pay?",
+    answer: "Not solely for pay, but compensation should be a major factor. Consider total compensation (salary, bonus, equity, benefits), career growth opportunities, work-life balance, and job satisfaction. If you're significantly underpaid and your employer won't adjust, the financial cost of staying often outweighs the comfort of familiarity.",
+  },
+  {
+    question: "How do I know if I'm underpaid compared to market rate?",
+    answer: "Research your market value using salary databases like Levels.fyi, Glassdoor, and Payscale. Filter by your exact role, experience level, location, and company size. Also check job postings with published salary ranges for similar positions. If multiple sources suggest you're 10-20%+ below market, you're likely underpaid.",
+  },
+  {
+    question: "Can I recover lost earnings from being underpaid?",
+    answer: "Unfortunately, you can never fully recover past lost earnings—that money is gone. However, you can stop future losses by negotiating a raise or changing jobs. The sooner you act, the less cumulative loss you'll experience. Even a mid-career correction saves hundreds of thousands over a remaining career.",
+  },
+];
 
 interface YearProjection {
   year: number;
@@ -89,6 +113,7 @@ const CostOfStaying = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FAQSchema faqs={costOfStayingFAQs} />
       <Navigation />
 
       {/* Main Content */}
