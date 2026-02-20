@@ -2318,6 +2318,8 @@ Start with trusted colleagues. Lead with your own information. Respect boundarie
 
 Nursing is one of the largest and most in-demand professions in the US, yet many nurses don't realize how much pay varies by specialty, setting, and state — or that they have real leverage to negotiate.
 
+Explore city-specific benchmarks: [Registered Nurse salary in New York](/salaries/registered-nurse/new-york) · [RN salary in Los Angeles](/salaries/registered-nurse/los-angeles) · [Travel Nurse salary in San Francisco](/salaries/travel-nurse/san-francisco) · [Nurse Practitioner salary in Chicago](/salaries/nurse-practitioner/chicago)
+
 Here's a breakdown of median annual salaries in 2025:
 
 | Role | Median Salary |
@@ -2353,7 +2355,7 @@ Travel nurses earn dramatically more than staff nurses because they fill urgent 
 - **Tax-free meals/incidentals**: $300–$600/week
 - **Sign-on bonuses**: $1,000–$5,000
 
-The all-in value often reaches $95,000–$130,000 annually — before considering the tax advantages of stipends.
+The all-in value often reaches $95,000–$130,000 annually — before considering the tax advantages of stipends. See how travel nurse pay breaks down by market: [Travel Nurse salary in Dallas](/salaries/travel-nurse/dallas) · [Travel Nurse salary in Seattle](/salaries/travel-nurse/seattle) · [Travel Nurse salary in Austin](/salaries/travel-nurse/austin)
 
 ### Is Travel Nursing Right for You?
 
@@ -2411,6 +2413,8 @@ If you're feeling underpaid, the first step is data. [Run a free salary analysis
 ## What Teachers Earn in 2025
 
 Teaching remains one of the most discussed — and most underpaid — professions in the United States. But within the profession, pay varies enormously by state, district, grade level, and education level.
+
+Explore teacher pay by city: [Teacher salary in New York](/salaries/teacher/new-york) · [Teacher salary in Chicago](/salaries/teacher/chicago) · [Teacher salary in Los Angeles](/salaries/teacher/los-angeles) · [Teacher salary in Austin](/salaries/teacher/austin)
 
 Here's the national picture for 2025:
 
@@ -2505,6 +2509,8 @@ The best financial strategies for teachers: maximize step advancement, pursue ma
 ## UX Designer Salaries in 2025
 
 UX design has matured from a niche discipline into a core business function. As a result, salaries have risen substantially — though wide variation exists by level, company type, and location.
+
+Explore UX designer pay by city: [UX Designer salary in San Francisco](/salaries/ux-designer/san-francisco) · [Senior UX Designer salary in New York](/salaries/senior-ux-designer/new-york) · [UX Designer salary in Seattle](/salaries/ux-designer/seattle) · [Senior UX Designer salary in Austin](/salaries/senior-ux-designer/austin)
 
 **Median annual salaries by level:**
 
