@@ -1,138 +1,64 @@
 
-# Plan: Add 10 New Blog Posts
+# Plan: Add 10 New SEO-Optimized Blog Posts
 
-## Overview
-Add 10 new blog posts to `src/data/blogPosts.ts` covering a mix of negotiation tips, salary guides, and career advice. Each post will follow the existing format with SEO-optimized titles, meta descriptions, and high-quality content targeting relevant search keywords.
+## Goal
+Add 10 new blog posts to `src/data/blogPosts.ts` targeting high-search-volume keywords that are not yet covered, and add their URLs to `public/sitemap.xml`.
 
-## New Blog Posts to Create
+## Keyword Strategy
 
-### Negotiation Tips (3 posts)
+The existing 16 posts cover: general negotiation, SE/PM/data/marketing salary guides, counter offers, benefits negotiation, first-job negotiation, startup vs big tech, when to leave, promotion vs new job, and salary transparency.
 
-| # | Slug | Title | Target Keywords |
-|---|------|-------|-----------------|
-| 1 | `counter-offer-strategies` | How to Handle a Counter Offer (From Your Current Employer) | counter offer, job offer negotiation |
-| 2 | `negotiating-job-offer-benefits` | Beyond Salary: Negotiating Benefits, PTO, and Perks | negotiate benefits, job offer negotiation |
-| 3 | `first-job-salary-negotiation` | Salary Negotiation for Your First Job: A Beginner's Guide | first job salary, entry level negotiation |
+The new posts target adjacent high-volume gaps:
 
-### Salary Guides (4 posts)
+| # | Slug | Title | Target Keywords | Category |
+|---|------|-------|-----------------|----------|
+| 1 | `nurse-salary-guide-2025` | Nurse Salary Guide 2025: RN, NP & Travel Nurse Pay | nurse salary, RN salary, travel nurse pay | salary-guides |
+| 2 | `teacher-salary-guide-2025` | Teacher Salary Guide 2025: What Educators Actually Earn | teacher salary, educator pay, teacher raise | salary-guides |
+| 3 | `ux-designer-salary-guide-2025` | UX Designer Salary Guide 2025: What Designers Earn in 2025 | UX designer salary, UI/UX pay, product designer salary | salary-guides |
+| 4 | `how-to-negotiate-a-job-offer` | How to Negotiate a Job Offer (Without Losing It) | how to negotiate a job offer, negotiate job offer | negotiation |
+| 5 | `average-salary-by-age` | Average Salary by Age in the US: Are You On Track? | average salary by age, salary by age 30 40 50 | salary-guides |
+| 6 | `cost-of-living-salary-adjustment` | How to Negotiate a Cost of Living Salary Adjustment | cost of living salary increase, COLA raise | negotiation |
+| 7 | `linkedin-salary-insights-guide` | How to Use LinkedIn Salary Insights to Research Your Pay | LinkedIn salary insights, salary research tools | career-advice |
+| 8 | `how-to-read-a-pay-stub` | How to Read Your Pay Stub: Every Line Explained | how to read a pay stub, pay stub explained | career-advice |
+| 9 | `equity-compensation-explained` | Equity Compensation Explained: RSUs, Options & Vesting | equity compensation, RSU vs stock options, vesting schedule | salary-guides |
+| 10 | `job-hopping-salary-strategy` | Job Hopping for Salary: The Data-Driven Case for Switching Jobs | job hopping salary increase, switching jobs for more money | career-advice |
 
-| # | Slug | Title | Target Keywords |
-|---|------|-------|-----------------|
-| 4 | `product-manager-salary-guide-2025` | Product Manager Salary Guide 2025: What PMs Actually Earn | product manager salary, PM compensation |
-| 5 | `data-scientist-salary-guide-2025` | Data Scientist Salary Guide 2025: Complete Compensation Breakdown | data scientist salary, data science pay |
-| 6 | `marketing-manager-salary-guide-2025` | Marketing Manager Salary Guide 2025: Salary Ranges by Industry | marketing manager salary, marketing compensation |
-| 7 | `startup-vs-big-tech-compensation` | Startup vs Big Tech: Which Actually Pays More? | startup salary, big tech compensation |
+## Why These Topics Win Traffic
 
-### Career Advice (3 posts)
+- **Nurse & Teacher salary guides**: Massive search volume from non-tech workers — an underserved audience on the site
+- **Average salary by age**: One of the most-searched salary queries on Google ("am I earning enough at 30?")
+- **How to negotiate a job offer**: Extremely high commercial intent — people searching this are mid-process and ready to act
+- **Cost of living adjustment**: Highly relevant post-2024 with inflation concerns still top of mind
+- **Equity compensation explained**: RSUs/options are confusing to most workers; this fills a real knowledge gap
+- **LinkedIn salary insights**: Targets people already in research mode, driving them to the tool
+- **How to read a pay stub**: Evergreen, high-volume, zero competition from existing posts
+- **Job hopping salary strategy**: Data-driven framing appeals to searchers wanting validation
 
-| # | Slug | Title | Target Keywords |
-|---|------|-------|-----------------|
-| 8 | `when-to-leave-your-job` | 7 Signs It's Time to Leave Your Job | when to quit job, leave job signs |
-| 9 | `promotion-vs-new-job` | Should You Wait for a Promotion or Find a New Job? | promotion vs new job, career advancement |
-| 10 | `salary-transparency-conversation` | How to Talk About Salary With Coworkers (Without Making It Weird) | salary transparency, talk about pay |
+## Content Structure Per Post
 
----
-
-## Post Structure
-
-Each post will follow the existing format:
-- **slug**: URL-friendly identifier
-- **title**: SEO-optimized, clear value proposition
-- **excerpt**: 1-2 sentence hook (for listing page)
-- **content**: 800-1200 words in Markdown with H2/H3 headings, bullet points, and actionable advice
-- **category**: "negotiation" | "salary-guides" | "career-advice"
-- **publishedAt**: Dates spread across recent weeks
-- **readTime**: Calculated based on content length (5-10 mins)
-- **metaDescription**: 150-160 character SEO description
-
----
-
-## Content Outline for Each Post
-
-### 1. Counter Offer Strategies (negotiation, 7 min)
-- Why employers make counter offers
-- The hidden risks of accepting
-- How to evaluate a counter offer objectively
-- Script for declining professionally
-- When it actually makes sense to stay
-
-### 2. Negotiating Job Offer Benefits (negotiation, 6 min)
-- Benefits that are often negotiable
-- How to prioritize (PTO, remote work, signing bonus, etc.)
-- Timing: when to bring up benefits
-- Scripts for asking about each benefit type
-- What to get in writing
-
-### 3. First Job Salary Negotiation (negotiation, 6 min)
-- Why entry-level candidates should still negotiate
-- Research strategies for new grads
-- Overcoming "I have no leverage" mindset
-- Simple script for a first negotiation
-- Common mistakes new grads make
-
-### 4. Product Manager Salary Guide (salary-guides, 9 min)
-- PM compensation by level (APM to VP)
-- Company type impact (FAANG vs startup)
-- Geographic variations
-- Total comp breakdown (base, bonus, equity)
-- PM specialization premiums (Growth, Platform, Technical)
-
-### 5. Data Scientist Salary Guide (salary-guides, 9 min)
-- DS compensation by level
-- Industry variations (tech, finance, healthcare)
-- Skills that command premiums (ML, MLOps, NLP)
-- Research scientist vs applied scientist pay
-- Remote data science salaries
-
-### 6. Marketing Manager Salary Guide (salary-guides, 8 min)
-- Marketing compensation by specialty
-- Industry differences (tech, agency, CPG)
-- Impact of company size
-- CMO track vs IC track
-- In-demand marketing skills
-
-### 7. Startup vs Big Tech Compensation (salary-guides, 8 min)
-- Base salary comparison
-- Equity: RSUs vs options
-- Risk-adjusted compensation calculation
-- Career growth trade-offs
-- How to evaluate startup equity realistically
-
-### 8. When to Leave Your Job (career-advice, 6 min)
-- 7 concrete warning signs
-- Emotional vs logical decision making
-- Financial preparation before quitting
-- How to leave on good terms
-- The cost of staying too long
-
-### 9. Promotion vs New Job (career-advice, 7 min)
-- Internal promotion statistics
-- Salary increase: promotion vs job switch
-- Factors favoring internal path
-- Factors favoring external path
-- How to pursue both simultaneously
-
-### 10. Salary Transparency Conversation (career-advice, 5 min)
-- Why salary transparency helps everyone
-- How to bring it up naturally
-- What to share and what to keep private
-- Handling reluctant colleagues
-- Legal protections for discussing pay
-
----
+Each post will follow the established format:
+- 800–1,200 words in Markdown with H2/H3 headings and bullet points
+- 2–3 internal links to related posts and tool pages (/, /cost-of-staying, /exploitation-check, /salaries, /benchmarks)
+- `metaDescription`: 150–160 characters for SERP display
+- `readTime`: Calculated at ~200 words/minute
+- `publishedAt`: Dates spread across Feb–March 2026
 
 ## Files to Modify
 
-| File | Action |
+| File | Change |
 |------|--------|
-| `src/data/blogPosts.ts` | Add 10 new BlogPost objects to the blogPosts array |
+| `src/data/blogPosts.ts` | Append 10 new `BlogPost` objects to the `blogPosts` array (before the closing `]`) |
+| `public/sitemap.xml` | Add 10 new `<url>` entries in the Blog Posts section with `priority 0.7` and `changefreq monthly` |
 
----
+## Internal Link Distribution Plan
 
-## SEO Benefits
+Each new post will link to 2–3 of the following destinations to pass authority:
 
-- Targets high-volume keywords for different professions (PM, Data Science, Marketing)
-- Covers the full job search journey (negotiation, evaluation, transition)
-- Adds depth to existing categories
-- Provides internal linking opportunities between related posts
-- Increases total content volume for search indexing
+- `/` — Salary analysis tool (main CTA)
+- `/cost-of-staying` — Cost of Staying calculator
+- `/exploitation-check` — Exploitation Check tool
+- `/salaries` — Salary browser
+- `/benchmarks` — Industry benchmarks
+- Existing blog posts (e.g., `/blog/how-to-negotiate-salary`, `/blog/startup-vs-big-tech-compensation`, `/blog/negotiating-job-offer-benefits`)
+
+This creates a tighter internal link graph connecting the new posts to existing high-authority pages.
