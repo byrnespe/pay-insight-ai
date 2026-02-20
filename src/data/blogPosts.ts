@@ -2301,6 +2301,921 @@ Salary transparency is a skill, not a violation of etiquette. The more openly we
 
 Start with trusted colleagues. Lead with your own information. Respect boundaries. Use what you learn to ensure you—and others—are paid fairly. [Browse salary data by role and location](/salaries) for additional benchmarks, and [run a free salary analysis](/) when you're ready to take action.
     `
+  },
+
+  // ─── 10 NEW SEO POSTS ───────────────────────────────────────────────────────
+
+  {
+    slug: "nurse-salary-guide-2025",
+    title: "Nurse Salary Guide 2025: RN, NP & Travel Nurse Pay",
+    excerpt: "From registered nurses to nurse practitioners and travel nurses, here's exactly what nurses earn in 2025 — and how to negotiate more.",
+    category: "salary-guides",
+    publishedAt: "2026-02-03",
+    readTime: 7,
+    metaDescription: "Nurse salary guide 2025: RN, NP, and travel nurse pay by specialty and location. Learn what nurses earn and how to negotiate a higher salary.",
+    content: `
+## What Nurses Earn in 2025
+
+Nursing is one of the largest and most in-demand professions in the US, yet many nurses don't realize how much pay varies by specialty, setting, and state — or that they have real leverage to negotiate.
+
+Here's a breakdown of median annual salaries in 2025:
+
+| Role | Median Salary |
+|------|--------------|
+| Registered Nurse (RN) | $82,000 |
+| Nurse Practitioner (NP) | $124,000 |
+| Certified Registered Nurse Anesthetist (CRNA) | $214,000 |
+| Travel Nurse | $95,000–$130,000 |
+| Licensed Practical Nurse (LPN) | $54,000 |
+
+These figures vary significantly by state, employer type (hospital vs. clinic vs. agency), and specialty.
+
+## RN Salaries by State
+
+Geography is one of the biggest drivers of nurse pay:
+
+- **California**: $130,000+ median (highest in the country)
+- **Hawaii**: $113,000
+- **Oregon**: $104,000
+- **Washington**: $95,000
+- **New York**: $91,000
+- **Texas**: $75,000
+- **Mississippi**: $61,000 (lowest)
+
+High cost-of-living states typically pay more, but travel nursing can let you capture both high pay and favorable tax situations.
+
+## Travel Nurse Pay: A Special Case
+
+Travel nurses earn dramatically more than staff nurses because they fill urgent short-term shortages. A typical travel nurse package includes:
+
+- **Taxable hourly rate**: $30–$50/hour
+- **Tax-free housing stipend**: $1,000–$2,000/month
+- **Tax-free meals/incidentals**: $300–$600/week
+- **Sign-on bonuses**: $1,000–$5,000
+
+The all-in value often reaches $95,000–$130,000 annually — before considering the tax advantages of stipends.
+
+### Is Travel Nursing Right for You?
+
+Travel nursing works best if you have 1–2 years of experience, are flexible about location, and want to maximize earnings quickly. The downsides include no job security between contracts and potential housing challenges.
+
+## Nurse Practitioner Salaries by Specialty
+
+NPs earn significantly more than RNs due to their advanced practice licensure:
+
+- **Psychiatric-Mental Health NP**: $135,000
+- **Acute Care NP**: $128,000
+- **Family Nurse Practitioner (FNP)**: $118,000
+- **Pediatric NP**: $112,000
+- **Women's Health NP**: $110,000
+
+Psychiatric NPs are in the highest demand right now given the mental health crisis — a strong specialization for income growth.
+
+## How to Negotiate Your Nursing Salary
+
+Many nurses accept the first offer without negotiating. That's a mistake.
+
+**Before any negotiation:**
+1. Research your market rate by specialty and location (use [our salary browser](/salaries) to benchmark)
+2. Know your certifications and specializations — each adds negotiating leverage
+3. Quantify your impact: patient satisfaction scores, charge experience, preceptor roles
+
+**What to say:**
+"Based on my [X years] of experience in [specialty] and the current market for [RN/NP] in this area, I was expecting compensation closer to $[target]. Is there flexibility there?"
+
+**What nurses often overlook when negotiating:**
+- Shift differentials (nights/weekends can add $5,000–$15,000/year)
+- Sign-on bonuses (especially at hospitals)
+- Student loan repayment programs
+- Continuing education reimbursement
+
+Use our [exploitation check tool](/exploitation-check) to see if your current pay is in line with market rates for your specialty.
+
+## Are Nurses Underpaid?
+
+Given the critical nature of nursing work, many argue nurses are chronically underpaid relative to their responsibility. The data backs this up — hospitals with unionized nurses consistently pay 10–15% more than non-union counterparts.
+
+If you're feeling underpaid, the first step is data. [Run a free salary analysis](/) to benchmark your pay against nurses in your role, location, and experience level. Then negotiate with confidence.
+    `
+  },
+
+  {
+    slug: "teacher-salary-guide-2025",
+    title: "Teacher Salary Guide 2025: What Educators Actually Earn",
+    excerpt: "Teaching salaries vary widely by state, district, and years of experience. Here's what educators actually earn in 2025 — and how to maximize your income.",
+    category: "salary-guides",
+    publishedAt: "2026-02-06",
+    readTime: 6,
+    metaDescription: "Teacher salary guide 2025: average pay by state, grade level, and experience. Learn how to negotiate a raise and what educators earn with a master's degree.",
+    content: `
+## What Teachers Earn in 2025
+
+Teaching remains one of the most discussed — and most underpaid — professions in the United States. But within the profession, pay varies enormously by state, district, grade level, and education level.
+
+Here's the national picture for 2025:
+
+| Role | Median Salary |
+|------|--------------|
+| Elementary School Teacher | $63,000 |
+| Middle School Teacher | $65,000 |
+| High School Teacher | $68,000 |
+| Special Education Teacher | $65,000 |
+| Instructional Coordinator | $72,000 |
+| School Principal | $100,000 |
+
+These are medians — experienced teachers in high-paying states earn significantly more.
+
+## Teacher Salaries by State
+
+State matters enormously for teacher pay:
+
+**Top-Paying States:**
+- California: $95,000+
+- New York: $92,000
+- Massachusetts: $88,000
+- Connecticut: $86,000
+- New Jersey: $76,000
+
+**Lower-Paying States:**
+- Mississippi: $46,000
+- West Virginia: $48,000
+- South Dakota: $49,000
+- Oklahoma: $50,000
+- Louisiana: $51,000
+
+The gap between the best and worst states is nearly $50,000 — a massive difference for the same role.
+
+## How Experience and Education Affect Teacher Pay
+
+Most teacher pay is determined by a salary schedule — a published grid where rows are years of experience and columns are education level.
+
+**A typical structure looks like this:**
+
+- **Bachelor's degree, Year 1**: $42,000–$55,000
+- **Bachelor's degree, Year 10**: $55,000–$68,000
+- **Master's degree, Year 1**: $47,000–$60,000
+- **Master's degree, Year 10**: $62,000–$78,000
+- **Doctorate, Year 10+**: Up to $85,000
+
+A master's degree typically adds $3,000–$8,000 per year — often paying for itself within 3–5 years.
+
+## Additional Income Sources for Teachers
+
+Base salary doesn't tell the whole story. Many teachers supplement their income through:
+
+- **Extracurricular stipends**: Coaching, theater, yearbook ($1,500–$6,000/year)
+- **Department chair or mentor roles**: $2,000–$5,000/year
+- **Summer school or tutoring**: $25–$75/hour
+- **Online tutoring platforms**: Flexible, $20–$80/hour
+- **Curriculum writing**: Districts and publishers pay $30–$60/hour
+
+These additions can meaningfully change your effective annual compensation.
+
+## How to Negotiate as a Teacher
+
+Unlike private-sector roles, most teacher salaries follow a fixed schedule — but that doesn't mean you have no leverage.
+
+**Where you do have negotiating room:**
+- **Starting step placement**: If you have prior teaching experience, military service, or relevant industry experience, ask to start at a higher step on the salary schedule
+- **Position-based stipends**: Negotiate which extracurriculars you take on, as some pay substantially more than others
+- **Moving to a higher-paying district**: Research neighboring districts — pay differences of $10,000–$20,000 for the same role are common
+
+**What to say when advocating for higher step placement:**
+"Given my [X years] of prior teaching experience in [subject], I'd like to discuss step placement. I believe starting at step [X] better reflects my background."
+
+Run our [exploitation check](/exploitation-check) to see how your district pay compares to similar districts in your state.
+
+## The Bigger Picture: Are Teachers Underpaid?
+
+Yes, by most measures. When you account for advanced degrees, hours worked outside of contract time, and the critical nature of the role, teachers are systemically underpaid relative to other professions requiring similar education.
+
+The best financial strategies for teachers: maximize step advancement, pursue master's degrees where ROI is positive, and don't leave stipend opportunities on the table. [Browse salary data by role and location](/salaries) to benchmark your compensation against educators in your area.
+    `
+  },
+
+  {
+    slug: "ux-designer-salary-guide-2025",
+    title: "UX Designer Salary Guide 2025: What Designers Earn",
+    excerpt: "UX and product designer salaries have evolved significantly. Here's what designers at every level earn in 2025, plus how to negotiate your next raise.",
+    category: "salary-guides",
+    publishedAt: "2026-02-10",
+    readTime: 7,
+    metaDescription: "UX designer salary guide 2025: what UI/UX and product designers earn by level, company, and location. Includes negotiation tips and total comp breakdown.",
+    content: `
+## UX Designer Salaries in 2025
+
+UX design has matured from a niche discipline into a core business function. As a result, salaries have risen substantially — though wide variation exists by level, company type, and location.
+
+**Median annual salaries by level:**
+
+| Level | Total Compensation |
+|-------|-------------------|
+| Junior UX Designer | $70,000–$90,000 |
+| Mid-Level UX Designer | $95,000–$130,000 |
+| Senior UX Designer | $130,000–$170,000 |
+| Staff / Principal Designer | $170,000–$220,000 |
+| Design Manager | $150,000–$200,000 |
+| Head of Design / VP Design | $200,000–$300,000+ |
+
+Tech companies pay significantly more than agencies or nonprofits at every level.
+
+## UX vs. UI vs. Product Designer: What's the Pay Difference?
+
+These titles are often used interchangeably, but there are meaningful differences:
+
+- **UX Designer**: Focuses on user research, information architecture, and flows. Median ~$110,000
+- **UI Designer**: Focuses on visual design and interface polish. Median ~$95,000
+- **Product Designer**: The industry's preferred catch-all title — combines UX + UI. Median ~$125,000
+- **UX Researcher**: Specialized in qualitative and quantitative research. Median ~$118,000
+
+Product Designer is now the dominant title at top tech companies, and commands a premium over "UX Designer" for the same level of work.
+
+## Salary by Company Type
+
+Company type is the biggest variable after experience:
+
+**FAANG / Top Tech (Google, Meta, Apple, Netflix, Amazon):**
+- Mid-level: $160,000–$210,000 total comp
+- Senior: $220,000–$300,000 total comp
+- Equity is a significant portion
+
+**Growth-Stage Startups:**
+- Mid-level: $120,000–$160,000 base + equity upside
+- Senior: $160,000–$200,000 base + meaningful equity
+
+**Agencies / Consulting:**
+- Mid-level: $80,000–$110,000
+- Senior: $100,000–$140,000 (less equity, more variety)
+
+**In-House at Non-Tech Companies:**
+- Mid-level: $85,000–$115,000
+- Senior: $115,000–$145,000
+
+If maximizing salary is your goal, targeting product companies (especially tech) over agencies or in-house roles at non-tech companies is the clearest lever. For additional context, explore [startup vs. big tech compensation tradeoffs](/blog/startup-vs-big-tech-compensation).
+
+## How to Negotiate a UX Designer Salary
+
+Design roles are highly negotiable — companies need great designers and often undershoot their opening offers intentionally.
+
+**Before the conversation:**
+- Research market rates for your specific title and level (use [our salary browser](/salaries))
+- Build a portfolio section that quantifies business impact (e.g., "Redesigned checkout flow, increasing conversion by 18%")
+- Know what you bring beyond craft: research, systems, stakeholder management
+
+**What to say:**
+"I've done some market research and for a [senior product designer] with my background in [domain], I'm seeing $[X]–$[Y] in the market. I'd like to be at the upper end of that range — is there flexibility?"
+
+**What to negotiate beyond base:**
+- Equity refresh grants (critical at startups)
+- Design tool budgets
+- Conference and education stipends
+- Remote work flexibility
+
+If you're unsure whether your current pay is competitive, [run a free salary check](/) and compare against market benchmarks for your level and location.
+
+## The Market for UX Design in 2025
+
+The design job market tightened in 2023–2024 as tech companies reduced headcount. However, demand remains strong at product-led companies, and AI tooling is creating new hybrid roles (AI + Design) that command premium salaries.
+
+Designers who can demonstrate measurable business impact — not just beautiful interfaces — are the ones commanding top compensation in 2025.
+    `
+  },
+
+  {
+    slug: "how-to-negotiate-a-job-offer",
+    title: "How to Negotiate a Job Offer (Without Losing It)",
+    excerpt: "Most people accept the first offer. Here's exactly how to negotiate a job offer confidently — including what to say, what to ask for, and what never to do.",
+    category: "negotiation",
+    publishedAt: "2026-02-13",
+    readTime: 8,
+    metaDescription: "How to negotiate a job offer step-by-step. Scripts, timing, and tactics to get more money without risking the offer. Real examples included.",
+    content: `
+## The Fear That Costs You Money
+
+Most candidates accept job offers without negotiating. The fear? Losing the offer. The reality? That almost never happens.
+
+Employers expect negotiation. A 2024 survey found that 85% of hiring managers said they had room to negotiate their initial offer — and 73% said a candidate had never lost an offer simply by asking professionally.
+
+The cost of not negotiating is immediate and compounding. A $5,000 gap at your starting salary becomes $50,000+ over 10 years when you factor in future raises built on that base.
+
+## Step 1: Always Get the Offer in Writing First
+
+Before negotiating anything, make sure you have a written offer — even a detailed email. This confirms the company is serious and gives you a document to reference.
+
+Once you have it, you can say: "Thank you so much — I'm very excited about this opportunity. I'd like to take a day or two to review the details. Can I get back to you by [date]?"
+
+Taking 24–48 hours signals seriousness and gives you time to prepare.
+
+## Step 2: Research Before You Respond
+
+Your counter needs to be anchored in market data, not gut feelings.
+
+**Where to research:**
+- [Browse salary data by role and location](/salaries) on this site
+- Glassdoor and Levels.fyi for tech roles
+- LinkedIn Salary Insights
+- Recruiter conversations at peer companies
+
+Look for the range, not just a number. If the market is $100,000–$130,000 and they offered $105,000, you know there's room.
+
+## Step 3: Make Your Counter
+
+Call, don't email. Negotiations over the phone build rapport and move faster.
+
+**The script:**
+"I've given this a lot of thought and I'm genuinely excited about this role. Based on my research and my [X years of experience / specific skills], I was hoping we could get to $[target]. Is that possible?"
+
+Then **stop talking**. Silence is your ally here.
+
+**Key rules:**
+- Counter with a specific number, not a range (if you say $110,000–$120,000, they hear $110,000)
+- Ask for 10–20% above the offer if you have the market data to support it
+- Stay warm and enthusiastic — this isn't adversarial
+
+## Step 4: Don't Stop at Base Salary
+
+If they can't move on salary, ask about everything else:
+
+- **Sign-on bonus**: Often paid from a different budget than base salary
+- **Equity / RSUs**: Request more shares or a higher grant value
+- **Start date**: Starting later preserves more of your current year's bonus
+- **Remote work flexibility**: Can save $10,000+/year in commuting costs
+- **Title**: A higher title affects your trajectory and future compensation
+- **Benefits**: Additional PTO, professional development budget, gym allowance
+
+The total package matters as much as base. Use the framework from [negotiating job offer benefits](/blog/negotiating-job-offer-benefits) to build your full counter.
+
+## Step 5: Handle the Common Pushbacks
+
+**"The salary is fixed / non-negotiable"**
+Almost nothing is truly fixed. Respond: "I understand. Is there flexibility on the signing bonus or equity instead?"
+
+**"That's above our budget for this role"**
+"I appreciate your transparency. What would I need to demonstrate in the first 90 days to warrant a salary review at [target]?"
+
+**"We need an answer today"**
+Don't be rushed into a decision you haven't prepared for. "I'm very interested — could I have until tomorrow morning? I want to make sure I'm fully committed before accepting."
+
+## What Never to Do
+
+- Never give your current salary first (illegal in many states to even ask)
+- Never accept verbally before reviewing the full written offer
+- Never apologize for negotiating
+- Never negotiate via email for the first counter — too easy to ignore or misread tone
+
+If you're unsure whether the offer is fair, [run a free salary analysis](/) to benchmark it against market data before responding.
+
+## The Bottom Line
+
+Negotiating a job offer is expected, professional, and almost risk-free when done respectfully. The candidate who negotiates and the candidate who doesn't do the same job — but the one who negotiated earns more, potentially forever.
+    `
+  },
+
+  {
+    slug: "average-salary-by-age",
+    title: "Average Salary by Age in the US: Are You On Track?",
+    excerpt: "Wondering if your salary is normal for your age? Here's what Americans actually earn at 25, 30, 40, and 50 — and what moves the needle most.",
+    category: "salary-guides",
+    publishedAt: "2026-02-17",
+    readTime: 6,
+    metaDescription: "Average US salary by age group in 2025. See what people earn at 25, 30, 40, and 50 and find out if you're on track — or falling behind.",
+    content: `
+## What Americans Earn at Every Age
+
+Salary naturally grows with experience, but how quickly depends heavily on industry, career moves, and negotiation. Here's what median weekly earnings look like by age group, based on Bureau of Labor Statistics data:
+
+| Age Group | Median Weekly Earnings | Median Annual Equivalent |
+|-----------|----------------------|------------------------|
+| 16–24 | $720 | $37,440 |
+| 25–34 | $1,040 | $54,080 |
+| 35–44 | $1,250 | $65,000 |
+| 45–54 | $1,270 | $66,040 |
+| 55–64 | $1,210 | $62,920 |
+| 65+ | $1,050 | $54,600 |
+
+**Key insight**: Salary growth is fastest between ages 25 and 35. After 45, median pay actually begins to plateau or slightly decline for many workers — often because wage growth at established employers stalls.
+
+## Are You On Track at 25?
+
+At 25, the median American earns about $54,000. But "on track" depends entirely on your field.
+
+- **Tech / Finance**: $80,000–$110,000 is normal at 25 in major cities
+- **Healthcare**: $55,000–$80,000 depending on role
+- **Education**: $40,000–$55,000 for entry-level teachers
+- **Marketing / Sales**: $50,000–$70,000
+
+If you're in tech or finance and earning below $75,000 in a major market at 25, it's worth investigating whether you're underpaid — especially if you're at a company that's slow to give raises. [Run a free salary analysis](/) to find out.
+
+## At 30: The Most Important Salary Window
+
+Your early 30s are when the gap between those who negotiate and those who don't becomes visible.
+
+The BLS median at 30 is roughly $60,000. But:
+- People who've switched jobs 1–2 times typically earn $10,000–$20,000 more than peers who stayed put
+- Those in tech or finance in major metros often earn $100,000–$150,000+
+- Those in non-negotiating-friendly cultures (government, education) often earn near the median
+
+If you feel stuck below market at 30, read [promotion vs. a new job](/blog/promotion-vs-new-job) — the data strongly favors external moves for salary growth.
+
+## At 40: The Peak Earning Zone
+
+For most professionals, the late 30s through mid-40s are peak earning years. The median at 40–44 is $65,000 nationally, but top performers in competitive fields earn $150,000–$300,000+.
+
+At 40, the biggest lever is often switching companies rather than waiting for internal promotions. Companies increasingly pay more for external hires than they'll give to loyal long-tenured employees.
+
+Signs you might be underpaid at 40:
+- You haven't had a raise above inflation in 3+ years
+- New hires at your level earn more than you
+- You haven't negotiated in your last 2 job changes
+
+Use our [exploitation check](/exploitation-check) to identify whether your employer has fallen behind market rates.
+
+## At 50: Protecting What You've Built
+
+Median earnings begin to plateau after 50 for many workers. This isn't inevitable, but it's common — especially in fields where new skills are constantly required.
+
+Strategies that work at 50+:
+- Leverage depth of expertise and institutional knowledge in negotiations
+- Target roles where experience is a premium (consulting, advisory, executive)
+- Watch for ageism in hiring and counter it with clear, quantified impact statements
+
+## The Biggest Predictor of Salary Growth
+
+It's not age — it's job changes. Workers who switch employers every 3–5 years consistently out-earn those who stay at the same company, because external hiring often resets your pay to current market.
+
+[Browse salaries by role and location](/salaries) to see what the market currently pays for your title — then compare it to what you're making.
+    `
+  },
+
+  {
+    slug: "cost-of-living-salary-adjustment",
+    title: "How to Negotiate a Cost of Living Salary Adjustment",
+    excerpt: "If your salary hasn't kept up with inflation or you're relocating to a higher cost-of-living city, here's exactly how to make the case for a COLA raise.",
+    category: "negotiation",
+    publishedAt: "2026-02-20",
+    readTime: 6,
+    metaDescription: "How to negotiate a cost of living salary adjustment or COLA raise. Scripts, data sources, and strategies to get your pay to keep pace with inflation.",
+    content: `
+## What Is a Cost of Living Adjustment?
+
+A cost of living adjustment (COLA) is a salary increase designed to maintain your purchasing power when living costs rise — whether due to general inflation or because you're moving to a more expensive location.
+
+COLAs are standard practice at some employers (especially government and unionized workplaces) but rare at many private companies, where inflation catch-ups only happen during formal review cycles — if at all.
+
+After years of elevated inflation, many workers are overdue for a real conversation about whether their salary still reflects the cost of their lives.
+
+## Signs You Need a COLA Conversation
+
+- Your rent or mortgage has increased significantly in the past 2 years
+- Grocery, gas, and healthcare costs have meaningfully reduced your take-home purchasing power
+- You received a 2–3% annual raise but actual inflation ran higher
+- You relocated to a higher cost-of-living city without a corresponding pay adjustment
+
+The [cost of staying calculator](/cost-of-staying) can help you quantify exactly how much purchasing power you've lost since your last raise.
+
+## Building Your Case with Data
+
+A COLA request lives or dies on data. Come prepared with:
+
+**1. Inflation data**
+The Bureau of Labor Statistics CPI data shows cumulative inflation. If inflation ran 4% last year and you got a 2% raise, you have a documented 2% gap to present.
+
+**2. Specific cost increases**
+Pull actual numbers: "My rent increased $400/month. My health insurance premium went up $150/month. These two items alone represent $6,600 more per year in expenses."
+
+**3. Local cost of living comparisons**
+If you relocated, use cost of living index data (Numbeo, NerdWallet, ERI) to show the exact premium of your new city. Moving from Atlanta to San Francisco, for example, can mean 40–60% higher living costs.
+
+**4. Market rate data**
+Pair your COLA argument with market data — if the market also moved up for your role, you have two compelling reasons to increase pay. [Browse salary benchmarks](/benchmarks) for your industry.
+
+## The Script for Requesting a COLA Raise
+
+**For inflation:**
+"I'd like to discuss my compensation. Over the past two years, inflation has outpaced my raises by approximately [X]%. Given the rising costs of [housing / healthcare / living expenses], I'd like to discuss bringing my salary in line with both the market and the current cost of living. I'm looking for an adjustment to $[target]."
+
+**For relocation:**
+"As we discussed, I'll be based in [new city], where cost of living is approximately [X]% higher than [previous city]. I'd like to discuss a corresponding adjustment to my base salary to reflect that difference. Based on my research, a fair adjustment would bring me to $[target]."
+
+## What to Expect
+
+Unlike merit raises, COLA requests are framed as maintaining the status quo rather than arguing for more. This framing often lands better with managers who feel awkward about rewarding performance.
+
+Still, not every employer will grant it. If they refuse:
+
+1. Ask for a formal timeline: "When is the next scheduled compensation review?"
+2. Document the conversation and revisit it
+3. Use it as data in your decision about whether to stay — the [cost of staying calculator](/cost-of-staying) can help you model the long-term cost of staying underpaid
+
+If they say no and the math no longer works for your life, that's valuable information. A job change often corrects the problem immediately.
+    `
+  },
+
+  {
+    slug: "linkedin-salary-insights-guide",
+    title: "How to Use LinkedIn Salary Insights to Research Your Pay",
+    excerpt: "LinkedIn Salary is a powerful but underused tool for benchmarking your compensation. Here's how to get the most accurate data from it — and what to do with what you find.",
+    category: "career-advice",
+    publishedAt: "2026-02-24",
+    readTime: 5,
+    metaDescription: "How to use LinkedIn Salary Insights to research your pay in 2025. Tips for filtering data, interpreting results, and combining it with other salary tools.",
+    content: `
+## What Is LinkedIn Salary Insights?
+
+LinkedIn Salary is a compensation research tool built into LinkedIn Premium. It shows median pay for specific job titles, filtered by location, years of experience, education level, and company size.
+
+The data comes from LinkedIn members who voluntarily share their salary information, giving it a real-world, self-reported quality that differs from some other databases.
+
+## How to Access LinkedIn Salary
+
+1. Go to LinkedIn.com
+2. Click "Jobs" in the top navigation
+3. Select "Salary" from the Jobs dropdown
+4. Enter your job title and location
+
+You need a **LinkedIn Premium** subscription to see detailed salary breakdowns. Basic (free) users see limited ranges.
+
+If you don't want to pay for Premium, pair LinkedIn Salary data with free tools like Glassdoor, Payscale, and [our salary browser](/salaries) for a comprehensive picture.
+
+## How to Get the Most Accurate Data
+
+LinkedIn Salary is only as useful as how you filter it. Here's how to sharpen the data:
+
+**Filter by:**
+- **Exact job title**: "Senior Product Manager" returns different data than "Product Manager" — be specific
+- **Location**: City-level data is more accurate than regional
+- **Years of experience**: A 2-year and a 10-year PM have very different markets
+- **Education level**: Some roles show meaningful pay premiums for advanced degrees
+- **Company size**: Enterprise vs. startup pay gaps are often 20–30%
+
+**What to look for:**
+- The median (50th percentile) is your baseline
+- The 75th–90th percentile range shows what top earners make — this is your aspirational target
+- Note how much location changes the number
+
+## Limitations of LinkedIn Salary Data
+
+LinkedIn's data has real blind spots:
+
+- **Skews toward LinkedIn-active professionals**: Roles with low LinkedIn usage (trades, education, healthcare) may be underrepresented
+- **Self-reported bias**: People often round up or misreport titles
+- **No equity or bonus data by default**: Total compensation is often much higher than base salary — especially in tech
+- **Lags the market**: Job posting salary ranges sometimes reflect current supply and demand better
+
+Always cross-reference with at least 2–3 other sources. For tech roles, [Levels.fyi](https://levels.fyi) is the gold standard for total compensation. For broad role benchmarking, [run a salary analysis](/) on this site.
+
+## What to Do With What You Find
+
+Once you have a benchmark, you're ready to act.
+
+**If you're below the median:**
+You likely have a case for a raise. Document your research, frame your request around market data, and request a meeting. [Our salary negotiation guide](/blog/how-to-negotiate-salary) walks through exactly how to do this.
+
+**If you're at the median:**
+You're fairly paid at a baseline level, but there may still be room to push to the 75th percentile if your performance justifies it.
+
+**If you're above the median:**
+Your total comp is likely competitive. Focus on other dimensions — equity, flexibility, career trajectory.
+
+**Always check your exploitation risk:**
+High base salary doesn't mean you're not underpaid in other ways. Use the [exploitation check tool](/exploitation-check) to assess your full compensation picture, including hours, stress, and benefits relative to market.
+
+## Combining LinkedIn Salary With Other Tools
+
+No single data source is complete. The most accurate picture comes from layering:
+
+| Tool | Best For |
+|------|---------|
+| LinkedIn Salary | Broad role benchmarks |
+| Levels.fyi | Tech total compensation |
+| Glassdoor | Company-specific ranges |
+| Payscale | Traditional / non-tech roles |
+| Underpaid ([try it free](/)) | Personalized AI salary analysis |
+
+Using 3–4 sources together gives you a defensible, data-rich foundation for any salary conversation.
+    `
+  },
+
+  {
+    slug: "how-to-read-a-pay-stub",
+    title: "How to Read Your Pay Stub: Every Line Explained",
+    excerpt: "Your pay stub contains critical information most people never look at. Here's exactly what every section means — and what to check for errors.",
+    category: "career-advice",
+    publishedAt: "2026-02-27",
+    readTime: 5,
+    metaDescription: "How to read a pay stub: every line explained. Understand gross pay, deductions, taxes, and net pay — and know what errors to watch for on your paycheck.",
+    content: `
+## Why Your Pay Stub Matters
+
+Most employees glance at their net pay and move on. That's a mistake. Your pay stub contains critical information about your compensation, benefits, and tax situation — and payroll errors are more common than most people realize.
+
+Understanding your pay stub takes 5 minutes and can save you money, prevent tax problems, and help you verify you're being paid correctly.
+
+## The Anatomy of a Pay Stub
+
+### 1. Employee & Employer Information
+
+At the top of most pay stubs you'll find:
+- Your name, address, and employee ID
+- Your employer's name and address
+- Pay period dates (e.g., "Feb 1 – Feb 15")
+- Pay date (when the money hits your account)
+
+Verify your name and address are correct — errors here can affect W-2 forms and tax filings.
+
+### 2. Earnings Section
+
+This shows all the money you earned before deductions.
+
+**Gross Pay**: Your total earnings before anything is taken out. For salaried workers, this should match your annual salary ÷ number of pay periods.
+
+**Common earnings line items:**
+- **Regular pay**: Standard hours or salary
+- **Overtime**: Hours over 40/week, paid at 1.5x (must be shown separately)
+- **Holiday pay**: Often shown separately
+- **Bonus / Commission**: Variable pay earned this period
+- **PTO Payout**: Paid time off taken or cashed out
+
+**Check this**: If you're hourly, multiply your hours worked by your hourly rate and verify it matches "Regular Pay." Errors here are common.
+
+### 3. Deductions Section
+
+This is where money comes out. Deductions are either **pre-tax** (reduce your taxable income) or **post-tax** (come out after taxes).
+
+**Pre-tax deductions:**
+- **401(k) / 403(b)**: Your retirement contributions
+- **Health insurance premium**: Your share of medical/dental/vision
+- **HSA / FSA contributions**: Healthcare savings accounts
+- **Commuter benefits**: Transit or parking
+
+**Post-tax deductions:**
+- **Roth 401(k)**: Contributed after tax, grows tax-free
+- **Life insurance** (above IRS limits)
+- **Wage garnishments**: Court-ordered deductions (child support, debt)
+
+**Check this**: Ensure your 401(k) contribution percentage matches what you elected. Also verify your health insurance deduction matches what HR told you when you enrolled.
+
+### 4. Taxes Section
+
+Federal and state taxes are usually broken out separately.
+
+**Federal taxes:**
+- **Federal Income Tax**: Withheld based on your W-4 elections and income
+- **Social Security (OASDI)**: 6.2% of gross pay (up to the annual wage base)
+- **Medicare**: 1.45% of gross pay (+ 0.9% if you earn over $200,000)
+
+**State taxes:**
+- **State Income Tax**: Varies by state (0% in TX, FL, WA, NV; up to 13.3% in CA)
+- **State Disability Insurance (SDI)**: In some states (CA, NY, NJ)
+- **Local taxes**: Some cities (NYC, Philadelphia) have local income taxes
+
+**Check this**: If you moved states recently, verify the correct state tax is being withheld. Tax errors across state lines are common and painful to fix.
+
+### 5. Year-to-Date (YTD) Totals
+
+Most pay stubs show YTD columns alongside the current period. This helps you:
+- Track total earnings for tax purposes
+- Verify 401(k) contributions stay within IRS limits ($23,000 in 2025)
+- Confirm Social Security isn't over-withheld (stops at the wage base)
+
+### 6. Net Pay
+
+This is your take-home: Gross Pay minus all deductions and taxes. It should match what's deposited into your bank account.
+
+If your net pay feels low, start with your pre-tax deductions — a high 401(k) contribution or expensive health plan is usually the explanation.
+
+## Common Pay Stub Errors to Watch For
+
+- **Wrong pay rate**: Especially after a raise — verify the new rate is applied
+- **Missing overtime**: If you worked over 40 hours, overtime must be paid
+- **Incorrect 401(k) match**: Employer matching should appear if you're eligible
+- **Wrong tax withholding state**: Common after remote work relocation
+- **Missing PTO balance**: Many stubs show your remaining PTO — check it's accurate
+
+If you find an error, contact HR or payroll immediately. Corrections to tax withholding require a new W-4 form.
+
+Understanding your pay stub is the first step toward fully understanding your compensation. The next step is knowing whether that compensation is fair — [run a free salary analysis](/) to benchmark your pay against the market.
+    `
+  },
+
+  {
+    slug: "equity-compensation-explained",
+    title: "Equity Compensation Explained: RSUs, Options & Vesting",
+    excerpt: "RSUs, stock options, vesting schedules, cliffs — equity compensation is confusing by design. Here's a plain-English breakdown of everything you need to know.",
+    category: "salary-guides",
+    publishedAt: "2026-03-03",
+    readTime: 9,
+    metaDescription: "Equity compensation explained: RSUs vs stock options, vesting schedules, cliffs, and how to evaluate equity in a job offer. Plain-English guide for 2025.",
+    content: `
+## Why Equity Compensation Is Confusing (and Why That's a Problem)
+
+At many tech and startup companies, equity isn't a bonus — it's a significant portion of total compensation. But most employees don't fully understand what they've been granted, when it vests, or what it's actually worth.
+
+This confusion costs people real money. Employees leave before vesting. They accept offers without negotiating equity. They misunderstand tax implications at exercise or sale.
+
+This guide cuts through the jargon.
+
+## The Two Main Types of Equity
+
+### 1. Restricted Stock Units (RSUs)
+
+RSUs are the most common form of equity at public companies (Google, Meta, Amazon, Apple, Microsoft, etc.).
+
+**How they work:**
+- The company grants you a number of shares
+- Those shares vest over a schedule (typically 4 years)
+- When shares vest, you receive actual stock — taxed as ordinary income at the fair market value on the vest date
+- You can immediately sell the shares or hold them
+
+**Example:**
+You're granted 1,000 RSUs at a $100/share price. Over 4 years, 250 shares vest each year. When year-1 shares vest and stock is at $120, you receive $30,000 worth of income — taxed as ordinary income.
+
+**RSU tax trap**: Many employees don't set aside money for taxes when RSUs vest. Employers typically withhold a flat 22% for federal taxes, but if you're in a higher bracket, you'll owe more at tax time.
+
+### 2. Stock Options
+
+Options are more common at pre-IPO startups and give you the **right to purchase** shares at a fixed price (the "strike price" or "exercise price").
+
+**Two types:**
+- **Incentive Stock Options (ISOs)**: Tax-advantaged but complex; primarily for employees
+- **Non-Qualified Stock Options (NSOs/NQSOs)**: Taxed as ordinary income on the spread at exercise
+
+**How options work:**
+You're granted 10,000 options with a strike price of $5/share. If the company's value grows and shares are later worth $25, your options are worth $200,000 ($25 - $5 × 10,000). If the company never grows beyond $5, your options are worthless.
+
+Options carry risk that RSUs don't — they can expire worthless.
+
+## Vesting Schedules: The Timeline That Controls Your Equity
+
+Vesting determines when you actually own your equity.
+
+**Standard 4-year schedule:**
+- Most common in tech: 4-year total vesting period
+- **Cliff**: No equity for the first year; if you leave before 12 months, you get nothing
+- After the cliff: Monthly or quarterly vesting for years 2–4
+
+**Example (1-year cliff, monthly vesting after):**
+- Month 12: 25% vests all at once (the cliff)
+- Months 13–48: ~2% vests each month
+- Month 48: Fully vested
+
+**Front-loaded schedules:**
+Some companies (notably Amazon) use front-loaded vesting: 5% year 1, 15% year 2, 40% year 3, 40% year 4. This is designed to reduce turnover in years 3–4.
+
+**Accelerated vesting:**
+Some offers include "acceleration" clauses — your equity vests faster if the company is acquired (single-trigger) or if you're laid off after an acquisition (double-trigger). Always ask if this is included.
+
+## How to Evaluate Equity in a Job Offer
+
+### For public company RSUs:
+1. Take the number of shares × current stock price = grant value
+2. Divide by 4 (years) to get annual equity compensation
+3. Add to base salary and bonus for true total comp
+
+If offered 500 RSUs at $200/share = $100,000 total grant = ~$25,000/year in equity. That's material.
+
+### For startup options:
+This is harder. Key questions to ask:
+- What's the current fair market value (FMV) per share?
+- What's the last preferred share price (from investors)?
+- What's the total number of fully diluted shares? (Your ownership percentage = your shares ÷ total shares)
+- Is there a preference stack? (How much do investors get paid before common shareholders?)
+
+For startups, a 0.1% stake at a $100M valuation = $100,000 in value — but only if a liquidity event happens at or above that valuation. Many don't.
+
+## Negotiating Equity
+
+Most candidates don't negotiate equity. They should.
+
+**At public companies:**
+"Can we increase the RSU grant? I was expecting total comp closer to $[target] and a larger equity component would help bridge the gap."
+
+**At startups:**
+"Can you help me understand what this option grant represents as a percentage of fully diluted shares? Given the risk profile, I'd like to discuss whether we can get closer to [X]%."
+
+Also negotiate: shorter cliff (6 months instead of 12), accelerated vesting on acquisition, and refresher grants.
+
+For a full picture of how equity fits into your total compensation, see our [startup vs. big tech compensation comparison](/blog/startup-vs-big-tech-compensation) and [run a salary analysis](/) to benchmark your full package.
+
+## Tax Basics You Must Know
+
+- **RSUs**: Taxed as ordinary income when they vest; capital gains (short or long-term) when you sell
+- **ISOs**: No tax at exercise (for regular income tax purposes); potential AMT implications; long-term capital gains if held properly
+- **NSOs**: Taxed as ordinary income on the spread at exercise; capital gains on subsequent appreciation
+
+Consult a tax professional before exercising options, especially ISOs — the AMT implications can be significant.
+
+## The Bottom Line
+
+Equity is real money, but only if you understand it. Know your vesting schedule, understand the type of equity you hold, and negotiate it just as aggressively as you negotiate base salary.
+    `
+  },
+
+  {
+    slug: "job-hopping-salary-strategy",
+    title: "Job Hopping for Salary: The Data-Driven Case for Switching Jobs",
+    excerpt: "Staying loyal to one employer for years often costs you — data shows job switchers earn significantly more. Here's how to use job hopping as a deliberate salary strategy.",
+    category: "career-advice",
+    publishedAt: "2026-03-06",
+    readTime: 7,
+    metaDescription: "The data-driven case for job hopping to increase your salary. How often to switch jobs, what to say about it, and how much more job switchers actually earn.",
+    content: `
+## The Loyalty Penalty
+
+Here's an uncomfortable truth: staying at the same employer for 5+ years often costs you money.
+
+A widely-cited analysis by Forbes found that employees who stayed at the same company received average annual raises of 3%. Employees who switched jobs received average raises of 10–20% with each move. Over a decade, the compounding difference is enormous.
+
+The loyalty penalty exists because:
+1. Internal raises are usually constrained by budget and precedent
+2. External hiring budgets are set to market, not to your history
+3. Companies pay new hires what it takes to attract them — often more than they pay existing employees for the same role
+
+## The Data on Job Switching and Salary
+
+- **Job switchers earn 10–30% more** per move, on average, than they would have received from a merit raise
+- **The sweet spot for switching** is every 2–4 years — long enough to build meaningful skills and context, short enough to avoid large pay gaps
+- **After 5 years without a switch**, the average employee is statistically likely to be underpaid vs. market by 15–25%
+
+Use the [exploitation check tool](/exploitation-check) to quickly see how your tenure compares to your pay trajectory and whether you're falling behind market.
+
+## Why Employers Pay More for External Hires
+
+Companies are willing to pay external hires more because:
+- They're competing against other offers (market pressure)
+- The hiring budget is different from the raise budget
+- They don't know your historical salary (in states with salary history bans)
+- External hires are seen as "investments" while existing employees are seen as "costs"
+
+This isn't fair — but it's predictable, and you can use it.
+
+## How Often Should You Switch Jobs?
+
+The research suggests:
+
+- **Less than 1 year**: Looks bad on a resume and signals commitment issues — avoid unless the situation is toxic
+- **1–2 years**: Acceptable in early career and in high-turnover industries (startups, agency work)
+- **2–4 years**: The sweet spot — enough time to build real accomplishments and relationships, short enough to capture market rates
+- **5+ years**: You've likely left significant money on the table. A strong external move can often correct 2–3 years of undermarket pay in one move
+
+## What to Say About Frequent Job Changes
+
+The biggest fear around job hopping is how it looks. Here's how to address it confidently:
+
+**In interviews:**
+"I've been deliberate about each move — each role expanded my scope and pushed me into new challenges. I'm looking to stay somewhere longer now that I've found an organization with [the right characteristics you're selling]."
+
+Interviewers respect intentional career management. What they don't respect is inability to explain the pattern.
+
+**On your resume:**
+- Contract roles should be labeled "(Contract)"
+- Combine short stints at the same company into one block
+- Lead with accomplishments at each stop — results matter more than tenure
+
+## Building a Job-Hopping Strategy (Without Burning Bridges)
+
+**The 2-4 year framework:**
+1. Join a role at strong market compensation
+2. Execute quickly, build a visible track record
+3. At year 2, begin passive job searching to gauge market
+4. At year 3–4, actively pursue if internal trajectory is limited
+5. Negotiate aggressively at new company, locking in a market-rate reset
+
+**What to negotiate at each new job:**
+- Base salary 10–20% above your current
+- Sign-on bonus to cover unvested equity you're leaving
+- Accelerated vesting schedule (to reduce "golden handcuffs")
+
+For a framework on when leaving vs. staying makes more financial sense, read [when to leave your job](/blog/when-to-leave-your-job) and [promotion vs. new job](/blog/promotion-vs-new-job).
+
+## The Compounding Effect
+
+Let's model two engineers starting at $100,000:
+
+**Engineer A (stays put, 3% annual raises):**
+- Year 5: $116,000
+- Year 10: $134,000
+
+**Engineer B (switches every 3 years, 15% average bump):**
+- Year 3: $115,000 (after switch)
+- Year 6: $132,000 (after second switch)
+- Year 9: $152,000 (after third switch)
+- Year 10: ~$157,000
+
+By year 10, Engineer B earns $23,000 more per year — and their career progression has opened doors Engineer A's hasn't.
+
+## The Risks to Manage
+
+Job hopping isn't without risk:
+- Less security during probationary periods
+- Potential loss of unvested equity
+- Need to rebuild relationships and context each time
+- Some industries and companies still value tenure
+
+The solution is to be deliberate, not impulsive. Each move should have a clear rationale and measurable improvement in compensation, scope, or trajectory.
+
+If you're on the fence about your next move, [run a free salary analysis](/) to benchmark your current pay — and use the [cost of staying calculator](/cost-of-staying) to quantify exactly what staying another year might cost you.
+    `
   }
 ];
 

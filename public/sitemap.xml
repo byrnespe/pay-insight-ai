@@ -150,6 +150,58 @@
     <priority>0.7</priority>
   </url>
   
+  <!-- Blog Posts - New (Feb–Mar 2026) -->
+  <url>
+    <loc>https://www.underpaidapp.com/blog/nurse-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/teacher-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/ux-designer-salary-guide-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/how-to-negotiate-a-job-offer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/average-salary-by-age</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/cost-of-living-salary-adjustment</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/linkedin-salary-insights-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/how-to-read-a-pay-stub</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/equity-compensation-explained</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.underpaidapp.com/blog/job-hopping-salary-strategy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Programmatic SEO Pages - Technology Roles -->
   <url><loc>https://www.underpaidapp.com/salaries/software-engineer/san-francisco</loc><priority>0.6</priority></url>
   <url><loc>https://www.underpaidapp.com/salaries/software-engineer/new-york</loc><priority>0.6</priority></url>
