@@ -373,7 +373,42 @@
   <url><loc>https://www.underpaidapp.com/salaries/clinical-operations-manager/san-francisco</loc><priority>0.6</priority></url>
   <url><loc>https://www.underpaidapp.com/salaries/medical-director/san-francisco</loc><priority>0.6</priority></url>
   <url><loc>https://www.underpaidapp.com/salaries/medical-director/new-york</loc><priority>0.6</priority></url>
-  
+
+  <!-- Nursing Roles (tied to nurse salary blog posts) -->
+  <url><loc>https://www.underpaidapp.com/salaries/registered-nurse/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/registered-nurse/los-angeles</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/registered-nurse/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/registered-nurse/houston</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/registered-nurse/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/travel-nurse/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/travel-nurse/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/travel-nurse/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/travel-nurse/los-angeles</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/travel-nurse/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/nurse-practitioner/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/nurse-practitioner/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/nurse-practitioner/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/nurse-practitioner/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/nurse-practitioner/austin</loc><priority>0.6</priority></url>
+
+  <!-- Teacher Roles (tied to teacher salary blog post) -->
+  <url><loc>https://www.underpaidapp.com/salaries/teacher/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/teacher/los-angeles</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/teacher/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/teacher/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/teacher/seattle</loc><priority>0.6</priority></url>
+
+  <!-- UX Designer Roles (tied to UX salary blog post) -->
+  <url><loc>https://www.underpaidapp.com/salaries/senior-ux-designer/san-francisco</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-ux-designer/new-york</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-ux-designer/seattle</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-ux-designer/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/senior-ux-designer/remote</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/los-angeles</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/austin</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/chicago</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/boston</loc><priority>0.6</priority></url>
+  <url><loc>https://www.underpaidapp.com/salaries/ux-designer/seattle</loc><priority>0.6</priority></url>
   <!-- Static Pages -->
   <url>
     <loc>https://www.underpaidapp.com/about</loc>

@@ -76,6 +76,11 @@ export const jobTitles: JobTitle[] = [
   { slug: "healthcare-analyst", name: "Healthcare Analyst", industry: "healthcare", level: "entry", keywords: ["health data analyst"] },
   { slug: "medical-director", name: "Medical Director", industry: "healthcare", level: "director", keywords: ["clinical director"] },
   { slug: "health-informatics-specialist", name: "Health Informatics Specialist", industry: "healthcare", level: "mid", keywords: ["health it specialist"] },
+  { slug: "registered-nurse", name: "Registered Nurse", industry: "healthcare", level: "mid", keywords: ["rn", "nurse", "staff nurse"] },
+  { slug: "travel-nurse", name: "Travel Nurse", industry: "healthcare", level: "mid", keywords: ["travel rn", "contract nurse", "agency nurse"] },
+  { slug: "nurse-practitioner", name: "Nurse Practitioner", industry: "healthcare", level: "senior", keywords: ["np", "advanced practice nurse", "aprn"] },
+  { slug: "teacher", name: "Teacher", industry: "education", level: "mid", keywords: ["educator", "instructor", "classroom teacher"] },
+  { slug: "senior-ux-designer", name: "Senior UX Designer", industry: "technology", level: "senior", keywords: ["senior product designer", "senior ui ux"] },
 
   // Consulting
   { slug: "management-consultant", name: "Management Consultant", industry: "consulting", level: "mid", keywords: ["strategy consultant", "business consultant"] },
