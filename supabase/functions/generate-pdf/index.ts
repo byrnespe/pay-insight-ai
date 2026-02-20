@@ -293,11 +293,20 @@ serve(async (req) => {
     }
 
     const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
 
-    if (userError || !userData.user?.email) {
+    if (claimsError || !claimsData?.claims) {
       return new Response(
-        JSON.stringify({ error: "Invalid authentication" }),
+        JSON.stringify({ error: "Invalid or expired token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    const userEmail = claimsData.claims.email as string | undefined;
+    if (!userEmail) {
+      return new Response(
+        JSON.stringify({ error: "User email not available in token" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -307,7 +316,7 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const isPremium = await verifyPremium(userData.user.email, stripe);
+    const isPremium = await verifyPremium(userEmail, stripe);
     if (!isPremium) {
       return new Response(
         JSON.stringify({ error: "Premium subscription required" }),
@@ -328,7 +337,7 @@ serve(async (req) => {
 
     // Upload to storage bucket
     const sanitizedJobTitle = formData.jobTitle.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-    const fileName = `${userData.user.id}/${Date.now()}-${sanitizedJobTitle}.html`;
+    const fileName = `${userId}/${Date.now()}-${sanitizedJobTitle}.html`;
 
     const { error: uploadError } = await supabaseAdmin
       .storage

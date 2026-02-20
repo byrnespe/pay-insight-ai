@@ -74,11 +74,20 @@ serve(async (req) => {
     }
 
     const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
 
-    if (userError || !userData.user?.email) {
+    if (claimsError || !claimsData?.claims) {
       return new Response(
-        JSON.stringify({ error: "Invalid authentication" }),
+        JSON.stringify({ error: "Invalid or expired token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    const userEmail = claimsData.claims.email as string | undefined;
+    if (!userEmail) {
+      return new Response(
+        JSON.stringify({ error: "User email not available in token" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -88,7 +97,7 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const isPremium = await verifyPremium(userData.user.email, stripe);
+    const isPremium = await verifyPremium(userEmail, stripe);
     if (!isPremium) {
       return new Response(
         JSON.stringify({ error: "Premium subscription required", pdfs: [], hasAccess: false }),
@@ -97,11 +106,10 @@ serve(async (req) => {
     }
 
     // List files in user's folder
-    const userFolder = `${userData.user.id}/`;
     const { data: files, error: listError } = await supabaseAdmin
       .storage
       .from("salary-reports")
-      .list(userData.user.id, {
+      .list(userId, {
         limit: 100,
         sortBy: { column: "created_at", order: "desc" },
       });
@@ -117,7 +125,7 @@ serve(async (req) => {
     // Generate signed URLs for each file
     const pdfsWithUrls = await Promise.all(
       (files || []).map(async (file) => {
-        const filePath = `${userData.user.id}/${file.name}`;
+        const filePath = `${userId}/${file.name}`;
         const { data: signedUrl } = await supabaseAdmin
           .storage
           .from("salary-reports")

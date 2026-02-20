@@ -34,18 +34,20 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_ANON_KEY") ?? ""
     );
 
-    // Verify user
+    // Verify user via JWT claims (no server round-trip)
     const token = authHeader.replace("Bearer ", "");
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser(token);
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
     
-    if (userError || !user) {
+    if (claimsError || !claimsData?.claims) {
       return new Response(
-        JSON.stringify({ error: "Invalid authentication" }),
+        JSON.stringify({ error: "Invalid or expired token" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    logStep("User authenticated", { userId: user.id, email: user.email });
+    const userId = claimsData.claims.sub;
+    const userEmail = claimsData.claims.email as string | undefined;
+    logStep("User authenticated", { userId, email: userEmail });
 
     // Initialize Stripe
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
@@ -55,36 +57,27 @@ serve(async (req) => {
     // Try to find Stripe customer - prioritize stripe_customer_id from user metadata
     let customerId: string | null = null;
     
-    // Method 1: Check user metadata for stripe_customer_id
-    const stripeCustomerIdFromMetadata = user.user_metadata?.stripe_customer_id;
-    if (stripeCustomerIdFromMetadata) {
-      logStep("Found stripe_customer_id in user metadata", { customerId: stripeCustomerIdFromMetadata });
-      customerId = stripeCustomerIdFromMetadata;
+    // Method 1: Check profiles table for stripe_customer_id
+    const supabaseAdmin = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
+
+    const { data: profile } = await supabaseAdmin
+      .from("profiles")
+      .select("stripe_customer_id")
+      .eq("user_id", userId)
+      .single();
+
+    if (profile?.stripe_customer_id) {
+      logStep("Found stripe_customer_id in profiles table", { customerId: profile.stripe_customer_id });
+      customerId = profile.stripe_customer_id;
     }
 
-    // Method 2: Check profiles table for stripe_customer_id
-    if (!customerId) {
-      const supabaseAdmin = createClient(
-        Deno.env.get("SUPABASE_URL") ?? "",
-        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
-      );
-      
-      const { data: profile } = await supabaseAdmin
-        .from("profiles")
-        .select("stripe_customer_id")
-        .eq("user_id", user.id)
-        .single();
-
-      if (profile?.stripe_customer_id) {
-        logStep("Found stripe_customer_id in profiles table", { customerId: profile.stripe_customer_id });
-        customerId = profile.stripe_customer_id;
-      }
-    }
-
-    // Method 3: Fallback to email lookup
-    if (!customerId && user.email) {
+    // Method 2: Fallback to email lookup
+    if (!customerId && userEmail) {
       const customers = await stripe.customers.list({
-        email: user.email,
+        email: userEmail,
         limit: 1,
       });
 
@@ -92,7 +85,7 @@ serve(async (req) => {
         logStep("Found customer by email", { customerId: customers.data[0].id });
         customerId = customers.data[0].id;
       } else {
-        logStep("No Stripe customer found by email", { email: user.email });
+        logStep("No Stripe customer found by email", { email: userEmail });
       }
     }
 
@@ -136,16 +129,16 @@ serve(async (req) => {
     }
 
     // Use service role for insert (to bypass RLS during insert with specific user_id)
-    const supabaseAdmin = createClient(
+    const supabaseAdmin2 = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
     // Check if user already has 20 reports (limit)
-    const { count } = await supabaseAdmin
+    const { count } = await supabaseAdmin2
       .from("saved_reports")
       .select("*", { count: "exact", head: true })
-      .eq("user_id", user.id);
+      .eq("user_id", userId);
 
     if (count && count >= 20) {
       return new Response(
@@ -155,10 +148,10 @@ serve(async (req) => {
     }
 
     // Insert the report
-    const { data: savedReport, error: insertError } = await supabaseAdmin
+    const { data: savedReport, error: insertError } = await supabaseAdmin2
       .from("saved_reports")
       .insert({
-        user_id: user.id,
+        user_id: userId,
         current_salary: formData.currentSalary,
         bonus: formData.bonus || 0,
         years_experience: formData.yearsExperience,

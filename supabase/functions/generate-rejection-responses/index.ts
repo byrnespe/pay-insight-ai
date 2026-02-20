@@ -45,11 +45,19 @@ serve(async (req) => {
     );
 
     const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
     
-    if (userError || !userData.user?.email) {
+    if (claimsError || !claimsData?.claims) {
       return new Response(
-        JSON.stringify({ error: "Invalid authentication" }),
+        JSON.stringify({ error: "Invalid or expired token" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userEmail = claimsData.claims.email as string | undefined;
+    if (!userEmail) {
+      return new Response(
+        JSON.stringify({ error: "User email not available in token" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -63,7 +71,7 @@ serve(async (req) => {
     const Stripe = (await import("https://esm.sh/stripe@18.5.0")).default;
     const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2025-08-27.basil" });
 
-    const customers = await stripe.customers.list({ email: userData.user.email, limit: 1 });
+    const customers = await stripe.customers.list({ email: userEmail, limit: 1 });
     if (customers.data.length === 0) {
       return new Response(
         JSON.stringify({ error: "Pro subscription required for this feature" }),
