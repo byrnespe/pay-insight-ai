@@ -4,6 +4,7 @@ import { getBlogPost, getRelatedPosts } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import MarkdownContent from "@/components/MarkdownContent";
+import { EmailCapture } from "@/components/EmailCapture";
 import { useEffect } from "react";
 import {
   Breadcrumb,
@@ -40,6 +41,26 @@ const BlogPost = () => {
     negotiation: "Negotiation Tips",
     "salary-guides": "Salary Guides",
     "career-advice": "Career Advice",
+  };
+
+  const emailCaptureConfig: Record<string, { heading: string; subheading: string }> = {
+    negotiation: {
+      heading: "Get negotiation tips in your inbox",
+      subheading: "Practical scripts, tactics, and market data to help you earn more — delivered monthly.",
+    },
+    "salary-guides": {
+      heading: "Stay ahead of salary trends",
+      subheading: "Monthly salary benchmarks and industry pay data for your role, straight to your inbox.",
+    },
+    "career-advice": {
+      heading: "Career insights, once a month",
+      subheading: "Data-driven advice on growing your career and maximizing your compensation.",
+    },
+  };
+
+  const captureConfig = emailCaptureConfig[post.category] ?? {
+    heading: "Get salary insights in your inbox",
+    subheading: "Monthly compensation benchmarks and career tips to help you earn what you're worth.",
   };
 
   const shareUrl = `https://www.underpaidapp.com/blog/${post.slug}`;
@@ -190,6 +211,16 @@ const BlogPost = () => {
                 Share
               </Button>
             </div>
+          </div>
+
+          {/* Email Capture — personalized by category */}
+          <div className="mb-8">
+            <p className="text-sm font-medium text-foreground mb-1">{captureConfig.heading}</p>
+            <p className="text-sm text-muted-foreground mb-4">{captureConfig.subheading}</p>
+            <EmailCapture
+              variant="inline"
+              source={`blog_post_${post.slug}`}
+            />
           </div>
 
           {/* CTA */}
