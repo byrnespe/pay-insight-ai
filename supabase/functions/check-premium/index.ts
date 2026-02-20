@@ -28,9 +28,17 @@ serve(async (req) => {
     }
 
     const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
     
-    if (userError || !userData.user?.email) {
+    if (claimsError || !claimsData?.claims) {
+      return new Response(
+        JSON.stringify({ isPremium: false, type: null, subscriptionEnd: null }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const userEmail = claimsData.claims.email as string | undefined;
+    if (!userEmail) {
       return new Response(
         JSON.stringify({ isPremium: false, type: null, subscriptionEnd: null }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -42,7 +50,7 @@ serve(async (req) => {
     });
 
     // Find customer by email
-    const customers = await stripe.customers.list({ email: userData.user.email, limit: 1 });
+    const customers = await stripe.customers.list({ email: userEmail, limit: 1 });
     
     if (customers.data.length === 0) {
       return new Response(

@@ -92,13 +92,15 @@ serve(async (req) => {
       { global: { headers: { Authorization: authHeader } } }
     );
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+    const userId = claimsData.claims.sub;
 
     const { category, context } = await req.json();
 
@@ -164,7 +166,7 @@ Template purpose: ${templateConfig.description}`;
     const aiResult = await response.json();
     const template = aiResult.choices?.[0]?.message?.content || "";
 
-    console.log(`Email template generated for user ${user.id}: category ${category}`);
+    console.log(`Email template generated for user ${userId}: category ${category}`);
 
     return new Response(
       JSON.stringify({

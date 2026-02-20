@@ -38,13 +38,15 @@ serve(async (req) => {
       { global: { headers: { Authorization: authHeader } } }
     );
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+    const userId = claimsData.claims.sub;
 
     const input: ExitReadinessInput = await req.json();
 
@@ -164,7 +166,7 @@ serve(async (req) => {
       }
     };
 
-    console.log(`Exit readiness calculated for user ${user.id}: score ${score}`);
+    console.log(`Exit readiness calculated for user ${userId}: score ${score}`);
 
     return new Response(
       JSON.stringify(result),
