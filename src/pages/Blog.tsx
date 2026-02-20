@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight, TrendingUp } from "lucide-react";
 import { blogPosts, categories, getBlogPostsByCategory } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navigation } from "@/components/Navigation";
 import { useSEO } from "@/hooks/useSEO";
+
+const FEATURED_SLUGS = [
+  "how-to-negotiate-a-job-offer",
+  "average-salary-by-age",
+  "equity-compensation-explained",
+  "nurse-salary-guide-2025",
+  "job-hopping-salary-strategy",
+];
 
 const Blog = () => {
   useSEO({
@@ -15,6 +23,10 @@ const Blog = () => {
   });
   const [activeCategory, setActiveCategory] = useState("all");
   const posts = getBlogPostsByCategory(activeCategory);
+
+  const featuredPosts = FEATURED_SLUGS
+    .map(slug => blogPosts.find(p => p.slug === slug))
+    .filter(Boolean) as typeof blogPosts;
 
   const categoryLabels: Record<string, string> = {
     negotiation: "Negotiation Tips",
@@ -36,6 +48,38 @@ const Blog = () => {
             Practical guidance for understanding your compensation, negotiating effectively, 
             and making informed career decisions.
           </p>
+        </div>
+      </section>
+
+      {/* Featured / Most Popular */}
+      <section className="py-10 border-b border-border">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex items-center gap-2 mb-5">
+            <TrendingUp className="h-4 w-4 text-primary" />
+            <h2 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+              Most Popular
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {featuredPosts.map((post) => (
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="group block border border-border rounded-lg p-4 hover:border-primary/40 hover:bg-muted/30 transition-all"
+              >
+                <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded mb-2 inline-block">
+                  {categoryLabels[post.category]}
+                </span>
+                <h3 className="font-semibold text-foreground text-sm leading-snug group-hover:text-primary transition-colors mb-2">
+                  {post.title}
+                </h3>
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Clock className="h-3 w-3" />
+                  {post.readTime} min read
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
